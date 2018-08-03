@@ -1,4 +1,4 @@
-package com.fincoapps.servizone;
+package com.fincoapps.servizone.activities;
 
 import android.*;
 import android.Manifest;
@@ -90,7 +90,7 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
         notification = new Notification(this);
         loader = new CustomLoadingDialog(this);
 
-        toolbarTitle = (TextView)findViewById(R.id.toolbarTitle);
+        toolbarTitle = (TextView)findViewById(com.fincoapps.servizone.R.id.toolbarTitle);
     }
 
     public void getLocation(){
@@ -139,17 +139,17 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
         Intent i = new Intent(this, ExpertDetailsActivity.class);
         i.putExtra("expert", expertJson);
         startActivity(i);
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        overridePendingTransition(com.fincoapps.servizone.R.anim.trans_right_in, com.fincoapps.servizone.R.anim.trans_right_out);
     }
 
     public void goToScreen(Activity activity){
         Intent i = new Intent(this, activity.getClass());
         startActivity(i);
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        overridePendingTransition(com.fincoapps.servizone.R.anim.trans_right_in, com.fincoapps.servizone.R.anim.trans_right_out);
     }
 
     @Optional
-    @OnClick(R.id.btnBack)
+    @OnClick(com.fincoapps.servizone.R.id.btnBack)
     public void onClick(View view) {
         out.println("=================");
         onBackPressed();
@@ -159,6 +159,6 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(R.anim.pop_enter, R.anim.pop_exit);
+        overridePendingTransition(com.fincoapps.servizone.R.anim.pop_enter, com.fincoapps.servizone.R.anim.pop_exit);
     }
 }

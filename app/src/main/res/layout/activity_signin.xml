@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/colorPrimary"
     android:clipChildren="false"
-    tools:context="com.fincoapps.servizone.Signin">
+    tools:context="com.fincoapps.servizone.activities.SignInActivity">
 
     <!--<include layout="@layout/footer"/>-->
 

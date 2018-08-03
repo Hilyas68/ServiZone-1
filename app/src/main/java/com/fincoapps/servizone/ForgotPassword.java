@@ -4,13 +4,9 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,12 +18,9 @@ import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.fincoapps.servizone.interfaces.Startpage;
+import com.fincoapps.servizone.activities.SignInActivity;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
-
-import org.json.JSONException;
 
 import static java.lang.System.out;
 
@@ -66,7 +59,7 @@ public class ForgotPassword extends AppCompatActivity {
         forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ForgotPassword.this, Signin.class);
+                Intent i = new Intent(ForgotPassword.this, SignInActivity.class);
                 startActivity(i);
             }
         });
