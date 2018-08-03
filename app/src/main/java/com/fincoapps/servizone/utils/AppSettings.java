@@ -18,18 +18,24 @@ import org.json.JSONObject;
 public class AppSettings {
     private Context context;
     private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     private static JSONObject user;
     private Gson gson;
 
     public AppSettings(Context context){
         this.context = context;
-        preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        preferences = context.getSharedPreferences(this.context.getPackageName(), Context.MODE_PRIVATE);
         this.gson = new Gson();
     }
 
 
-    public void setUser(){
+    //User
+    public void setUser(User user){
+        editor.putString("user", gson.toJson(user, User.class)).apply();
+    }
 
+    public String getUser(){
+        return preferences.getString("user", null);
     }
 
     public void put(String key, String value){

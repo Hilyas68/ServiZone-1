@@ -1,21 +1,12 @@
 package com.fincoapps.servizone.utils;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
-import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.Signin;
 import com.fincoapps.servizone.models.UserModel;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class User {
     public static Gson gson = new Gson();
@@ -58,7 +49,7 @@ user = preferences.getString("user", "");
         SharedPreferences.Editor editor = user.edit();
         editor.clear();
         editor.apply();
-//        Intent intent = new Intent(getApplicationContext(), Signin.class);
+//        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
 //        startActivity(intent);
 //        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
     }
