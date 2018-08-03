@@ -40,7 +40,7 @@ public class SignInActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
-        relativeLayout = findViewById(R.id.headertoolbar);
+        //relativeLayout = findViewById(R.id.headertoolbar);
 
         email = findViewById(R.id.input_email);
         password = findViewById(R.id.input_password);
@@ -164,55 +164,6 @@ public class SignInActivity extends BaseActivity {
                                     }
                                 }
                             });
-//                    String url = "http://servizone.net/api/login";
-//                    StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-//                            new Response.Listener() {
-//                                @TargetApi(Build.VERSION_CODES.KITKAT)
-//                                @Override
-//                                public void onResponse(Object response) {
-//                                    loadingDialog.hide();
-//                                    System.out.println(response);
-//                                    try {
-//                                        JSONObject res = new JSONObject(response.toString());
-//
-//                                        if (res.has("error")) {
-//                                            notification.setType(Notification.FAILURE);
-//                                            notification.setMessage(res.getString("error"));
-//                                            notification.show();
-//                                        } else {
-//                                            User user = new User(SignInActivity.this);
-//                                            user.storeUser(response.toString());
-//                                            Intent i = new Intent(SignInActivity.this, MainActivity.class);
-//                                            startActivity(i);
-//                                            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-//                                        }
-//
-//                                    } catch (Exception ex) {
-//                                        notification.setMessage(ex.getMessage());
-//                                        notification.show();
-//                                    }
-//
-//                                }
-//                            },
-//                            new Response.ErrorListener() {
-//                                @TargetApi(Build.VERSION_CODES.KITKAT)
-//                                @Override
-//                                public void onErrorResponse(VolleyError error) {
-//                                    loadingDialog.hide();
-//                                    notification.setMessage(error.toString());
-//                                    notification.show();
-//                                }
-//                            }) {
-//                        @Override
-//                        protected Map<String, String> getParams() {
-//                            Map<String, String> params = new HashMap<String, String>();
-//                            params.put("email", email.getText().toString());
-//                            params.put("password", password.getText().toString());
-//                            return params;
-//                        }
-//                    };
-//                    RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-//                    queue.add(stringRequest);
                 }
             }
         });

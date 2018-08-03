@@ -104,6 +104,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private String savedHome;
 
 
+    //Revamp
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +139,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         savedHome = app.getHome();
         if (savedHome.length() > 3) {//Data is present
             processHomeData(savedHome);
-            if (haveNetworkConnection()) {
+            if (net.haveNetworkConnection()) {
                 loadExperts();
                 getProfessions();
             }
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             reload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (haveNetworkConnection()) {
+                    if (net.haveNetworkConnection()) {
                         loadExperts();
                         getProfessions();
                         Errorpage.getVisibility();
@@ -204,23 +205,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     //==================CHECK IF THE DEVICE IS INTERNET ENABLE OR NOT
-    public boolean haveNetworkConnection() {
-        boolean haveConnectedWifi = false;
-        boolean haveConnectedMobile = false;
 
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-        for (NetworkInfo ni : netInfo) {
-            System.out.println("============== INFO ============"+ni.getTypeName());
-            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-                if (ni.isConnected())
-                    haveConnectedWifi = true;
-            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-                if (ni.isConnected())
-                    haveConnectedMobile = true;
-        }
-        return haveConnectedWifi || haveConnectedMobile;
-    }
 //==================CHECKING ENDS HERE
 
     @OnClick(R.id.btnSearch)

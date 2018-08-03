@@ -1,5 +1,6 @@
 package com.fincoapps.servizone.activities
 
+import android.Manifest
 import android.content.Intent
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.util.Log
 import com.fincoapps.servizone.MainActivity
 import com.fincoapps.servizone.R
 import com.fincoapps.servizone.utils.AppConstants
+import com.tbruyelle.rxpermissions2.RxPermissions
 import java.util.concurrent.TimeUnit
 
 class SplashScreenActivity : BaseActivity() {
@@ -21,11 +23,21 @@ class SplashScreenActivity : BaseActivity() {
         super.onResume()
         Thread.sleep(TimeUnit.SECONDS.toMillis(5).toInt().toLong())
         AppConstants.log(TAG, "Sleep Finished")
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out)
+        var rxx  = RxPermissions(this)
+        rxx
+                .request(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS)
+                .subscribe { granted ->
+                    if (granted) {
+
+                    } else {
+
+                    }
+                }
         if(app.user == null)
             startActivity(Intent(this@SplashScreenActivity, SignInActivity::class.java))
         else
             startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out)
         finish()
     }
 }

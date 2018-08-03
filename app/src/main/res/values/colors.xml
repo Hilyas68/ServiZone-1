@@ -2,23 +2,14 @@
 <resources>
     <color name="colorPrimary">#46B0ED</color>
     <color name="blue">#276dae</color>
-    <color name="servitrans">#ffffff</color>
-    <color name="serviwhite">#ffffff</color>
     <color name="colorPrimaryDark">#2e88bc</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="tabselected">#4c4c4e</color>
     <color name="colorBlue">#bd5579dc</color>
-    <color name="colorBluez">#b37292e7</color>
     <color name="grayboder">#d9d6d6</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="transparent">#00000000</color>
-    <color name="errorRed">#ae0d0d</color>
     <color name="errorWhite">#ffffff</color>
-    <color name="errorBlack">#000</color>
-    <color name="errorgreen">#1fc619</color>
-    <color name="alltextcolor">#262626</color>
-    <color name="alltextcolorlink">#535454</color>
     <color name="white">#fff</color>
     <color name="golden">#f8a51f</color>
     <color name="grey">#424343</color>
