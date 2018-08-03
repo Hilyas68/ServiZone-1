@@ -16,13 +16,20 @@ import org.json.JSONObject;
  */
 
 public class AppSettings {
-    public Context context;
-    SharedPreferences preferences;
-    public static JSONObject user;
+    private Context context;
+    private SharedPreferences preferences;
+    private static JSONObject user;
+    private Gson gson;
 
     public AppSettings(Context context){
         this.context = context;
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE);
+        this.gson = new Gson();
+    }
+
+
+    public void setUser(){
+
     }
 
     public void put(String key, String value){
