@@ -1,12 +1,9 @@
-package com.fincoapps.servizone;
+package com.fincoapps.servizone.activities;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.EditText;
@@ -18,26 +15,18 @@ import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.fincoapps.servizone.ForgotPassword;
+import com.fincoapps.servizone.MainActivity;
+import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.Registration;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.ResponseUtility;
 import com.fincoapps.servizone.utils.User;
 
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static java.lang.System.out;
-
-public class Signin extends BaseActivity {
+public class SignInActivity extends BaseActivity {
     EditText email, password;
     AppCompatButton login;
     TextView signup, forgotpass;
@@ -73,7 +62,7 @@ public class Signin extends BaseActivity {
         forgotpass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Signin.this, ForgotPassword.class);
+                Intent intent = new Intent(SignInActivity.this, ForgotPassword.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
             }
@@ -82,7 +71,7 @@ public class Signin extends BaseActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Signin.this, Registration.class);
+                Intent intent = new Intent(SignInActivity.this, Registration.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
             }
@@ -163,12 +152,12 @@ public class Signin extends BaseActivity {
                                             notification.show();
                                         }
                                         else{
-                                            User user = new User(Signin.this);
+                                            User user = new User(SignInActivity.this);
                                             String data = ResponseUtility.getData(s);
                                             System.out.println("RES DATA"+data);
                                             System.out.println("RESPONSE: "+response.asString());
                                             user.storeUser(data);
-                                            Intent i = new Intent(Signin.this, MainActivity.class);
+                                            Intent i = new Intent(SignInActivity.this, MainActivity.class);
                                             startActivity(i);
                                             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
                                         }
@@ -191,9 +180,9 @@ public class Signin extends BaseActivity {
 //                                            notification.setMessage(res.getString("error"));
 //                                            notification.show();
 //                                        } else {
-//                                            User user = new User(Signin.this);
+//                                            User user = new User(SignInActivity.this);
 //                                            user.storeUser(response.toString());
-//                                            Intent i = new Intent(Signin.this, MainActivity.class);
+//                                            Intent i = new Intent(SignInActivity.this, MainActivity.class);
 //                                            startActivity(i);
 //                                            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
 //                                        }

@@ -33,6 +33,7 @@ import com.afollestad.bridge.MultipartForm;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.android.volley.RequestQueue;
 import com.bumptech.glide.Glide;
+import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
@@ -49,8 +50,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.System.out;
 
 public class Profile extends BaseActivity implements ChooseProfession {
 

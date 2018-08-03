@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fincoapps.servizone.activities.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

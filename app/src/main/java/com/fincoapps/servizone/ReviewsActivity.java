@@ -15,8 +15,7 @@ import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.android.volley.RequestQueue;
-import com.fincoapps.servizone.BaseActivity;
-import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.adapters.ReviewsAdapter;
 import com.fincoapps.servizone.models.ReviewModel;
 

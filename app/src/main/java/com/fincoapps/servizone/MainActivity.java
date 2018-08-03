@@ -1,7 +1,5 @@
 package com.fincoapps.servizone;
 
-import android.*;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -20,12 +18,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,10 +41,11 @@ import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fincoapps.servizone.activities.BaseActivity;
+import com.fincoapps.servizone.activities.SignInActivity;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.models.ExpertModel;
 import com.fincoapps.servizone.models.HomeModel;
-import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
 import com.fincoapps.servizone.utils.User;
@@ -65,7 +62,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static java.lang.System.in;
 import static java.lang.System.out;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -107,13 +103,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private boolean isOpened;
     private String savedHome;
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         user = new User(this);
-
+        if(app.getUser() == null){
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+        }
         relativeLayout = findViewById(R.id.hometoolbar);
         setSupportActionBar(relativeLayout);
 
@@ -494,11 +495,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             SharedPreferences.Editor editor = user.edit();
             editor.clear();
             editor.apply();
-            Intent intent = new Intent(getApplicationContext(), Signin.class);
+            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         } else {
-            Intent intent = new Intent(getApplicationContext(), Signin.class);
+            Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         }
@@ -581,7 +582,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.contactUs) {
 
         } else if (id == R.id.logout) {
-            Intent intent = new Intent(this, Signin.class);
+            Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
         }
 
