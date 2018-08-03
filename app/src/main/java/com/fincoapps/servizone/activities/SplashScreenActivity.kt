@@ -25,14 +25,19 @@ class SplashScreenActivity : BaseActivity() {
         AppConstants.log(TAG, "Sleep Finished")
         var rxx  = RxPermissions(this)
         rxx
-                .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS)
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe { granted ->
                     if (granted) {
-
+                        AppConstants.log(TAG, "Permission Accepted")
+                        moveOn()
                     } else {
-
+                        AppConstants.log(TAG, "Permission Rejected")
+                        moveOn()
                     }
                 }
+    }
+
+    fun moveOn(){
         if(app.user == null)
             startActivity(Intent(this@SplashScreenActivity, SignInActivity::class.java))
         else
