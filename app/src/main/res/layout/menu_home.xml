@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sidePanel"
+    android:layout_width="300dp"
+    android:translationX="-300dp"
+    android:visibility="gone"
+    android:translationZ="1dp"
+    android:background="@drawable/side_panel_border"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="70dp"
+        app:cardCornerRadius="50dp"
+        android:elevation="20dp">
+
+        <ImageView
+            android:id="@+id/userAvatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:text="Servizone User"
+        android:textStyle="bold"
+        android:textSize="23dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#6e999898"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/txtBeAnExpert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Become an Expert"
+        android:textColor="#696969"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/txtMyProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="My Profile"
+        android:textColor="#696969"
+        android:textSize="15dp" />
+
+
+    <TextView
+            android:id="@+id/txtAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="About"
+        android:textColor="#696969"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/txtChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Change Password"
+        android:textColor="#696969"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/txtLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Login"
+        android:textColor="#696969"
+        android:textSize="15dp" />
+
+
+
+</LinearLayout>

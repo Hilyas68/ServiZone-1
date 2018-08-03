@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:gravity="center_horizontal">
+
+    <RelativeLayout
+        android:id="@+id/headertoolbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="-40dp"
+        android:clipChildren="false"
+        android:orientation="vertical">
+
+        <com.fincoapps.servizone.utils.CurvedLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:circleBackgroundColor="#46B0ED"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/headertitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false"
+            android:layout_marginTop="65dp"
+            android:text="Expert Details"
+            android:textColor="#fff"
+            android:textSize="16dp" />
+
+        <ImageButton
+            android:id="@+id/backbtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/backbtn" />
+    </RelativeLayout>
+
+</RelativeLayout>

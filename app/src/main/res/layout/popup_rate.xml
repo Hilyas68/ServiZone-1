@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rate_popup_bg"
+    android:orientation="vertical">
+
+
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate Expert"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txtText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_margin="20dp"
+        android:text="Tell us your experience with "
+        android:layout_gravity="center_vertical"
+        android:layout_centerHorizontal="true"/>
+
+
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srb_starSize="30dp"
+        android:layout_marginTop="10dp"
+        app:srb_fillColor="@color/colorPrimary"
+        app:srb_borderColor="@color/colorPrimary"
+        app:srb_numberOfStars="5"
+        app:srb_rating="3"
+        android:layout_below="@+id/txtText"
+        android:layout_centerHorizontal="true"
+        app:srb_stepSize="0.5"/>
+
+    <EditText
+        android:id="@+id/editTextReview"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/rating"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/edit_text_border"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="25dp"
+        android:layout_below="@+id/editTextReview"
+        android:textColor="#fff"
+        android:background="@drawable/roundlogin"
+        android:text="Submit"/>
+
+</RelativeLayout>

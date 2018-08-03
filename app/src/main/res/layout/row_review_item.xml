@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearRow"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:padding="5dp"
+        android:background="@drawable/profession_round_border"
+        android:text="Name"
+        android:textColor="#71767A"
+        android:textSize="13dp" />
+
+    <RatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginTop="5dp"
+        android:isIndicator="true"
+        android:max="5"
+        android:rating="4"
+        android:scaleX=".3"
+        android:scaleY=".3"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/txtName"
+        android:layout_toEndOf="@+id/txtName" />
+
+
+
+
+    <TextView
+        android:id="@+id/txtMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/txtName"
+        android:text="Message"
+        android:textColor="#4fb2f0"
+        android:textSize="11dp" />
+
+
+</RelativeLayout>

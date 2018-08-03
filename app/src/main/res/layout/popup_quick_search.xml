@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/professionslayout"
+    tools:context="com.fincoapps.servizone.QuickSearchPopup">
+
+
+    <pl.bclogic.pulsator4droid.library.PulsatorLayout
+        android:id="@+id/searchAnimation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        app:pulse_count="5"
+        app:pulse_duration="6000"
+        app:pulse_repeat="0"
+        app:pulse_color="@color/colorPrimary"
+        app:pulse_interpolator="Accelerate">
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardViewSearch"
+            android:elevation="15dp"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fadingEdgeLength="9dp"
+            app:cardCornerRadius="110dp"
+            app:cardElevation="20dp">
+
+            <ImageView
+                android:id="@+id/imageViewSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:elevation="20dp"
+                app:srcCompat="@drawable/addroundbtn" />
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_below="@+id/cardViewSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:text="Tap to search"/>
+       </RelativeLayout>
+    </pl.bclogic.pulsator4droid.library.PulsatorLayout>
+
+</RelativeLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fincoapps.servizone.QuickSearchPopup$ReviewsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:elevation="10dp"
+        android:background="#fff"
+        app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/backbtn"
+                android:backgroundTint="@color/colorPrimary"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1"
+                android:elegantTextHeight="true"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="Reviews"
+                android:textSize="16dp"
+                android:textAlignment="center"
+                android:textColor="#686868"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <include layout="@layout/footer" />
+
+    <ListView
+        android:id="@+id/reviewlist"
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:divider="@color/colorBlue"
+        android:dividerHeight="0.1dp"
+        android:padding="5dp">
+    </ListView>
+
+    <TextView
+        android:clickable="true"
+        android:text="Load more"
+        android:id="@+id/txtLoadMore"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:linksClickable="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@id/reviewlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
