@@ -25,7 +25,7 @@ class SplashScreenActivity : BaseActivity() {
         AppConstants.log(TAG, "Sleep Finished")
         var rxx  = RxPermissions(this)
         rxx
-                .request(Manifest.permission.READ_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS)
+                .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECEIVE_SMS, Manifest.permission.SEND_SMS)
                 .subscribe { granted ->
                     if (granted) {
 

@@ -14,7 +14,7 @@ public class NetworkHelper {
         boolean haveConnectedMobile = false;
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo[] netInfo = new NetworkInfo[0];
+        NetworkInfo[] netInfo;
         if (cm != null) {
             netInfo = cm.getAllNetworkInfo();
             for (NetworkInfo ni : netInfo) {

@@ -64,7 +64,7 @@ public class RetrofitClient {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request();
-                        if (new Utils(context).isInternetOn(ctx)) {
+                        if (new NetworkHelper(context).haveNetworkConnection()) {
                             request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
                         } else {
                             request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
