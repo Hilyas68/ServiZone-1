@@ -14,7 +14,7 @@ import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
 import com.fincoapps.servizone.Popup;
-import com.fincoapps.servizone.Profile;
+import com.fincoapps.servizone.ProfileActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class ProfessionsAdapter extends ArrayAdapter<ProfessionModel> implements
         this.originalList.addAll(data);
     }
 
-    public ProfessionsAdapter(List<ProfessionModel> data, Context context, Profile activity) {
+    public ProfessionsAdapter(List<ProfessionModel> data, Context context, ProfileActivity activity) {
         super(context, R.layout.professions_item, data);
         this.data = data;
         this.context = context;

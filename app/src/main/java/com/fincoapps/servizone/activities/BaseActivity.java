@@ -37,6 +37,7 @@ import com.afollestad.bridge.MultipartForm;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
+import com.fincoapps.servizone.https.NetworkHelper;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
 import com.fincoapps.servizone.models.UserModel;
@@ -77,11 +78,11 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
     public CustomLoadingDialog loader;
     TextView toolbarTitle;
     private FusedLocationProviderClient mFusedLocationClient;
-
+    public NetworkHelper net;
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        net = new NetworkHelper(this);
         gson = new Gson();
         //===================================== INIT APP CLASSES ===============================
         user = new User(this);

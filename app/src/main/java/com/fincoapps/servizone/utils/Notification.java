@@ -71,7 +71,6 @@ public class Notification {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void show(){
         Activity activity = (Activity) this.context;
         final View parent = activity.getWindow().getDecorView().getRootView();
