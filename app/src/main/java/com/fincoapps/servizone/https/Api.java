@@ -1,4 +1,5 @@
 package com.fincoapps.servizone.https;
+import com.fincoapps.servizone.models.HomeModel;
 import com.fincoapps.servizone.models.ResponseModel;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public interface Api {
     @FormUrlEncoded
     @POST("login")
     Observable<ResponseModel> login(@Field("email") String email, @Field("password") String password);
+
+    @POST("home")
+    Observable<HomeModel> home();
 
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();

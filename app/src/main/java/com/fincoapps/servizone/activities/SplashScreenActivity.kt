@@ -19,9 +19,9 @@ class SplashScreenActivity : BaseActivity() {
         super.onResume()
         Thread.sleep(TimeUnit.SECONDS.toMillis(0).toInt().toLong())
         AppConstants.log(TAG, "Sleep Finished")
-        var rxx  = RxPermissions(this)
+        val rxx  = RxPermissions(this)
         rxx
-                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .subscribe { granted ->
                     if (granted) {
                         AppConstants.log(TAG, "Permission Accepted")

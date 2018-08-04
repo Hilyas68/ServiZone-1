@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
+import com.fincoapps.servizone.models.HomeModel;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -29,6 +30,14 @@ public class AppSettings {
         editor = preferences.edit();
     }
 
+    //first-run
+    public void setFirstRun(boolean bool){
+        editor.putBoolean("first-run", bool).apply();
+    }
+
+    public boolean getFirstRun(){
+        return preferences.getBoolean("first-run", true);
+    }
 
     //User
     public void setUser(User user){
@@ -37,6 +46,15 @@ public class AppSettings {
 
     public String getUser(){
         return preferences.getString("user", null);
+    }
+
+    //Home
+    public void setHome(HomeModel home){
+        editor.putString("home", gson.toJson(home, HomeModel.class)).apply();
+    }
+
+    public String getHome(){
+        return preferences.getString("home", null);
     }
 
     public void put(String key, String value){
@@ -48,13 +66,6 @@ public class AppSettings {
     public String getProfessions(){
         SharedPreferences.Editor editor = preferences.edit();
         String value = preferences.getString("professions", "");
-        return value;
-    }
-
-
-    public String getHome(){
-        SharedPreferences.Editor editor = preferences.edit();
-        String value = preferences.getString("home", "");
         return value;
     }
 
