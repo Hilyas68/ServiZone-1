@@ -26,6 +26,7 @@ public class AppSettings {
         this.context = context;
         preferences = context.getSharedPreferences(this.context.getPackageName(), Context.MODE_PRIVATE);
         this.gson = new Gson();
+        editor = preferences.edit();
     }
 
 
@@ -55,6 +56,12 @@ public class AppSettings {
         SharedPreferences.Editor editor = preferences.edit();
         String value = preferences.getString("home", "");
         return value;
+    }
+
+
+    //Clear All
+    public void clear(){
+        editor.clear().apply();
     }
 
 }

@@ -51,7 +51,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Profile extends BaseActivity implements ChooseProfession {
+public class ProfileActivity extends BaseActivity implements ChooseProfession {
 
     private ProgressDialog pDialog;
     RequestQueue queue;
@@ -99,7 +99,7 @@ public class Profile extends BaseActivity implements ChooseProfession {
         notification = new Notification(this);
         loader = new CustomLoadingDialog(this);
         System.out.println("=================" + user.getUser());
-        userModel = gson.fromJson(user.getUser(), UserModel.class);
+        userModel = gson.fromJson(app.getUser(), UserModel.class);
 
 //        ================================================= ANIMATION =================================================
         final ViewGroup transitionsContainer = (ViewGroup) findViewById(R.id.rootLayout);
@@ -268,7 +268,7 @@ public class Profile extends BaseActivity implements ChooseProfession {
         String p = app.getProfessions();
         professionList.addAll((ArrayList) gson.fromJson(p, collectionType));
         listViewUsers = (ListView) dialog.findViewById(R.id.professionslist);
-        adapter = new ProfessionsAdapter(professionList, this, Profile.this);
+        adapter = new ProfessionsAdapter(professionList, this, ProfileActivity.this);
         listViewUsers.setAdapter(adapter);
     }
 

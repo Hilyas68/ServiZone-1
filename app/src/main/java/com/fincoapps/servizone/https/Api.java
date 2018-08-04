@@ -19,8 +19,9 @@ import rx.Observable;
  */
 
 public interface Api {
+    @FormUrlEncoded
     @POST("login")
-    Observable<ResponseModel> login();
+    Observable<ResponseModel> login(@Field("email") String email, @Field("password") String password);
 
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();
