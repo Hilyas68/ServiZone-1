@@ -34,7 +34,6 @@ class SplashScreenActivity : BaseActivity() {
     }
 
     fun moveOn(){
-        AppConstants.log(TAG, app.user);
         if(app.user == null)
             startActivity(Intent(this@SplashScreenActivity, SignInActivity::class.java))
         else
