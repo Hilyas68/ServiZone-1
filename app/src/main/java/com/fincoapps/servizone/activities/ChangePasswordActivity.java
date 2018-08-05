@@ -1,22 +1,13 @@
 package com.fincoapps.servizone.activities;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.afollestad.bridge.Bridge;
-import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.models.ResponseModel;
 import com.fincoapps.servizone.utils.AppConstants;
@@ -29,8 +20,6 @@ import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
-import static java.lang.System.out;
 
 public class ChangePasswordActivity extends BaseActivity {
     Notification notification;
