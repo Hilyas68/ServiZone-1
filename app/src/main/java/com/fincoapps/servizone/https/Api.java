@@ -34,6 +34,10 @@ public interface Api {
     @POST("logout")
     Observable<ResponseModel> logout(@Field("token") String token);
 
+    @FormUrlEncoded
+    @POST("password/change")
+    Observable<ResponseModel> changePassword(@Field("token") String token, @Field("current_password") String currentPassword, @Field("new_password") String newPassword);
+
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();
 //

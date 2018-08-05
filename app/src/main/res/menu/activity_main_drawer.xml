@@ -34,6 +34,12 @@
         android:title="@string/contact_us" />
 
     <item
+        android:id="@+id/changePassword"
+        android:checkable="true"
+        android:icon="@drawable/ic_vpn_key_black_24dp"
+        android:title="@string/Changepass" />
+
+    <item
         android:id="@+id/logout"
         android:checkable="true"
         android:icon="@drawable/logout"
