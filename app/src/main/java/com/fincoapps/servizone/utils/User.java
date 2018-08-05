@@ -9,50 +9,6 @@ import com.fincoapps.servizone.models.UserModel;
 import com.google.gson.Gson;
 
 public class User {
-    public static Gson gson = new Gson();
-    public static RequestQueue queue;
-    public Context context;
-    SharedPreferences preferences;
-    public static String user;
-
-    public User(Context context){
-        this.context = context;
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
-user = preferences.getString("user", "");
-    }
-
-
-    public String getUser() {
-        return preferences.getString("user", "");
-    }
-
-    public UserModel getUserModel() {
-        String u = preferences.getString("user", "");
-        System.out.println("================================"+u);
-        return gson.fromJson(u, UserModel.class);
-    }
-
-    public void storeUser(String json) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("user", json);
-        editor.commit();
-    }
-
-
-
-    public static boolean isLoggedIn() {
-        return (user == "") ?  false : true;
-    }
-
-    public void logOut() {
-        SharedPreferences user = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = user.edit();
-        editor.clear();
-        editor.apply();
-//        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-//        startActivity(intent);
-//        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-    }
 
 
     //New User
@@ -66,8 +22,8 @@ user = preferences.getString("user", "");
     private String about;
     private String email;
     private String address;
-    private Float longitude;
-    private Float latitude;
+    private Double longitude;
+    private Double latitude;
     private String status;
     private boolean is_blocked;
     private String token;
@@ -152,19 +108,19 @@ user = preferences.getString("user", "");
         this.address = address;
     }
 
-    public Float getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Float longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Float latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 

@@ -94,12 +94,11 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
 
 
         //============================ INIT APP CLASSES ==================================
-        user = new User(this);
         app = new AppSettings(this);
         notification = new Notification(this);
         loader = new CustomLoadingDialog(this);
-        System.out.println("=================" + user.getUser());
-        userModel = gson.fromJson(app.getUser(), UserModel.class);
+        //System.out.println("=================" + user.getUser());
+        //userModel = gson.fromJson(app.getUser(), UserModel.class);
 
 //        ================================================= ANIMATION =================================================
         final ViewGroup transitionsContainer = (ViewGroup) findViewById(R.id.rootLayout);

@@ -42,6 +42,10 @@ android {
     }
     productFlavors {
     }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -68,7 +72,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.5.1'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.iarcuschin:simpleratingbar:0.1.5'
-    implementation 'com.google.android.gms:play-services:11.4.2'
+    implementation "com.google.android.gms:play-services-location:15.0.1"
+    implementation "com.google.android.gms:play-services-maps:15.0.1"
+    implementation "com.google.android.gms:play-services-places:15.0.1"
     implementation 'com.github.florent37:viewanimator:1.0.5'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'de.hdodenhof:circleimageview:2.2.0'

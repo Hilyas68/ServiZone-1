@@ -10,12 +10,6 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/nav_nearByServices"
-        android:icon="@drawable/near"
-        android:checkable="true"
-        android:title="@string/near_by_services" />
-
-    <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/myprofile"
         android:checkable="true"

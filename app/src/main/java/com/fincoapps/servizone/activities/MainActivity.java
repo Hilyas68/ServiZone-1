@@ -47,7 +47,11 @@ import com.fincoapps.servizone.RegisterExpertActivity;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.fragments.HomeFragment;
 import com.fincoapps.servizone.fragments.NearbyFragment;
+import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.models.ExpertModel;
+import com.fincoapps.servizone.models.HomeModel;
+import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.AppSettings;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
@@ -58,56 +62,27 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
+import java.net.SocketException;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import retrofit2.adapter.rxjava.HttpException;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static java.lang.System.out;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private FusedLocationProviderClient mFusedLocationClient;
-    private PopupWindow popupWindow;
-    LinearLayout container;
     Toolbar relativeLayout;
     NavigationView navigationView;
-    RelativeLayout Errorpage;
-    SwipeRefreshLayout mSwipeRefreshLayout = null;
-
-//    @BindView(R.id.btnSearch)
-//    ImageView btnSearch;
-
-//    @BindView(R.id.txtLogin)
-//    TextView txtLogin;
-//
-//    @BindView(R.id.txtChange)
-//    TextView txtChange;
-//
-//    @BindView(R.id.txtAbout)
-//    TextView txtAbout;
-//
-//    @BindView(R.id.txtMyProfile)
-//    TextView txtMyProfile;
-
-//    @BindView(R.id.userAvatar)
-//    ImageView userAvatar;
-//
-//    @BindView(R.id.userName)
-//    TextView userName;
-//
-//    @BindView(R.id.txtBeAnExpert)
-//    TextView txtBeAnExpert;
-//
-//    @BindView(R.id.sidePanel)
-//    LinearLayout sidePanel;
-    private boolean isOpened;
-
-    private String savedHome;
 
     private TextView username;
     Notification notification;
     //Revamp
 
+    RetrofitClient retrofitClient;
     DrawerLayout drawer;
     Fragment fragment;
     private Handler mHandler;
@@ -121,7 +96,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     // index to identify current nav menu item
     public static int navItemIndex = 0;
 
+    public static String CURRENT_HOME_VIEW = TAG_NEARBY_SERVICES;
+
     private static String CURRENT_TAG = TAG_HOME;
+
+
+    String TAG = "MainActivity";
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,13 +118,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         relativeLayout = findViewById(R.id.hometoolbar);
         setSupportActionBar(relativeLayout);
         mHandler = new Handler();
-
-        //container = findViewById(R.id.mainContent);
-        //relativeLayout = container.findViewById(R.id.hometoolbar);
-        //Errorpage = container.findViewById(R.id.Errorpage);
-        //TextView reload = Errorpage.findViewById(R.id.reload);
-
         drawer = findViewById(R.id.drawer_layout);
+        retrofitClient = new RetrofitClient(this, AppConstants.getHost());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, relativeLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -163,20 +139,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         username = view.findViewById(R.id.username);
         username.setText(user.getName());
 
-        fragment = getHomeFragment();
+        getLocation();
         //Load Default Fragment
         loadFragment(fragment);
     }
 
     private void loadFragment(final Fragment holder) {
         //setToolbarTitle();
-
         // if user select the current navigation menu again, don't do anything
         // just close the navigation drawer
-        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
-            drawer.closeDrawers();
-            return;
-        }
+
 
         //Closing drawer on item click
         drawer.closeDrawers();
@@ -185,22 +157,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // when switching between navigation menus
         // So using runnable, the fragment is loaded with cross fade effect
         // This effect can be seen in GMail app
-        Runnable mPendingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                // update the main content by replacing fragments
-                if (fragment == null){
-                    navItemIndex = 0;
-                    CURRENT_TAG = TAG_HOME;
-                    fragment = getHomeFragment();
-                }
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                fragmentTransaction.replace(R.id.frame, fragment, CURRENT_TAG);
-                fragmentTransaction.commitAllowingStateLoss();
-                // selecting appropriate nav menu item
-                selectNavMenu();
+        Runnable mPendingRunnable = () -> {
+            Fragment innerFrag = holder;
+            // update the main content by replacing fragments
+            if (innerFrag == null){
+                navItemIndex = 0;
+                CURRENT_TAG = TAG_NEARBY_SERVICES;
+                innerFrag = getNearbyFragment();
             }
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            fragmentTransaction.replace(R.id.frame, innerFrag, CURRENT_TAG);
+            fragmentTransaction.commitAllowingStateLoss();
+            // selecting appropriate nav menu item
+            selectNavMenu();
         };
 
         // If mPendingRunnable is not null, then add to the message queue
@@ -215,22 +185,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private void selectNavMenu() {
         navigationView.getMenu().getItem(navItemIndex).setCheckable(true).setChecked(true);
+        getSupportActionBar().setTitle(CURRENT_TAG);
     }
-    //==================CHECK IF THE DEVICE IS INTERNET ENABLE OR NOT
-
-//==================CHECKING ENDS HERE
-
-//    @OnClick(R.id.btnSearch)
-//    public void onClick(View view) {
-//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(MainActivity.this,
-//                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
-//                    1);
-//        }
-//        getLocation();
-//        QuickSearchPopup searchPopup = new QuickSearchPopup(this, longitude, latitude);
-//        searchPopup.show();
-//    }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -246,33 +202,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
         }
     }
-
-
-//    @OnClick(R.id.btnMenu)
-//    public void onMenuClick(View view) {
-////        if (isOpened) {
-////            closePanel();
-////        } else {
-////            openPanel();
-////        }
-//    }
-
-//    @TargetApi(Build.VERSION_CODES.KITKAT)
-//    @OnClick(R.id.txtChange)
-//    public void onchangpass(View v) {
-//        if (user.isLoggedIn()) {
-//            Intent intent = new Intent(this, ChangePassword.class);
-//            startActivity(intent);
-//            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-//        } else {
-//            notification.setMessage("Not Logged In Reload This Page");
-//            notification.setType(Notification.WARNING);
-//            notification.setAnchor(relativeLayout);
-//            notification.show();
-//        }
-//    }
-
-
 
     public void getProfessions() {
         Bridge.post(Request.api + "/professions")
@@ -320,17 +249,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         }
 
-        if (id == R.id.nav_nearByServices) {
-            if(navigationView.getMenu().getItem(1).isChecked()){
-                return true;
-            }else {
-                CURRENT_TAG = TAG_NEARBY_SERVICES;
-                fragment = new NearbyFragment();
-                navItemIndex = 1;
-            }
-
-        }
-
         if (id == R.id.nav_profile) {
             //go to profile
             startActivity(new Intent(this, DrawerActivity.class));
@@ -338,31 +256,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (id == R.id.nav_register_a_service) {
             CURRENT_TAG = TAG_REGISTER_SERVICE;
-            navItemIndex = 3;
+            navItemIndex = 2;
             fragment = new HomeFragment();
         }
 
         if (id == R.id.services) {
             CURRENT_TAG = TAG_VIEW_REGISTERED_SERVICES;
-            navItemIndex = 4;
+            navItemIndex = 3;
             fragment = new HomeFragment();
         }
 
         if (id == R.id.contactUs) {
             CURRENT_TAG = TAG_CONTACT_US;
-            navItemIndex = 5;
+            navItemIndex = 4;
             fragment = new HomeFragment();
         }
 
         if (id == R.id.logout) {
-            app.clear();
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
-            overridePendingTransition(R.anim.trans_right_out, R.anim.trans_right_in);
-
+            logOut();
         }
-
-
         if (item.isChecked()) {
             item.setChecked(false);
         } else {
@@ -392,9 +304,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             Intent intent = new Intent(MainActivity.this, About.class);
             startActivity(intent);
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        }
 
-        }else if(id == R.id.search){
+        if(id == R.id.search){
             search();
+        }
+
+        if(id == R.id.switch_home_view){
+            CURRENT_HOME_VIEW = CURRENT_HOME_VIEW.equals(TAG_NEARBY_SERVICES) ? TAG_HOME : TAG_NEARBY_SERVICES;
+            loadFragment(CURRENT_HOME_VIEW.equals(TAG_NEARBY_SERVICES) ? getNearbyFragment() : getHomeFragment());
+            AppConstants.log(TAG, "View Changed - " + CURRENT_HOME_VIEW);
         }
 
         return super.onOptionsItemSelected(item);
@@ -417,5 +336,40 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
     private Fragment getNearbyFragment(){
         return new NearbyFragment(app);
+    }
+
+    void logOut(){
+        AppConstants.log(TAG, user.getToken());
+        AppConstants.log(TAG, app.getUser());
+        retrofitClient.getApiService().logout(user.getToken())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        String msg = "An Error Occurred. Please Try Again";
+                        if(e instanceof HttpException)
+                            msg = "No Internet Connection";
+                        if(e instanceof SocketException)
+                            msg = "An Internet Error Occurred";
+
+                        notification.setMessage(msg);
+                        notification.show();
+                        AppConstants.log(TAG, e.toString());
+                    }
+
+                    @Override
+                    public void onNext(ResponseModel responseModel) {
+                        AppConstants.log(TAG, responseModel.toString());
+                        app.clear();
+                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                        finish();
+                        overridePendingTransition(R.anim.trans_right_out, R.anim.trans_right_in);
+                    }
+                });
     }
 }

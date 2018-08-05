@@ -2,6 +2,9 @@ package com.fincoapps.servizone.https;
 import com.fincoapps.servizone.models.HomeModel;
 import com.fincoapps.servizone.models.ResponseModel;
 
+import org.androidannotations.annotations.App;
+import org.androidannotations.annotations.rest.Post;
+
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
@@ -26,6 +29,10 @@ public interface Api {
 
     @POST("home")
     Observable<HomeModel> home();
+
+    @FormUrlEncoded
+    @POST("logout")
+    Observable<ResponseModel> logout(@Field("token") String token);
 
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();

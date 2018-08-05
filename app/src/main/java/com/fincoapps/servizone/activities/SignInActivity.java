@@ -34,10 +34,8 @@ public class SignInActivity extends BaseActivity {
     EditText email, password;
     AppCompatButton login;
     TextView signup, forgotpass;
-    RelativeLayout relativeLayout;
     ImageButton btnBack;
     ImageView logo;
-    CustomLoadingDialog loadingDialog;
     Notification notification;
     String url = "http://servizone.net/api/login";
     ProgressDialog pd;
@@ -58,52 +56,36 @@ public class SignInActivity extends BaseActivity {
         pd = new ProgressDialog(this);
         pd.setCanceledOnTouchOutside(false);
         pd.setMessage("Signing In...");
-        loadingDialog = new CustomLoadingDialog(this);
         notification = new Notification(this);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
+        btnBack.setOnClickListener(view -> onBackPressed());
+
+        forgotpass.setOnClickListener(view -> {
+            Intent intent = new Intent(SignInActivity.this, ForgotPassword.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });
 
-        forgotpass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this, ForgotPassword.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-            }
+        signup.setOnClickListener(view -> {
+            Intent intent = new Intent(SignInActivity.this, Registration.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });
 
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this, Registration.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-            }
-        });
-
-        login.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.KITKAT)
-            @Override
-            public void onClick(View view) {
-                notification.setAnchor(logo);
-                if (email.getText().toString().equals("") && password.getText().toString().equals("")) {
-                    notification.setMessage("Email or password is empty");
-                    notification.show();
-                } else if (!email.getText().toString().contains("@")) {
-                    notification.setMessage("Email is too short");
-                    notification.show();
-                } else if (password.getText().toString().length() < 4) {
-                    notification.setMessage("Password is too short");
-                    notification.show();
-                } else {
-                    pd.show();
-                    postLogin(email.getText().toString(),password.getText().toString());
-                }
+        login.setOnClickListener(view -> {
+            notification.setAnchor(logo);
+            if (email.getText().toString().equals("") && password.getText().toString().equals("")) {
+                notification.setMessage("Email or password is empty");
+                notification.show();
+            } else if (!email.getText().toString().contains("@")) {
+                notification.setMessage("Email is too short");
+                notification.show();
+            } else if (password.getText().toString().length() < 4) {
+                notification.setMessage("Password is too short");
+                notification.show();
+            } else {
+                pd.show();
+                postLogin(email.getText().toString(),password.getText().toString());
             }
         });
 
@@ -125,9 +107,9 @@ public class SignInActivity extends BaseActivity {
                         public void onError(Throwable e) {
                             String msg = "An Error Occurred. Please Try Again";
                             if(e instanceof HttpException)
-                                msg = "No Internet Connection";
+                                msg = "A Server Error occurred. Please Try Again";
                             if(e instanceof SocketException)
-                                msg = "An Internet Error Occurred";
+                                msg = "No Internet Connection";
 
                             notification.setMessage(msg);
                             notification.show();
