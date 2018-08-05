@@ -7,7 +7,7 @@ public class AppConstants {
 
     //Hosts
     private static final String DEFAULT_HOST = "http://test.oneflaretech.com/api/";
-    private static final String TEST_HOST = "http://192.168.8.101:8000/api/";
+    private static final String TEST_HOST = "http://192.168.8.103:8000/api/";
 
     //Status
     public static final String STATUS_SUCCESS = "success";
