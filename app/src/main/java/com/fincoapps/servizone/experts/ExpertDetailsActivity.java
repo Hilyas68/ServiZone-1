@@ -71,7 +71,7 @@ public class ExpertDetailsActivity extends BaseActivity {
     private User user;
 
     SimpleRatingBar ratingView;
-    private UserModel me;
+    private User me;
     private ExpertModel expertModel;
     private EditText editTextReview;
     private CustomLoadingDialog loader;
@@ -101,8 +101,7 @@ public class ExpertDetailsActivity extends BaseActivity {
 
 
         //======================== INIT APP CLASSES ======================
-        user = new User(this);
-        me = user.getUserModel();
+        me = user;
         notification = new Notification(this);
         loader = new CustomLoadingDialog(this);
         notification.setAnchor(toolbarTitle);
@@ -228,20 +227,20 @@ public class ExpertDetailsActivity extends BaseActivity {
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (!user.isLoggedIn()) {
-                            notification.setMessage("You can only report an expert when you're logged in.");
-                            notification.setType(Notification.WARNING);
-                            notification.setAnchor(view);
-                            notification.show();
-                        } else if (reporttext.getText().toString().isEmpty()) {
-                            notification.setMessage("Please state your complain.");
-                            notification.setType(Notification.WARNING);
-                            notification.setAnchor(reporttext);
-                            notification.show();
-                        } else {
-                            final String report = String.valueOf(reporttext.getText());
-                            sendreporttoServer(report, dialogview);
-                        }
+//                        if (!user.isLoggedIn()) {
+//                            notification.setMessage("You can only report an expert when you're logged in.");
+//                            notification.setType(Notification.WARNING);
+//                            notification.setAnchor(view);
+//                            notification.show();
+//                        } else if (reporttext.getText().toString().isEmpty()) {
+//                            notification.setMessage("Please state your complain.");
+//                            notification.setType(Notification.WARNING);
+//                            notification.setAnchor(reporttext);
+//                            notification.show();
+//                        } else {
+//                            final String report = String.valueOf(reporttext.getText());
+//                            sendreporttoServer(report, dialogview);
+//                        }
                     }
                 });
             }
@@ -291,12 +290,12 @@ public class ExpertDetailsActivity extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void writeReview(View v) {
         popupWindow.dismiss();
-        if (!user.isLoggedIn()) {
-            notification.setMessage("Please login to write a review");
-            notification.setType(Notification.WARNING);
-            notification.show();
-            return;
-        }
+//        if (!user.isLoggedIn()) {
+//            notification.setMessage("Please login to write a review");
+//            notification.setType(Notification.WARNING);
+//            notification.show();
+//            return;
+//        }
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.popup_rate);
 
@@ -330,8 +329,8 @@ public class ExpertDetailsActivity extends BaseActivity {
     private void submitReview(final Dialog dialog) {
         loader.show();
         Form form = new Form()
-                .add("user_id", me.id)
-                .add("token", me.token)
+                .add("user_id", me.getId())
+                .add("token", me.getToken())
                 .add("expert_id", expertModel.id)
                 .add("rating", ratingView.getRating())
                 .add("message", editTextReview.getText().toString());
@@ -371,8 +370,8 @@ public class ExpertDetailsActivity extends BaseActivity {
     public void sendreporttoServer(final String text, final RelativeLayout dialogview) {
         loader.show();
         Form form = new Form()
-                .add("user_id", me.id)
-                .add("token", me.token)
+                .add("user_id", me.getId())
+                .add("token", me.getToken())
                 .add("expert_id", expertModel.id)
                 .add("message", text);
 

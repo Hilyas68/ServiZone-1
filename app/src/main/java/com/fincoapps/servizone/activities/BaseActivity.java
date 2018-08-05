@@ -108,12 +108,13 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            System.out.println("------------------------------------- " + location.getLongitude());
-                            System.out.println("------------------------------------- " + location.getLatitude());
                             AppConstants.log(TAGG,String.valueOf(location.getLatitude()));
                             AppConstants.log(TAGG,String.valueOf(location.getLongitude()));
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
+                            user.setLatitude(latitude);
+                            user.setLongitude(longitude);
+                            app.setUser(user);
                         }
                     }
                 });

@@ -25,6 +25,7 @@ import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.interfaces.Startpage;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
@@ -32,7 +33,7 @@ import com.fincoapps.servizone.utils.User;
 
 import static java.lang.System.out;
 
-public class ChangePassword extends AppCompatActivity {
+public class ChangePassword extends BaseActivity {
     Notification notification;
     CustomLoadingDialog loader;
     EditText password, confirm;
@@ -45,7 +46,6 @@ public class ChangePassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-        user = new User(this);
 
         loader = new CustomLoadingDialog(ChangePassword.this);
         notification = new Notification(ChangePassword.this);
@@ -58,69 +58,61 @@ public class ChangePassword extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btnBack);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        btnBack.setOnClickListener(view-> onBackPressed());
 
-        btn_changepass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (password.getText().toString().isEmpty() || password.getText().toString().length() < 6) {
-                    password.getError();
-                    password.setError("Too Short");
-                } else if (!confirm.getText().toString().equals(password.getText().toString())) {
-                    confirm.getError();
-                    confirm.setError("Password Do Not Match");
-                } else {
-                    loader.show();
-                    Form form = new Form()
-                            .add("password", password.getText().toString())
-                            .add("confirmpassword", confirm.getText().toString())
-                            .add("email", user.getUserModel().email);
+        btn_changepass.setOnClickListener(view -> {
+            if (password.getText().toString().isEmpty() || password.getText().toString().length() < 6) {
+                password.getError();
+                password.setError("Too Short");
+            } else if (!confirm.getText().toString().equals(password.getText().toString())) {
+                confirm.getError();
+                confirm.setError("Password Do Not Match");
+            } else {
+                loader.show();
+                Form form = new Form()
+                        .add("password", password.getText().toString())
+                        .add("confirmpassword", confirm.getText().toString())
+                        .add("email", user.getEmail());
 
-                    Bridge.post(com.fincoapps.servizone.utils.Request.api + "/changepassword")
-                            .body(form)
-                            .asString(new ResponseConvertCallback<String>() {
-                                @TargetApi(Build.VERSION_CODES.KITKAT)
-                                @Override
-                                public void onResponse(@NonNull com.afollestad.bridge.Response response, @Nullable String object, @Nullable BridgeException e) {
-                                    loader.hide();
-                                    if (e != null) {
-                                        int reason = e.reason();
-                                        System.out.println("================== ERROR ==================== " + e + " && " + reason);
-                                        notification.setMessage("Network Timed Out");
-                                        notification.setType(Notification.WARNING);
-                                        notification.setAnchor(errorsuccesspage);
-                                        notification.show();
-                                    } else {
-                                        System.out.println(response.asString() + " THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-                                        if (response.isSuccess()) {
-                                            if (response.asString().contains("User Does Not Exist")) {
-                                                notification.setMessage("User Does Not Exist");
-                                                notification.setType(Notification.FAILURE);
-                                                notification.setAnchor(errorsuccesspage);
-                                                notification.show();
-                                            } else if (response.asString().contains("Passwords Not Match")) {
-                                                notification.setMessage("Password Do Not Match");
-                                                notification.setType(Notification.FAILURE);
-                                                notification.setAnchor(errorsuccesspage);
-                                                notification.show();
-                                            } else {
-                                                notification.setMessage("Password Changed Successfully");
-                                                notification.setType(Notification.SUCCESS);
-                                                notification.setAnchor(errorsuccesspage);
-                                                notification.show();
-                                            }
+                Bridge.post(com.fincoapps.servizone.utils.Request.api + "/changepassword")
+                        .body(form)
+                        .asString(new ResponseConvertCallback<String>() {
+                            @TargetApi(Build.VERSION_CODES.KITKAT)
+                            @Override
+                            public void onResponse(@NonNull com.afollestad.bridge.Response response, @Nullable String object, @Nullable BridgeException e) {
+                                loader.hide();
+                                if (e != null) {
+                                    int reason = e.reason();
+                                    System.out.println("================== ERROR ==================== " + e + " && " + reason);
+                                    notification.setMessage("Network Timed Out");
+                                    notification.setType(Notification.WARNING);
+                                    notification.setAnchor(errorsuccesspage);
+                                    notification.show();
+                                } else {
+                                    System.out.println(response.asString() + " THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+                                    if (response.isSuccess()) {
+                                        if (response.asString().contains("User Does Not Exist")) {
+                                            notification.setMessage("User Does Not Exist");
+                                            notification.setType(Notification.FAILURE);
+                                            notification.setAnchor(errorsuccesspage);
+                                            notification.show();
+                                        } else if (response.asString().contains("Passwords Not Match")) {
+                                            notification.setMessage("Password Do Not Match");
+                                            notification.setType(Notification.FAILURE);
+                                            notification.setAnchor(errorsuccesspage);
+                                            notification.show();
                                         } else {
-                                            out.println("Something Else Is Wrong From The Server and response is not success....");
+                                            notification.setMessage("Password Changed Successfully");
+                                            notification.setType(Notification.SUCCESS);
+                                            notification.setAnchor(errorsuccesspage);
+                                            notification.show();
                                         }
+                                    } else {
+                                        out.println("Something Else Is Wrong From The Server and response is not success....");
                                     }
                                 }
-                            });
-                }
+                            }
+                        });
             }
         });
     }
