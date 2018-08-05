@@ -34,7 +34,7 @@ public class SignInActivity extends BaseActivity {
     ImageButton btnBack;
     CustomLoadingDialog loadingDialog;
     Notification notification;
-    String url = "http://servizone.net/api/login";
+    String url = "http://test.oneflaretech.com/api/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

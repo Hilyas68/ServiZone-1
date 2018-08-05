@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
-    android:clipChildren="false"
+    android:background="@drawable/blue_background"
+    android:clipChildren="true"
     tools:context="com.fincoapps.servizone.activities.SignInActivity">
 
     <!--<include layout="@layout/footer"/>-->
@@ -82,8 +82,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Email"
-                android:textColor="#fff"
-                android:textColorLink="#fff"
+                android:textColor="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -103,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:hint="Password"
-                android:textColor="#fff"
-                android:textColorLink="#fff"
+                android:textColor="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary"
                 android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>

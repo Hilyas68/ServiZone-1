@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:clipChildren="true"
     android:gravity="center_horizontal"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/blue_background"
     android:id="@+id/parentlayout"
     tools:context="com.fincoapps.servizone.Registration">
 
@@ -87,7 +87,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textColorHint="@color/white"
+                android:padding="5dp"
+                android:textColorHint="@color/colorPrimary"
+                android:background="#f1ecec"
                 android:layout_marginBottom="8dp">
 
             <EditText
@@ -97,8 +99,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:inputType="text"
-                android:textColor="#fff"
-                android:backgroundTint="@color/white"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary"
                 android:paddingTop="1dp"
                 android:hint="Name"/>
 
@@ -107,8 +110,10 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/white"
                 android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:textColorHint="@color/colorPrimary"
+                android:background="#f1ecec"
                 android:layout_marginBottom="8dp">
 
             <EditText
@@ -117,9 +122,10 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:inputType="number"
-                android:textColorHint="@color/white"
-                android:textColor="#fff"
-                android:backgroundTint="@color/white"
+                android:textColorHint="@color/colorPrimary"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:paddingTop="1dp"
                 android:hint="Age"/>
@@ -229,7 +235,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textColorHint="@color/white"
+                android:padding="5dp"
+                android:background="#f1ecec"
+                android:textColorHint="@color/colorPrimary"
                 android:layout_marginBottom="8dp">
 
             <EditText
@@ -239,8 +247,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="1dp"
-                android:textColor="#fff"
-                android:backgroundTint="@color/white"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorPrimary"
+                android:textColorLink="@color/colorPrimary"
                 android:hint="Email"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -248,7 +257,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/colorPrimary"
+                android:padding="5dp"
+                android:background="#f1ecec"
                 android:layout_marginBottom="8dp">
 
                 <EditText
@@ -257,11 +268,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:backgroundTint="@color/white"
                 android:inputType="textPassword"
-                android:textColor="#fff"
-                android:textColorHint="@color/white"
-                android:textColorHighlight="@color/white"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorLink="@color/colorPrimary"
                 android:paddingTop="1dp"
                 android:hint="Password"/>
             </android.support.design.widget.TextInputLayout>
