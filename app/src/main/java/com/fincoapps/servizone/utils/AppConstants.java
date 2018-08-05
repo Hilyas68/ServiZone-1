@@ -22,4 +22,5 @@ public class AppConstants {
     public static String getHost(){
         return !production ? TEST_HOST : DEFAULT_HOST;
     }
+
 }

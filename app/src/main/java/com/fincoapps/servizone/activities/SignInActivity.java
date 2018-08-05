@@ -56,6 +56,7 @@ public class SignInActivity extends BaseActivity {
         forgotpass = findViewById(R.id.forgotpass);
         btnBack = findViewById(R.id.btnBack);
         pd = new ProgressDialog(this);
+        pd.setCanceledOnTouchOutside(false);
         pd.setMessage("Signing In...");
         loadingDialog = new CustomLoadingDialog(this);
         notification = new Notification(this);
@@ -131,6 +132,7 @@ public class SignInActivity extends BaseActivity {
                             notification.setMessage(msg);
                             notification.show();
                             AppConstants.log(TAG, e.toString());
+                            pd.dismiss();
                         }
 
                         @Override
@@ -146,6 +148,7 @@ public class SignInActivity extends BaseActivity {
                             }else{
                                 notification.setMessage(responseModel.getMessage());
                                 notification.show();
+                                pd.dismiss();
                             }
 
 
