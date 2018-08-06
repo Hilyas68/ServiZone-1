@@ -1,27 +1,13 @@
 package com.fincoapps.servizone.interfaces;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.fincoapps.servizone.MainActivity;
+import com.fincoapps.servizone.activities.MainActivity;
 import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.Registration;
-import com.fincoapps.servizone.utils.Notification;
-
-import static java.lang.System.out;
 
 public class Startpage extends AppCompatActivity {
     @Override

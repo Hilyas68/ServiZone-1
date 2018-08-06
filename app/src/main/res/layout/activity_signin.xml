@@ -2,11 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/headertoolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/blue_background"
-    android:clipChildren="true"
+    android:clipChildren="false"
     tools:context="com.fincoapps.servizone.activities.SignInActivity">
 
     <!--<include layout="@layout/footer"/>-->
@@ -56,58 +57,48 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="140dp"
+        android:paddingTop="75dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/logo"
+        <ImageView
+            android:id="@+id/logo"
+            android:src="@drawable/logo"
             android:layout_width="wrap_content"
             android:layout_height="72dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="50dp"
             android:layout_gravity="center_horizontal" />
 
         <!-- Email Label -->
-        <android.support.design.widget.TextInputLayout
+
+        <EditText
+            android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="5dp"
-            android:background="#f1ecec"
-            android:layout_marginBottom="8dp"
-            app:theme="@style/TextLabel">
+            android:hint="Email"
+            android:padding="15dp"
+            android:textColor="#fff"
+            android:layout_marginBottom="10dp"
+            android:textColorLink="#fff"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/edit_text_background"/>
 
-            <EditText
-                android:id="@+id/input_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Email"
-                android:textColor="@color/colorPrimary"
-                android:textColorLink="@color/colorPrimary"
-                android:inputType="textEmailAddress" />
-        </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Label -->
-        <android.support.design.widget.TextInputLayout
+        <EditText
+            android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="5dp"
-            android:background="#f1ecec"
-            android:layout_marginBottom="8dp"
-            app:theme="@style/TextLabel">
+            android:hint="Password"
+            android:padding="15dp"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@null"
+            android:textColor="#fff"
+            android:textColorLink="#fff"
+            android:inputType="textPassword"
+            android:background="@drawable/edit_text_background"/>
 
-            <EditText
-                android:id="@+id/input_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="Password"
-                android:textColor="@color/colorPrimary"
-                android:textColorLink="@color/colorPrimary"
-                android:inputType="textPassword" />
-
-        </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:elevation="10dp"

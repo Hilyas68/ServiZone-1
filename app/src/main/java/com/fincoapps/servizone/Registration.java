@@ -62,7 +62,6 @@ public class Registration extends BaseActivity {
 
         scrollView = findViewById(R.id.regdetails);
         loader = new CustomLoadingDialog(Registration.this);
-        user = new User(this);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -187,8 +186,8 @@ public class Registration extends BaseActivity {
 
                                             } else {
                                             delay = 2000;
-                                            user.storeUser(response.asString());
-                                                Log.d(TAG, "User ==========" + user.toString());
+//                                            user.storeUser(response.asString());
+                                                //app.setUser(user);
                                             notification.setMessage("Successfully registered");
                                             notification.setType(Notification.SUCCESS);
                                             notification.setAnchor(scrollView);

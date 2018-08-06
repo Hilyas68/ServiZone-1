@@ -122,7 +122,6 @@ public class RegisterExpertActivity extends BaseActivity implements ChooseProfes
         getLocation();
         app = new AppSettings(this);
         loader = new CustomLoadingDialog(this);
-        user = new User(this);
 
         notification = new Notification(this);
         registertype = (TextView) findViewById(R.id.registertype);
@@ -294,7 +293,7 @@ public class RegisterExpertActivity extends BaseActivity implements ChooseProfes
                                         } else {
                                             System.out.println(response.asString());
                                             if (ResponseUtility.isSuccessful(response.asString())) {//if response has no error
-                                                user.storeUser(response.asString());
+                                                //user.storeUser(response.asString());
 //                                            Intent i = new Intent(RegisterExpertActivity.this, MainActivity.class);
                                                 notification.setAnchor(avatar);
                                                 notification.setType(Notification.WARNING);

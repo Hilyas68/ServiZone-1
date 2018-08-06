@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.fincoapps.servizone.MainActivity;
+import com.fincoapps.servizone.activities.MainActivity;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.adapters.ExpertAdapter;
 import com.fincoapps.servizone.models.ExpertModel;
@@ -20,7 +20,6 @@ import java.util.List;
 import java.lang.reflect.Type;
 
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static java.lang.System.out;
 

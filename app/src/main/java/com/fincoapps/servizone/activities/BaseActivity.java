@@ -37,9 +37,11 @@ import com.afollestad.bridge.MultipartForm;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
+import com.fincoapps.servizone.https.NetworkHelper;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
 import com.fincoapps.servizone.models.UserModel;
+import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.AppSettings;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
@@ -77,16 +79,17 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
     public CustomLoadingDialog loader;
     TextView toolbarTitle;
     private FusedLocationProviderClient mFusedLocationClient;
-
+    public NetworkHelper net;
+    String TAGG = "BaseActivity";
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        net = new NetworkHelper(this);
+        app = new AppSettings(this);
         gson = new Gson();
         //===================================== INIT APP CLASSES ===============================
-        user = new User(this);
-        try{me = user.getUserModel();}catch (Exception ex){user.logOut();}
-        app = new AppSettings(this);
+        user = gson.fromJson(app.getUser(), User.class);
+        //try{me = user.getUserModel();}catch (Exception ex){user.logOut();}
         notification = new Notification(this);
         loader = new CustomLoadingDialog(this);
 
@@ -105,10 +108,13 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            System.out.println("------------------------------------- " + location.getLongitude());
-                            System.out.println("------------------------------------- " + location.getLatitude());
+                            AppConstants.log(TAGG,String.valueOf(location.getLatitude()));
+                            AppConstants.log(TAGG,String.valueOf(location.getLongitude()));
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
+                            user.setLatitude(latitude);
+                            user.setLongitude(longitude);
+                            app.setUser(user);
                         }
                     }
                 });
@@ -125,7 +131,7 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
     public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
         switch(permsRequestCode){
             case 200:
-                boolean locationAccepted = grantResults[0]==PackageManager.PERMISSION_GRANTED;
+                boolean locationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 break;
         }
     }
