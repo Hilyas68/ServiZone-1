@@ -1,14 +1,18 @@
 package com.fincoapps.servizone.https;
+import com.afollestad.bridge.annotations.ContentType;
 import com.fincoapps.servizone.models.HomeModel;
 import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.models.UserModel;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.rest.Post;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -33,6 +37,10 @@ public interface Api {
     @FormUrlEncoded
     @POST("logout")
     Observable<ResponseModel> logout(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("register")
+    Observable<ResponseModel> register(@Field("name") String name , @Field("email") String email, @Field("dob") String dob, @Field("phone_number") String phoneNumber, @Field("gender") String gender, @Field("password") String password);
 
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();

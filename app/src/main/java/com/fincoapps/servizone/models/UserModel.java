@@ -1,5 +1,7 @@
 package com.fincoapps.servizone.models;
 
+import java.util.Date;
+
 public class UserModel {
         public int id;
         public String age;

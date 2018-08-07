@@ -102,8 +102,7 @@ public class NearbyFragment extends Fragment implements GoogleMap.OnMarkerClickL
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
-                rx
-                        .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                rx.request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                         .subscribe(granted -> {
                             if (granted) {
                                 // Always true pre-M

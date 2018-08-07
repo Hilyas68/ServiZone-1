@@ -17,7 +17,7 @@ class SplashScreenActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        Thread.sleep(TimeUnit.SECONDS.toMillis(1).toInt().toLong())
+        Thread.sleep(TimeUnit.SECONDS.toMillis(0).toInt().toLong())
         AppConstants.log(TAG, "Sleep Finished")
         val rxx  = RxPermissions(this)
         rxx

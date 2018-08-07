@@ -18,6 +18,8 @@ public class User {
     private String name;
     private Integer age;
     private String gender;
+    private String phone_number;
+    private String dob;
     private String mobile;
     private String about;
     private String email;
@@ -146,6 +148,22 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     @Override

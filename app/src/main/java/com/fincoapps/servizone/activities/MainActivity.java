@@ -273,7 +273,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.logout) {
-            logOut();
+            //logOut();
+            AppConstants.log(TAG, app.getUser());
+            startActivity(new Intent(this, SignInActivity.class));
+            finish();
+            app.clear();
         }
         if (item.isChecked()) {
             item.setChecked(false);
