@@ -134,6 +134,8 @@ public class SignInActivity extends BaseActivity {
         }else {
             notification.setMessage("No Internet Connection");
             notification.show();
+            pd.dismiss();
+
         }
     }
 
