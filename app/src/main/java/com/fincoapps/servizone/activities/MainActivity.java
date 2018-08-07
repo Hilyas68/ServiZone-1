@@ -34,10 +34,10 @@ import com.fincoapps.servizone.fragments.HomeFragment;
 import com.fincoapps.servizone.fragments.NearbyFragment;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.models.ResponseObjectModel;
+import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
-import com.fincoapps.servizone.utils.User;
 
 import java.net.SocketException;
 
@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             startActivity(new Intent(this, SignInActivity.class));
             finish();
         }
-        User user = gson.fromJson(app.getUser(), User.class);
+        user = gson.fromJson(app.getUser(), UserModel.class);
         relativeLayout = findViewById(R.id.hometoolbar);
         setSupportActionBar(relativeLayout);
         mHandler = new Handler();

@@ -38,9 +38,9 @@ import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.ReviewsActivity;
 import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.models.ExpertModel;
+import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
-import com.fincoapps.servizone.utils.User;
 import com.google.gson.Gson;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
@@ -65,10 +65,9 @@ public class ExpertDetailsActivity extends BaseActivity {
     @BindView(R.id.toolbarTitle)
     TextView toolbarTitle;
     private PopupWindow popupWindow;
-    private User user;
 
     SimpleRatingBar ratingView;
-    private User me;
+    private UserModel me;
     private ExpertModel expertModel;
     private EditText editTextReview;
     private CustomLoadingDialog loader;

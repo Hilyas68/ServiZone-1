@@ -3,10 +3,8 @@ package com.fincoapps.servizone.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,24 +29,16 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import org.androidannotations.annotations.App;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
-
-import static java.lang.System.out;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,7 +73,7 @@ public class NearbyFragment extends Fragment implements GoogleMap.OnMarkerClickL
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_nearby, container, false);
         main = (MainActivity)getActivity();
-        mMapView = (MapView) v.findViewById(R.id.mapView);
+        mMapView = v.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         rx = new RxPermissions(getActivity());
         notification = new Notification(getActivity());
@@ -164,8 +154,8 @@ public class NearbyFragment extends Fragment implements GoogleMap.OnMarkerClickL
         // For dropping a marker at a point on the Map
         AppConstants.log(TAG, main.app.getUser());
         AppConstants.log(TAG, main.user.getToken());
-        AppConstants.log(TAG, main.user.getLatitude().toString());
-        AppConstants.log(TAG, main.user.getLatitude().toString());
+        AppConstants.log(TAG, String.valueOf(main.user.getLatitude()));
+        AppConstants.log(TAG, String.valueOf(main.user.getLongitude()));
 
         // For zooming automatically to the location of the marker
         CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(main.user.getLatitude(),main.user.getLongitude())).zoom(5).build();

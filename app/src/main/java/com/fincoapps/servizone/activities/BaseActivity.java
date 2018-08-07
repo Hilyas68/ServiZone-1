@@ -1,41 +1,15 @@
 package com.fincoapps.servizone.activities;
 
-import android.*;
-import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.afollestad.bridge.Bridge;
-import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.MultipartForm;
-import com.afollestad.bridge.ResponseConvertCallback;
-import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.https.NetworkHelper;
 import com.fincoapps.servizone.https.RetrofitClient;
@@ -46,33 +20,21 @@ import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.AppSettings;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
-import com.fincoapps.servizone.utils.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.OnClick;
 import butterknife.Optional;
 
-import static android.support.v4.app.ActivityCompat.requestPermissions;
 import static java.lang.System.out;
 
 public class BaseActivity extends AppCompatActivity implements ChooseProfession{
 
     public double longitude;
     public double latitude;
-    public  User user;
+    public  UserModel user;
     public Gson gson;
     public UserModel me;
     public AppSettings app;
@@ -90,11 +52,11 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
         app = new AppSettings(this);
         gson = new Gson();
         //===================================== INIT APP CLASSES ===============================
-        user = gson.fromJson(app.getUser(), User.class);
+        user = gson.fromJson(app.getUser(), UserModel.class);
         //try{me = user.getUserModel();}catch (Exception ex){user.logOut();}
         notification = new Notification(this);
         retrofit = new RetrofitClient(this, AppConstants.getHost());
-        toolbarTitle = (TextView)findViewById(com.fincoapps.servizone.R.id.toolbarTitle);
+        toolbarTitle = findViewById(com.fincoapps.servizone.R.id.toolbarTitle);
     }
 
     public void getLocation(){

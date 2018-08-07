@@ -32,7 +32,6 @@ import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.MultipartForm;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.android.volley.RequestQueue;
-import com.bumptech.glide.Glide;
 import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
@@ -41,7 +40,6 @@ import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppSettings;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
-import com.fincoapps.servizone.utils.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -64,7 +62,6 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
     EditText address;
     EditText password;
     ImageButton editprofile, backBtn;
-    User user;
     private Notification notification;
     private TextView registertype;
     private TextView txtUser;
@@ -98,10 +95,10 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
         notification = new Notification(this);
         loader = new CustomLoadingDialog(this);
         //System.out.println("=================" + user.getUser());
-        //userModel = gson.fromJson(app.getUser(), UserModel.class);
+        userModel = gson.fromJson(app.getUser(), UserModel.class);
 
 //        ================================================= ANIMATION =================================================
-        final ViewGroup transitionsContainer = (ViewGroup) findViewById(R.id.rootLayout);
+        final ViewGroup transitionsContainer = findViewById(R.id.rootLayout);
         TransitionManager.beginDelayedTransition(transitionsContainer);
 
 
@@ -163,13 +160,12 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
                             .add("address", address.getText().toString())
                             .add("about", about.getText().toString())
                             .add("avatar", encodedAvatar)
-                            .add("user_id", userModel.id)
-                            .add("token", userModel.token)
+                            .add("user_id", userModel.getId())
+                            .add("token", userModel.getToken())
                             .add("type", "expert");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                System.out.println("==");
 
                 try {
                     loader.show();
@@ -265,8 +261,8 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
         Type collectionType = new TypeToken<List<ProfessionModel>>() {
         }.getType();
         String p = app.getProfessions();
-        professionList.addAll((ArrayList) gson.fromJson(p, collectionType));
-        listViewUsers = (ListView) dialog.findViewById(R.id.professionslist);
+        professionList.addAll(gson.fromJson(p, collectionType));
+        listViewUsers = dialog.findViewById(R.id.professionslist);
         adapter = new ProfessionsAdapter(professionList, this, ProfileActivity.this);
         listViewUsers.setAdapter(adapter);
     }
@@ -280,27 +276,25 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
     //===================== GET PROFILE DETAILS REQUEST ====================
     public void getProfileDetails() {
         Gson gson = new Gson();
-        about.setText(userModel.about);
-        address.setText(userModel.address);
-        name.setText(userModel.name);
-        age.setText(userModel.age);
-        email.setText(userModel.email);
-        mobile.setText(userModel.mobile);
-        professionId = userModel.profession_id;
-        profession.setText(userModel.profession);
+        about.setText(userModel.getAbout());
+        address.setText(userModel.getAddress());
+        name.setText(userModel.getName());
+        age.setText(userModel.getAge());
+        email.setText(userModel.getEmail());
+        mobile.setText(userModel.getPhone_number());
 
-        if (userModel.avatar.contains(".png") || userModel.avatar.contains(".jpg")) {
-            Glide.with(avatar.getContext())
-                    .load("http://servizone.net/storage" + userModel.avatar)
-                    .placeholder(R.drawable.placeholder)
-                    .into(avatar);
-        }
-        if (userModel.gender.equalsIgnoreCase("Male")) {
+//        if (userModel.getAvatar().contains(".png") || userModel.getAvatar().contains(".jpg")) {
+//            Glide.with(avatar.getContext())
+//                    .load("http://servizone.net/storage" + userModel.getAvatar())
+//                    .placeholder(R.drawable.placeholder)
+//                    .into(avatar);
+//        }
+        if (userModel.getGender().equalsIgnoreCase("Male")) {
             radioButtonMale.setChecked(true);
         } else {
             radioButtonFemale.setChecked(true);
         }
-        g = userModel.gender;
+        g = userModel.getGender();
 
     }
 

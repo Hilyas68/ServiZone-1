@@ -30,7 +30,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST("register")
-    Observable<ResponseObjectModel> register(@Field("name") String name , @Field("email") String email, @Field("dob") String dob, @Field("phone_number") String phoneNumber, @Field("gender") String gender, @Field("password") String password);
+    Observable<ResponseObjectModel> register(@Field("name") String name , @Field("email") String email, @Field("dob") String dob, @Field("phone_number") String phoneNumber, @Field("gender") String gender, @Field("password") String password, @Field("latitude") double latitude, @Field("longitude") double longitude);
 
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();

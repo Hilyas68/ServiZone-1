@@ -13,9 +13,9 @@ import com.fincoapps.servizone.ForgotPassword;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.models.ResponseObjectModel;
+import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
-import com.fincoapps.servizone.utils.User;
 
 import java.net.SocketException;
 
@@ -52,7 +52,7 @@ public class SignInActivity extends BaseActivity {
         pd.setMessage("Signing In...");
         notification = new Notification(this);
 
-        btnBack.setOnClickListener(view -> onBackPressed());
+        //btnBack.setOnClickListener(view -> onBackPressed());
 
         forgotpass.setOnClickListener(view -> {
             Intent intent = new Intent(SignInActivity.this, ForgotPassword.class);
@@ -115,7 +115,7 @@ public class SignInActivity extends BaseActivity {
                         public void onNext(ResponseObjectModel responseModel) {
                             if(responseModel.getStatus().equals(AppConstants.STATUS_SUCCESS)){
                                 AppConstants.log(TAG, responseModel.toString());
-                                User user = gson.fromJson(responseModel.getData().toString(), User.class);
+                                user = gson.fromJson(responseModel.getData(), UserModel.class);
                                 AppConstants.log(TAG, user.toString());
                                 app.setUser(user);
                                 startActivity(new Intent(SignInActivity.this, MainActivity.class));
