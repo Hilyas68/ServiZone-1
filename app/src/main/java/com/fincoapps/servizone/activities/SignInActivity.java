@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.fincoapps.servizone.ForgotPassword;
 import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.Registration;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.models.ResponseObjectModel;
 import com.fincoapps.servizone.utils.AppConstants;
@@ -62,7 +61,7 @@ public class SignInActivity extends BaseActivity {
         });
 
         signup.setOnClickListener(view -> {
-            Intent intent = new Intent(SignInActivity.this, Registration.class);
+            Intent intent = new Intent(SignInActivity.this, RegistrationActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });

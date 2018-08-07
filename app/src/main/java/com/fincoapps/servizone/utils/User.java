@@ -1,13 +1,5 @@
 package com.fincoapps.servizone.utils;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import com.android.volley.RequestQueue;
-import com.fincoapps.servizone.models.UserModel;
-import com.google.gson.Gson;
-
 public class User {
 
 
@@ -31,38 +23,10 @@ public class User {
     private boolean is_blocked;
     private String token;
 
+
     public Integer getId() {
         return id;
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(Integer role_id) {
-        this.role_id = role_id;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
 
     public void setId(Integer id) {
         this.id = id;
@@ -106,6 +70,22 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getMobile() {
@@ -176,29 +156,12 @@ public class User {
         return token;
     }
 
-
     public void setToken(String token) {
         this.token = token;
     }
 
-    public String getPhone_number() {
-        return phone_number;
-    }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
 
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     @Override
     public String toString() {

@@ -1,17 +1,11 @@
-package com.fincoapps.servizone;
+package com.fincoapps.servizone.activities;
 
-import android.annotation.TargetApi;
-import android.app.ProgressDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,17 +15,10 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.afollestad.bridge.Bridge;
-import com.afollestad.bridge.BridgeException;
-import com.afollestad.bridge.Form;
-import com.afollestad.bridge.ResponseConvertCallback;
-import com.fincoapps.servizone.activities.BaseActivity;
-import com.fincoapps.servizone.activities.MainActivity;
-import com.fincoapps.servizone.activities.SignInActivity;
+import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.interfaces.Startpage;
-import com.fincoapps.servizone.models.ResponseModel;
-import com.fincoapps.servizone.models.UserModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
@@ -41,25 +28,26 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.net.SocketException;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-import static java.lang.System.out;
-
-public class Registration extends BaseActivity {
+public class RegistrationActivity extends BaseActivity {
     EditText name, age, email, password, phone;
     Button register;
     String gender;
+    Calendar myCalendar;
     private RadioGroup radioGroupGender;
     private RadioButton radioButtonMale;
     private RadioButton radioButtonFemale;
     ImageButton btnBack;
     RetrofitClient retrofitClient;
-    private final String TAG = Registration.class.getSimpleName();
+    private final String TAG = RegistrationActivity.class.getSimpleName();
     int delay = 2000;
     double latitude;
     double logitude;
@@ -77,8 +65,22 @@ public class Registration extends BaseActivity {
         setContentView(R.layout.activity_registration);
 
         scrollView = findViewById(R.id.regdetails);
-        loader = new CustomLoadingDialog(Registration.this);
+        loader = new CustomLoadingDialog(RegistrationActivity.this);
+        myCalendar = Calendar.getInstance();
 
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            AppConstants.log(TAG, myCalendar.toString());
+            updateLabel();
+        };
+        age.setOnClickListener(view -> {
+            new DatePickerDialog(RegistrationActivity.this, date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -97,7 +99,7 @@ public class Registration extends BaseActivity {
                     }
                 });
 
-        notification = new Notification(Registration.this);
+        notification = new Notification(RegistrationActivity.this);
         registertype = findViewById(R.id.registertype);
         name = findViewById(R.id.registername);
         age = findViewById(R.id.registerage);
@@ -120,7 +122,6 @@ public class Registration extends BaseActivity {
             @Override
             public void onClick(View view) {
                 final String realage = age.getText().toString();
-//                out.println(Integer.parseInt(realage) + " That is It AgGGGGGGGGGGGGGGGGGGGG");
 
                 if (name.getText().toString().isEmpty() || name.getText().toString().length() < 3) {
                     {
@@ -146,94 +147,7 @@ public class Registration extends BaseActivity {
                     } else {
                         gender = "Female";
                     }
-                  
-                    register(name.getText().toString(), email.getText().toString(), phone.getText().toString(), gender, age.getText().toString() , password.getText().toString());
-//                    Form form = new Form()
-//                            .add("name", name.getText().toString())
-//                            .add("age", age.getText().toString())
-//                            .add("gender", gender)
-//                            .add("email", email.getText().toString())
-//                            .add("password", password.getText().toString())
-//                            .add("longitude", String.valueOf(logitude))
-//                            .add("latitude", String.valueOf(latitude))
-//                            .add("type", "user");
-
-//                    Bridge.post(com.fincoapps.servizone.utils.Request.api + "/register")
-//                            .body(form)
-//                            .asString(new ResponseConvertCallback<String>() {
-//                                @TargetApi(Build.VERSION_CODES.KITKAT)
-//                                @Override
-//                                public void onResponse(@NonNull com.afollestad.bridge.Response response, @Nullable String object, @Nullable BridgeException e) {
-//                                    loader.hide();
-//                                    if (e != null) {
-//                                        int reason = e.reason();
-//                                        switch (e.reason()) {
-//                                            case BridgeException.REASON_REQUEST_CANCELLED: {
-//                                                notification.setMessage("Request was canceled \n could not load Experts");
-//                                                notification.setAnchor(scrollView);
-//                                                notification.show();
-//                                                break;
-//                                            }
-//                                            case BridgeException.REASON_REQUEST_TIMEOUT: {
-//                                                notification.setMessage("Network timed out, try again");
-//                                                notification.setAnchor(scrollView);
-//                                                notification.show();
-//                                                break;
-//                                            }
-//                                            case BridgeException.REASON_REQUEST_FAILED: {
-//                                                notification.setMessage("Network Error \n request failed, try again");
-//                                                notification.setAnchor(scrollView);
-//                                                notification.show();
-//                                                break;
-//                                            }
-//                                        }
-//                                    } else {
-//                                        System.out.println(response + " THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-//                                        if (response.isSuccess()) {
-//                                            if (logitude == 0.0 || latitude == 0.0) {
-//                                                delay = 4000;
-//                                                notification.setMessage("Your Location Is Disable!!! \n" + "However You can Still Get Through To An Expert");
-//                                                notification.setType(Notification.WARNING);
-//                                                notification.setAnchor(scrollView);
-//                                                notification.show();
-//                                                final Handler handler = new Handler();
-//                                                handler.postDelayed(new Runnable() {
-//                                                    @Override
-//                                                    public void run() {
-//                                                        Intent i = new Intent(Registration.this, Startpage.class);
-//                                                        startActivity(i);
-//                                                        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-//                                                    }
-//                                                }, delay);
-//
-//                                            } else {
-//                                                delay = 2000;
-////                                            user.storeUser(response.asString());
-//                                                //app.setUser(user);
-//                                                notification.setMessage("Successfully registered");
-//                                                notification.setType(Notification.SUCCESS);
-//                                                notification.setAnchor(scrollView);
-//                                                notification.show();
-//                                                final Handler handler = new Handler();
-//                                                handler.postDelayed(new Runnable() {
-//                                                    @Override
-//                                                    public void run() {
-//                                                        Intent i = new Intent(Registration.this, Startpage.class);
-//                                                        startActivity(i);
-//                                                        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-//                                                    }
-//                                                }, delay);
-//                                            }
-//                                        } else {
-//                                            notification.setMessage("Email has already been taken");
-//                                            notification.setType(Notification.FAILURE);
-//                                            notification.setAnchor(scrollView);
-//                                            notification.show();
-//                                            out.println("Something Else Is Wrong From The Server and response is not success...." + response.asString());
-//                                        }
-//                                    }
-//                                }
-//                            });
+                    //register(name.getText().toString(), email.getText().toString(), phone.getText().toString(), gender, age.getText().toString() , password.getText().toString());
                 }
             }
         });
@@ -245,7 +159,7 @@ public class Registration extends BaseActivity {
             retrofitClient.getApiService().register(name, email,dob,phoneNumber, gender , password)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<ResponseModel>() {
+                    .subscribe(new Subscriber<ResponseObjectModel>() {
                         @Override
                         public void onCompleted() {
                             loader.dismiss();
@@ -268,7 +182,7 @@ public class Registration extends BaseActivity {
                         }
 
                         @Override
-                        public void onNext(ResponseModel responseModel) {
+                        public void onNext(ResponseObjectModel responseModel) {
                             if(responseModel.getStatus().equals(AppConstants.STATUS_SUCCESS)) {
                                 User user = gson.fromJson(responseModel.getData(), User.class);
                                 AppConstants.log(TAG, user.toString());
@@ -277,7 +191,7 @@ public class Registration extends BaseActivity {
                                 notification.setType(Notification.SUCCESS);
                                 notification.setAnchor(scrollView);
                                 notification.show();
-                                startActivity(new Intent(Registration.this, Startpage.class));
+                                startActivity(new Intent(RegistrationActivity.this, Startpage.class));
                                 finish();
                                 overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
                             }else{
@@ -296,5 +210,13 @@ public class Registration extends BaseActivity {
             notification.show();
             loader.dismiss();
         }
+    }
+
+    private void updateLabel() {
+        String myFormat = "dd/MM/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
+
+        age.setText(sdf.format(myCalendar.getTime()));
+        AppConstants.log(TAG, age.getText().toString());
     }
 }

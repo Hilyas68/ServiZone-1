@@ -1,13 +1,12 @@
 package com.fincoapps.servizone.interfaces;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import com.fincoapps.servizone.activities.MainActivity;
 import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.activities.MainActivity;
 
 public class Startpage extends AppCompatActivity {
     @Override
@@ -44,13 +43,10 @@ public class Startpage extends AppCompatActivity {
 //            textView.setText("Welcome your account have been successfully created, we will go through your details before approval which will only take 24hrs. Thank You.");
 //        }
         Button button = findViewById(R.id.continuebtn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        button.setOnClickListener(view ->{
                 Intent i = new Intent(Startpage.this, MainActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-            }
         });
     }
 

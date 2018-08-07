@@ -18,6 +18,7 @@ import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
+import com.fincoapps.servizone.activities.RegistrationActivity;
 import com.fincoapps.servizone.activities.SignInActivity;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
@@ -67,7 +68,7 @@ public class ForgotPassword extends AppCompatActivity {
         linksinup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ForgotPassword.this, Registration.class);
+                Intent i = new Intent(ForgotPassword.this, RegistrationActivity.class);
                 startActivity(i);
             }
         });
