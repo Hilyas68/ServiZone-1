@@ -183,6 +183,12 @@ public class NearbyFragment extends Fragment implements GoogleMap.OnMarkerClickL
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
@@ -196,7 +202,8 @@ public class NearbyFragment extends Fragment implements GoogleMap.OnMarkerClickL
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        allMarkersMap.get(marker);
+        BusinessModel bm = allMarkersMap.get(marker);
+        Log.e(TAG, bm.getName());
         return false;
     }
 

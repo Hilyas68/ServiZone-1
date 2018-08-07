@@ -30,7 +30,7 @@
     <string name="fincoapps">Powered By FincoApps</string>
     <string name="title_activity_forgot_password">ForgotPassword</string>
     <string name="title_activity_change_password">ChangePassword</string>
-    <string name="Changepass">CHANGE PASSWORD</string>
+    <string name="Changepass">Change Password</string>
     <string name="nav_header_title">User name</string>
     <string name="navigation_drawer_open">Open navigation Drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

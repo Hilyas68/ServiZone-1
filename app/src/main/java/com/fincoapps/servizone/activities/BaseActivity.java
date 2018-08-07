@@ -38,6 +38,7 @@ import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.https.NetworkHelper;
+import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
 import com.fincoapps.servizone.models.UserModel;
@@ -80,7 +81,8 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
     TextView toolbarTitle;
     private FusedLocationProviderClient mFusedLocationClient;
     public NetworkHelper net;
-    String TAGG = "BaseActivity";
+    private String TAG = "BaseActivity";
+    public RetrofitClient retrofit;
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,8 +93,7 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
         user = gson.fromJson(app.getUser(), User.class);
         //try{me = user.getUserModel();}catch (Exception ex){user.logOut();}
         notification = new Notification(this);
-        loader = new CustomLoadingDialog(this);
-
+        retrofit = new RetrofitClient(this, AppConstants.getHost());
         toolbarTitle = (TextView)findViewById(com.fincoapps.servizone.R.id.toolbarTitle);
     }
 
@@ -108,8 +109,8 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
-                            AppConstants.log(TAGG,String.valueOf(location.getLatitude()));
-                            AppConstants.log(TAGG,String.valueOf(location.getLongitude()));
+                            AppConstants.log(TAG,String.valueOf(location.getLatitude()));
+                            AppConstants.log(TAG,String.valueOf(location.getLongitude()));
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
                             user.setLatitude(latitude);

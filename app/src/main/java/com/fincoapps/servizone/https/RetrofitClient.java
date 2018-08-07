@@ -7,14 +7,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -60,17 +57,14 @@ public class RetrofitClient {
         builder.readTimeout(60, TimeUnit.SECONDS);
         builder.connectTimeout(60, TimeUnit.SECONDS);
         builder.cache(new Cache(context.getCacheDir(), 10 * 1024 * 1024)) // 10 MB
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public Response intercept(Chain chain) throws IOException {
-                        Request request = chain.request();
-                        if (new NetworkHelper(context).haveNetworkConnection()) {
-                            request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
-                        } else {
-                            request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
-                        }
-                        return chain.proceed(request);
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    if (new NetworkHelper(context).haveNetworkConnection()) {
+                        request = request.newBuilder().header("Cache-Control", "public, max-age=" + 60).build();
+                    } else {
+                        request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
                     }
+                    return chain.proceed(request);
                 });
         OkHttpClient client = builder.build();
 
