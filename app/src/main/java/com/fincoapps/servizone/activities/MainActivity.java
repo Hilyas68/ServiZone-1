@@ -33,7 +33,7 @@ import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.fragments.HomeFragment;
 import com.fincoapps.servizone.fragments.NearbyFragment;
 import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
@@ -194,7 +194,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -273,7 +273,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -326,7 +325,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         retrofitClient.getApiService().logout(user.getToken())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseModel>() {
+                .subscribe(new Subscriber<ResponseObjectModel>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -339,13 +338,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         if(e instanceof SocketException)
                             msg = "An Internet Error Occurred";
 
+                        notification.setAnchor(relativeLayout);
                         notification.setMessage(msg);
                         notification.show();
                         AppConstants.log(TAG, e.toString());
                     }
 
                     @Override
-                    public void onNext(ResponseModel responseModel) {
+                    public void onNext(ResponseObjectModel responseModel) {
                         AppConstants.log(TAG, responseModel.toString());
                         app.clear();
                         startActivity(new Intent(MainActivity.this, SignInActivity.class));

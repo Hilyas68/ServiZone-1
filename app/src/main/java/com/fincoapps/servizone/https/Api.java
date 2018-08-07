@@ -1,21 +1,10 @@
 package com.fincoapps.servizone.https;
 import com.fincoapps.servizone.models.HomeModel;
-import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
 
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.rest.Post;
-
-import java.util.ArrayList;
-
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -25,18 +14,18 @@ import rx.Observable;
 public interface Api {
     @FormUrlEncoded
     @POST("login")
-    Observable<ResponseModel> login(@Field("email") String email, @Field("password") String password);
+    Observable<ResponseObjectModel> login(@Field("email") String email, @Field("password") String password);
 
     @POST("home")
     Observable<HomeModel> home();
 
     @FormUrlEncoded
     @POST("logout")
-    Observable<ResponseModel> logout(@Field("token") String token);
+    Observable<ResponseObjectModel> logout(@Field("token") String token);
 
     @FormUrlEncoded
     @POST("password/change")
-    Observable<ResponseModel> changePassword(@Field("token") String token, @Field("current_password") String currentPassword, @Field("new_password") String newPassword);
+    Observable<ResponseObjectModel> changePassword(@Field("token") String token, @Field("current_password") String currentPassword, @Field("new_password") String newPassword);
 
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();

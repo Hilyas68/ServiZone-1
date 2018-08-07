@@ -1,25 +1,20 @@
 package com.fincoapps.servizone.activities;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fincoapps.servizone.ForgotPassword;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.Registration;
 import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
 import com.fincoapps.servizone.utils.AppConstants;
-import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.User;
 
@@ -97,7 +92,7 @@ public class SignInActivity extends BaseActivity {
             retrofitClient.getApiService().login(email, password)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<ResponseModel> () {
+                    .subscribe(new Subscriber<ResponseObjectModel> () {
                         @Override
                         public void onCompleted() {
                             pd.dismiss();
@@ -118,10 +113,10 @@ public class SignInActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void onNext(ResponseModel responseModel) {
+                        public void onNext(ResponseObjectModel responseModel) {
                             if(responseModel.getStatus().equals(AppConstants.STATUS_SUCCESS)){
                                 AppConstants.log(TAG, responseModel.toString());
-                                User user = gson.fromJson(responseModel.getData(), User.class);
+                                User user = gson.fromJson(responseModel.getData().toString(), User.class);
                                 AppConstants.log(TAG, user.toString());
                                 app.setUser(user);
                                 startActivity(new Intent(SignInActivity.this, MainActivity.class));

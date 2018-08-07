@@ -1,6 +1,6 @@
 package com.fincoapps.servizone.models;
 
-public class ResponseModel {
+public class ResponseObjectModel {
     private String status;
     private String message;
     private String data;
@@ -32,7 +32,7 @@ public class ResponseModel {
 
     @Override
     public String toString() {
-        return "ResponseModel{" +
+        return "ResponseObjectModel{" +
                 "status='" + status + '\'' +
                 ", message='" + message + '\'' +
                 ", data='" + data + '\'' +

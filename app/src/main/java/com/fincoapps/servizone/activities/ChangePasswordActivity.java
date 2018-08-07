@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
@@ -63,12 +63,14 @@ public class ChangePasswordActivity extends BaseActivity {
                 notification.setMessage("Password Mismatch");
                 notification.show();
             } else {
+                notification.setAnchor(toolbar);
                 pd.setMessage("Processing...");
                 pd.show();
                 retrofit.getApiService().changePassword(user.getToken(),current_password.getText().toString().trim(), new_password.getText().toString().trim())
                         .subscribeOn(Schedulers.newThread())
+                        .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Subscriber<ResponseModel>() {
+                        .subscribe(new Subscriber<ResponseObjectModel>() {
                             @Override
                             public void onCompleted() {
 
@@ -90,10 +92,10 @@ public class ChangePasswordActivity extends BaseActivity {
                             }
 
                             @Override
-                            public void onNext(ResponseModel responseModel) {
+                            public void onNext(ResponseObjectModel responseModel) {
                                 AppConstants.log(TAG, responseModel.toString());
                                 if(responseModel.getStatus().equals(AppConstants.STATUS_ERROR)){
-                                    notification.setMessage(responseModel.getData());
+                                    notification.setMessage(responseModel.getData().toString());
                                     notification.show();
                                 }else{
                                     Toast.makeText(ChangePasswordActivity.this, responseModel.getMessage(), Toast.LENGTH_SHORT).show();
