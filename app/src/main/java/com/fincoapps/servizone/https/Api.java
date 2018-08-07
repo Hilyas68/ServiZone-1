@@ -1,25 +1,11 @@
 package com.fincoapps.servizone.https;
-import com.afollestad.bridge.annotations.ContentType;
+
 import com.fincoapps.servizone.models.HomeModel;
-import com.fincoapps.servizone.models.ResponseModel;
-import com.fincoapps.servizone.models.UserModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
 
-import org.androidannotations.annotations.App;
-import org.androidannotations.annotations.rest.Post;
-
-import java.util.ArrayList;
-import java.util.Date;
-
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -29,18 +15,22 @@ import rx.Observable;
 public interface Api {
     @FormUrlEncoded
     @POST("login")
-    Observable<ResponseModel> login(@Field("email") String email, @Field("password") String password);
+    Observable<ResponseObjectModel> login(@Field("email") String email, @Field("password") String password);
 
     @POST("home")
     Observable<HomeModel> home();
 
     @FormUrlEncoded
     @POST("logout")
-    Observable<ResponseModel> logout(@Field("token") String token);
+    Observable<ResponseObjectModel> logout(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("password/change")
+    Observable<ResponseObjectModel> changePassword(@Field("token") String token, @Field("current_password") String currentPassword, @Field("new_password") String newPassword);
 
     @FormUrlEncoded
     @POST("register")
-    Observable<ResponseModel> register(@Field("name") String name , @Field("email") String email, @Field("dob") String dob, @Field("phone_number") String phoneNumber, @Field("gender") String gender, @Field("password") String password);
+    Observable<ResponseObjectModel> register(@Field("name") String name , @Field("email") String email, @Field("dob") String dob, @Field("phone_number") String phoneNumber, @Field("gender") String gender, @Field("password") String password, @Field("latitude") double latitude, @Field("longitude") double longitude);
 
 //    @POST("categories/listAllCategories")
 //    Observable<CommonResponse<CommonListResult<CategoryModel>>> getAllCategory();

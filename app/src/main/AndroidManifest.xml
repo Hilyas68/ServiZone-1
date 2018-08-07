@@ -49,7 +49,7 @@
         <activity
             android:name=".experts.ExpertResultsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Registration" />
+        <activity android:name=".activities.RegistrationActivity" />
         <activity android:name=".RegisterExpertActivity" />
         <activity android:name=".ReviewsActivity" />
         <activity android:name=".experts.ReportExpert" />
@@ -76,7 +76,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChangePassword"
+            android:name=".activities.ChangePasswordActivity"
             android:label="@string/title_activity_change_password"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

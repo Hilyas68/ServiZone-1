@@ -1,27 +1,21 @@
 package com.fincoapps.servizone.activities;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fincoapps.servizone.ForgotPassword;
 import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.Registration;
 import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
+import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
-import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
-import com.fincoapps.servizone.utils.User;
 
 import java.net.SocketException;
 
@@ -58,7 +52,7 @@ public class SignInActivity extends BaseActivity {
         pd.setMessage("Signing In...");
         notification = new Notification(this);
 
-        btnBack.setOnClickListener(view -> onBackPressed());
+        //btnBack.setOnClickListener(view -> onBackPressed());
 
         forgotpass.setOnClickListener(view -> {
             Intent intent = new Intent(SignInActivity.this, ForgotPassword.class);
@@ -67,7 +61,7 @@ public class SignInActivity extends BaseActivity {
         });
 
         signup.setOnClickListener(view -> {
-            Intent intent = new Intent(SignInActivity.this, Registration.class);
+            Intent intent = new Intent(SignInActivity.this, RegistrationActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
         });
@@ -97,7 +91,7 @@ public class SignInActivity extends BaseActivity {
             retrofitClient.getApiService().login(email, password)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<ResponseModel> () {
+                    .subscribe(new Subscriber<ResponseObjectModel> () {
                         @Override
                         public void onCompleted() {
                             pd.dismiss();
@@ -118,10 +112,10 @@ public class SignInActivity extends BaseActivity {
                         }
 
                         @Override
-                        public void onNext(ResponseModel responseModel) {
+                        public void onNext(ResponseObjectModel responseModel) {
                             if(responseModel.getStatus().equals(AppConstants.STATUS_SUCCESS)){
                                 AppConstants.log(TAG, responseModel.toString());
-                                User user = gson.fromJson(responseModel.getData(), User.class);
+                                user = gson.fromJson(responseModel.getData(), UserModel.class);
                                 AppConstants.log(TAG, user.toString());
                                 app.setUser(user);
                                 startActivity(new Intent(SignInActivity.this, MainActivity.class));
@@ -140,6 +134,7 @@ public class SignInActivity extends BaseActivity {
             notification.setMessage("No Internet Connection");
             notification.show();
             pd.dismiss();
+
         }
     }
 

@@ -38,15 +38,14 @@ import com.afollestad.bridge.MultipartForm;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.activities.BaseActivity;
+import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
-import com.fincoapps.servizone.adapters.ProfessionsAdapter;
 import com.fincoapps.servizone.utils.AppSettings;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
 import com.fincoapps.servizone.utils.ResponseUtility;
-import com.fincoapps.servizone.utils.User;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -64,7 +63,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static android.app.PendingIntent.getActivity;
 import static java.lang.System.out;
 
 public class RegisterExpertActivity extends BaseActivity implements ChooseProfession {
@@ -73,7 +71,6 @@ public class RegisterExpertActivity extends BaseActivity implements ChooseProfes
     ImageView avatar;
     String gender;
     Button register;
-    User user;
     AppSettings app;
     String accountType = "user";
     TextView registertype;
@@ -124,19 +121,19 @@ public class RegisterExpertActivity extends BaseActivity implements ChooseProfes
         loader = new CustomLoadingDialog(this);
 
         notification = new Notification(this);
-        registertype = (TextView) findViewById(R.id.registertype);
-        address = (EditText) findViewById(R.id.txtAddress);
-        about = (EditText) findViewById(R.id.txtDescription);
-        profession = (TextView) findViewById(R.id.txtProfessions);
-        avatar = (ImageView) findViewById(R.id.avatar);
-        name = (EditText) findViewById(R.id.txtName);
-        age = (EditText) findViewById(R.id.txtAge);
-        email = (EditText) findViewById(R.id.txtEmail);
-        mobile = (EditText) findViewById(R.id.txtMobile);
-        register = (Button) findViewById(R.id.registerbtn);
-        radioGroupGender = (RadioGroup) findViewById(R.id.radio_group_gender);
-        radioButtonMale = (RadioButton) findViewById(R.id.radioMale);
-        radioButtonFemale = (RadioButton) findViewById(R.id.radioFemale);
+        registertype = findViewById(R.id.registertype);
+        address = findViewById(R.id.txtAddress);
+        about = findViewById(R.id.txtDescription);
+        profession = findViewById(R.id.txtProfessions);
+        avatar = findViewById(R.id.avatar);
+        name = findViewById(R.id.txtName);
+        age = findViewById(R.id.txtAge);
+        email = findViewById(R.id.txtEmail);
+        mobile = findViewById(R.id.txtMobile);
+        register = findViewById(R.id.registerbtn);
+        radioGroupGender = findViewById(R.id.radio_group_gender);
+        radioButtonMale = findViewById(R.id.radioMale);
+        radioButtonFemale = findViewById(R.id.radioFemale);
         notification.setAnchor(name);
 
         //======================= LISTENER FOR PROFESSIONS SELECTOR =====================
@@ -404,7 +401,7 @@ public class RegisterExpertActivity extends BaseActivity implements ChooseProfes
         }.getType();
         String p = app.getProfessions();
         try {
-            professionList.addAll((ArrayList) gson.fromJson(p, collectionType));
+            professionList.addAll(gson.fromJson(p, collectionType));
         }
         catch (Exception ex){
             notification.setMessage("An Error occurred.   Please restart Servizone");

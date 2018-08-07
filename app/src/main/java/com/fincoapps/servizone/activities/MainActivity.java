@@ -1,10 +1,7 @@
 package com.fincoapps.servizone.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.BitmapDrawable;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,52 +15,31 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseConvertCallback;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fincoapps.servizone.About;
-import com.fincoapps.servizone.ProfileActivity;
 import com.fincoapps.servizone.QuickSearchPopup;
 import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.RegisterExpertActivity;
-import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.fragments.HomeFragment;
 import com.fincoapps.servizone.fragments.NearbyFragment;
 import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.models.ExpertModel;
-import com.fincoapps.servizone.models.HomeModel;
-import com.fincoapps.servizone.models.ResponseModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
+import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
-import com.fincoapps.servizone.utils.AppSettings;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
-import com.fincoapps.servizone.utils.User;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.gson.Gson;
-import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import java.net.SocketException;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import retrofit2.adapter.rxjava.HttpException;
@@ -114,7 +90,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             startActivity(new Intent(this, SignInActivity.class));
             finish();
         }
-        User user = gson.fromJson(app.getUser(), User.class);
+        user = gson.fromJson(app.getUser(), UserModel.class);
         relativeLayout = findViewById(R.id.hometoolbar);
         setSupportActionBar(relativeLayout);
         mHandler = new Handler();
@@ -218,7 +194,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -272,6 +248,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             fragment = new HomeFragment();
         }
 
+        if(id == R.id.changePassword){
+            startActivity(new Intent(this, ChangePasswordActivity.class));
+            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+
+        }
+
         if (id == R.id.logout) {
             //logOut();
             AppConstants.log(TAG, app.getUser());
@@ -279,6 +261,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             finish();
             app.clear();
         }
+      
         if (item.isChecked()) {
             item.setChecked(false);
         } else {
@@ -295,7 +278,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -348,7 +330,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         retrofitClient.getApiService().logout(user.getToken())
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseModel>() {
+                .subscribe(new Subscriber<ResponseObjectModel>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -361,13 +343,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         if(e instanceof SocketException)
                             msg = "An Internet Error Occurred";
 
+                        notification.setAnchor(relativeLayout);
                         notification.setMessage(msg);
                         notification.show();
                         AppConstants.log(TAG, e.toString());
                     }
 
                     @Override
-                    public void onNext(ResponseModel responseModel) {
+                    public void onNext(ResponseObjectModel responseModel) {
                         AppConstants.log(TAG, responseModel.toString());
                         app.clear();
                         startActivity(new Intent(MainActivity.this, SignInActivity.class));

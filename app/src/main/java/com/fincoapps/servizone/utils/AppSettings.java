@@ -2,13 +2,11 @@ package com.fincoapps.servizone.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
-import com.android.volley.RequestQueue;
 import com.fincoapps.servizone.models.HomeModel;
+import com.fincoapps.servizone.models.UserModel;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -40,8 +38,8 @@ public class AppSettings {
     }
 
     //User
-    public void setUser(User user){
-        editor.putString("user", gson.toJson(user, User.class)).apply();
+    public void setUser(UserModel user){
+        editor.putString("user", gson.toJson(user, UserModel.class)).apply();
     }
 
     public String getUser(){

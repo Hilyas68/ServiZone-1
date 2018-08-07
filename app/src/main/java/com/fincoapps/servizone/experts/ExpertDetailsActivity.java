@@ -4,18 +4,17 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,16 +33,14 @@ import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.ProfilePictureActivity;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.ReviewsActivity;
+import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.models.ExpertModel;
 import com.fincoapps.servizone.models.UserModel;
-import com.fincoapps.servizone.databinding.ActivityExpertDetailsBinding;
 import com.fincoapps.servizone.utils.CustomLoadingDialog;
 import com.fincoapps.servizone.utils.Notification;
-import com.fincoapps.servizone.utils.User;
 import com.google.gson.Gson;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
@@ -68,10 +65,9 @@ public class ExpertDetailsActivity extends BaseActivity {
     @BindView(R.id.toolbarTitle)
     TextView toolbarTitle;
     private PopupWindow popupWindow;
-    private User user;
 
     SimpleRatingBar ratingView;
-    private User me;
+    private UserModel me;
     private ExpertModel expertModel;
     private EditText editTextReview;
     private CustomLoadingDialog loader;
@@ -93,8 +89,8 @@ public class ExpertDetailsActivity extends BaseActivity {
         out.println("======== E JS ============== " + expertJson);
 
 
-        ActivityExpertDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_expert_details);
-        binding.setExpert(expertModel); // generated setter based on the data in the layout file
+        //ActivityExpertDetailsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_expert_details);
+        //binding.setExpert(expertModel); // generated setter based on the data in the layout file
         ButterKnife.bind(this);
         toolbarTitle.setText(expertModel.name);
         toolbar = findViewById(R.id.toolbar);
@@ -300,10 +296,10 @@ public class ExpertDetailsActivity extends BaseActivity {
         dialog.setContentView(R.layout.popup_rate);
 
         //====================== Rating View ==========================
-        ratingView = (SimpleRatingBar) dialog.findViewById(R.id.rating);
+        ratingView = dialog.findViewById(R.id.rating);
 
         //====================== TextBox View ==========================
-        editTextReview = (EditText) dialog.findViewById(R.id.editTextReview);
+        editTextReview = dialog.findViewById(R.id.editTextReview);
 
 
         dialog.setCanceledOnTouchOutside(true);
