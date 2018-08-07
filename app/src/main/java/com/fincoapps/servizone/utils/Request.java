@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 public class Request {
 
-    public static String api = "http://servizone.net/api";
+//    public static String api = "http://servizone.net/api";
+    public static String api = "http://test.oneflaretech.com/api";
 
 }
