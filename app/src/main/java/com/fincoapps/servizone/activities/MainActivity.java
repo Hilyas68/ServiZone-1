@@ -279,6 +279,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             finish();
             app.clear();
         }
+      
         if (item.isChecked()) {
             item.setChecked(false);
         } else {

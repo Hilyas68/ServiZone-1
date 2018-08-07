@@ -1,8 +1,12 @@
 package com.fincoapps.servizone.https;
+
 import com.afollestad.bridge.annotations.ContentType;
 import com.fincoapps.servizone.models.HomeModel;
 import com.fincoapps.servizone.models.ResponseModel;
 import com.fincoapps.servizone.models.UserModel;
+
+import com.fincoapps.servizone.models.HomeModel;
+import com.fincoapps.servizone.models.ResponseModel;
 
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.rest.Post;
@@ -13,6 +17,10 @@ import java.util.Date;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;

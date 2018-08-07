@@ -146,6 +146,7 @@ public class Registration extends BaseActivity {
                     } else {
                         gender = "Female";
                     }
+                  
                     register(name.getText().toString(), email.getText().toString(), phone.getText().toString(), gender, age.getText().toString() , password.getText().toString());
 //                    Form form = new Form()
 //                            .add("name", name.getText().toString())
