@@ -9,11 +9,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.models.ReviewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +34,7 @@ public class ReviewsAdapter extends ArrayAdapter<ReviewModel.Data> {
         super(context, R.layout.row_review_item, data);
         this.data = data;
         this.context = context;
+
     }
 
     public long getItemId(int position) {
@@ -50,9 +49,9 @@ public class ReviewsAdapter extends ArrayAdapter<ReviewModel.Data> {
         viewHolder = new ViewHolder();
         LayoutInflater inflater = LayoutInflater.from(getContext());
         convertView = inflater.inflate(R.layout.row_review_item, parent, false);
-        viewHolder.ratingBar = (RatingBar) convertView.findViewById(R.id.rating);
-        viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtName);
-        viewHolder.txtMessage = (TextView) convertView.findViewById(R.id.txtMessage);
+        viewHolder.ratingBar = convertView.findViewById(R.id.rating);
+        viewHolder.txtName = convertView.findViewById(R.id.txtName);
+        viewHolder.txtMessage = convertView.findViewById(R.id.txtMessage);
         convertView.setTag(viewHolder);
 
 
