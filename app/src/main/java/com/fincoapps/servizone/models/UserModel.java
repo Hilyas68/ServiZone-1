@@ -8,7 +8,7 @@ public class UserModel {
     private String name;
     private String age;
     private String gender;
-    private String phone_number;
+    private String mobile;
     private String dob;
     private String about;
     private String email;
@@ -27,7 +27,7 @@ public class UserModel {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", gender='" + gender + '\'' +
-                ", phone_number='" + phone_number + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", dob='" + dob + '\'' +
                 ", about='" + about + '\'' +
                 ", email='" + email + '\'' +
@@ -87,12 +87,12 @@ public class UserModel {
         this.gender = gender;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setMobile(String mobil) {
+        this.mobile = mobile;
     }
 
     public String getDob() {

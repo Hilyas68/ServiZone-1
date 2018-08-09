@@ -18,6 +18,7 @@ import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
 
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -31,7 +32,6 @@ public class SignInActivity extends BaseActivity {
     ImageButton btnBack;
     ImageView logo;
     Notification notification;
-    String url = "http://servizone.net/api/login";
     ProgressDialog pd;
     RetrofitClient retrofitClient;
     String TAG = "SignInActivity";
@@ -102,7 +102,7 @@ public class SignInActivity extends BaseActivity {
                             String msg = "An Error Occurred. Please Try Again";
                             if(e instanceof HttpException)
                                 msg = "A Server Error occurred. Please Try Again";
-                            if(e instanceof SocketException)
+                            if(e instanceof SocketException || e instanceof SocketTimeoutException)
                                 msg = "No Internet Connection";
 
                             notification.setMessage(msg);

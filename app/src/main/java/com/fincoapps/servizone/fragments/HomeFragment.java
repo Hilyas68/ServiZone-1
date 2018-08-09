@@ -23,8 +23,6 @@ import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseConvertCallback;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.https.NetworkHelper;
@@ -236,11 +234,11 @@ public class HomeFragment extends Fragment {
             name.setText(model.name);
             profession.setText(model.profession);
             ratingBar.setRating(model.averageRating);
-            Glide.with(expertImage.getContext())
-                    .load("http://servizone.net/storage" + model.avatar)
-                    .placeholder(R.drawable.placeholder)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .into(expertImage);
+//            Glide.with(expertImage.getContext())
+//                    .load("http://servizone.net/storage" + model.avatar)
+//                    .placeholder(R.drawable.placeholder)
+//                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                    .into(expertImage);
 
             //=================== IMAGE LISTENER ===================
             expertImage.setOnClickListener(new View.OnClickListener() {

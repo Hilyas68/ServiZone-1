@@ -6,7 +6,6 @@ import android.os.Bundle
 import com.fincoapps.servizone.R
 import com.fincoapps.servizone.utils.AppConstants
 import com.tbruyelle.rxpermissions2.RxPermissions
-import java.util.concurrent.TimeUnit
 
 class SplashScreenActivity : BaseActivity() {
     val TAG = "SplashScreen"
@@ -17,8 +16,6 @@ class SplashScreenActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        Thread.sleep(TimeUnit.SECONDS.toMillis(0).toInt().toLong())
-        AppConstants.log(TAG, "Sleep Finished")
         val rxx  = RxPermissions(this)
         rxx
                 .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)

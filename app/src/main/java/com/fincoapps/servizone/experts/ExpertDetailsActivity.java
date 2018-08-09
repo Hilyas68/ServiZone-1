@@ -31,8 +31,6 @@ import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fincoapps.servizone.ProfilePictureActivity;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.ReviewsActivity;
@@ -105,11 +103,11 @@ public class ExpertDetailsActivity extends BaseActivity {
 
         //===================== EXPERT IMAGE =====================
         expertImage = findViewById(R.id.expertImage);
-        Glide.with(expertImage.getContext())
-                .load("http://servizone.net/storage" + expertModel.avatar)
-                .placeholder(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(expertImage);
+//        Glide.with(expertImage.getContext())
+//                .load("http://servizone.net/storage" + expertModel.avatar)
+//                .placeholder(R.drawable.placeholder)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .into(expertImage);
 
 
     }
