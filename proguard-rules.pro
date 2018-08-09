@@ -43,6 +43,41 @@
 -dontwarn java.nio.**
 -dontwarn java.lang.invoke.**
 -dontwarn rx.**
+-dontwarn org.mockito.**
+-dontwarn sun.reflect.**
+-dontwarn android.test.**
+-dontwarn okio.**
+-dontwarn com.squareup.javawriter.JavaWriter
+-dontwarn org.springframework.**
+-dontwarn android.test.**
+-dontwarn com.amazonaws.**
+-dontwarn com.android.volley.**
+-dontwarn com.fasterxml.jackson.**
+-dontwarn com.viewpagerindicator.**
+-dontwarn org.joda.time.**
+-dontwarn se.walkercrou.**
+-dontwarn org.codehaus.mojo.**
+-dontwarn java.lang.management.**
+-dontwarn junit.framework.**
+-dontwarn com.squareup.okhttp3.**
+
+-dontwarn org.hamcrest.**
+-dontwarn android.support.test.**
+
+-keep class org.hamcrest.** {
+   *;
+}
+
+-keep class org.junit.** { *; }
+-dontwarn org.junit.**
+
+-keep class junit.** { *; }
+-dontwarn junit.**
+
+-keep class sun.misc.** { *; }
+-dontwarn sun.misc.**
+
+
 
 -keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
     long producerIndex;
