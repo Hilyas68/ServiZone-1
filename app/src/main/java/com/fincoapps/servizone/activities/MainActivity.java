@@ -136,10 +136,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         getLocation();
         //Load Default Fragment
-        loadFragment(fragment);
+        loadFragment();
     }
 
-    private void loadFragment(final Fragment holder) {
+    private void loadFragment() {
         //setToolbarTitle();
         // if user select the current navigation menu again, don't do anything
         // just close the navigation drawer
@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         // So using runnable, the fragment is loaded with cross fade effect
         // This effect can be seen in GMail app
         Runnable mPendingRunnable = () -> {
-            Fragment innerFrag = holder;
+            Fragment innerFrag = fragment;
             // update the main content by replacing fragments
             if (innerFrag == null){
                 navItemIndex = 0;
@@ -264,6 +264,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 CURRENT_TAG = TAG_HOME;
                 navItemIndex = 0;
                 fragment = new HomeFragment();
+                loadFragment();
             }
         }
 
@@ -276,18 +277,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             CURRENT_TAG = TAG_REGISTER_SERVICE;
             navItemIndex = 2;
             fragment = new HomeFragment();
+            loadFragment();
         }
 
         if (id == R.id.services) {
             CURRENT_TAG = TAG_VIEW_REGISTERED_SERVICES;
             navItemIndex = 3;
             fragment = new HomeFragment();
+            loadFragment();
         }
 
         if (id == R.id.contactUs) {
             CURRENT_TAG = TAG_CONTACT_US;
             navItemIndex = 4;
             fragment = new HomeFragment();
+            loadFragment();
         }
 
         if(id == R.id.changePassword){
@@ -309,7 +313,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
-        loadFragment(fragment);
         return true;
     }
 
@@ -336,7 +339,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if(id == R.id.switch_home_view){
             CURRENT_HOME_VIEW = CURRENT_HOME_VIEW.equals(TAG_NEARBY_SERVICES) ? TAG_HOME : TAG_NEARBY_SERVICES;
-            loadFragment(CURRENT_HOME_VIEW.equals(TAG_NEARBY_SERVICES) ? getNearbyFragment() : getHomeFragment());
+            if(CURRENT_HOME_VIEW.equals(TAG_NEARBY_SERVICES))
+                fragment = getNearbyFragment();
+            else
+                fragment = getHomeFragment();
+            loadFragment();
             AppConstants.log(TAG, "View Changed - " + CURRENT_HOME_VIEW);
         }
 
