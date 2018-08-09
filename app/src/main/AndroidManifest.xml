@@ -52,7 +52,7 @@
         <activity android:name=".ReviewsActivity" />
         <activity android:name=".experts.ReportExpert" />
         <activity android:name=".Imageview" />
-        <activity android:name=".ProfilePictureActivity" />
+        <activity android:name=".ShowImageActivity" />
         <activity android:name=".SocialNetworks" />
         <activity
             android:name=".interfaces.Startpage"

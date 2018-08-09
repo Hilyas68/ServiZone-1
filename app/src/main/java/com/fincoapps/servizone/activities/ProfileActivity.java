@@ -20,8 +20,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fincoapps.servizone.ProfilePictureActivity;
 import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.ShowImageActivity;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ResponseObjectModel;
@@ -94,7 +94,7 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
         collapsingToolbarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, ProfilePictureActivity.class).putExtra("imageUrl", user.getAvatar()));
+                startActivity(new Intent(ProfileActivity.this, ShowImageActivity.class).putExtra("imageUrl", user.getAvatar()));
             }
         });
 

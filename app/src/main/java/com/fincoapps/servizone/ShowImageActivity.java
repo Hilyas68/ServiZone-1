@@ -12,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProfilePictureActivity extends BaseActivity {
+public class ShowImageActivity extends BaseActivity {
 
     @BindView(R.id.imageView)
     ImageView imageView;

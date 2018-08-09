@@ -31,9 +31,9 @@ import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Form;
 import com.afollestad.bridge.ResponseConvertCallback;
-import com.fincoapps.servizone.ProfilePictureActivity;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.ReviewsActivity;
+import com.fincoapps.servizone.ShowImageActivity;
 import com.fincoapps.servizone.activities.BaseActivity;
 import com.fincoapps.servizone.models.ExpertModel;
 import com.fincoapps.servizone.models.UserModel;
@@ -115,7 +115,7 @@ public class ExpertDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.cardView)
     public void expertImageOnClick(View view) {
-        Intent intent = new Intent(ExpertDetailsActivity.this, ProfilePictureActivity.class);
+        Intent intent = new Intent(ExpertDetailsActivity.this, ShowImageActivity.class);
         intent.putExtra("expertImageUrl", expertModel.avatar);
         startActivity(intent);
         overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);

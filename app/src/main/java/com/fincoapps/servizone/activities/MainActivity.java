@@ -29,9 +29,9 @@ import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.About;
-import com.fincoapps.servizone.ProfilePictureActivity;
 import com.fincoapps.servizone.QuickSearchPopup;
 import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.ShowImageActivity;
 import com.fincoapps.servizone.fragments.HomeFragment;
 import com.fincoapps.servizone.fragments.NearbyFragment;
 import com.fincoapps.servizone.https.RetrofitClient;
@@ -114,7 +114,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         username.setText(user.getName());
         userAvatar = view.findViewById(R.id.profile_image);
         userAvatar.setOnClickListener(v ->
-            startActivity(new Intent(MainActivity.this, ProfilePictureActivity.class).putExtra("imageUrl", user.getAvatar()))
+            startActivity(new Intent(MainActivity.this, ShowImageActivity.class).putExtra("imageUrl", user.getAvatar()))
         );
         Picasso.get()
                 .load(AppConstants.getFileHost() + user.getAvatar())
