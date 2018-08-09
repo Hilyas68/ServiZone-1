@@ -9,12 +9,13 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.fincoapps.servizone.Popup;
 import com.fincoapps.servizone.QuickSearchPopup;
 import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.activities.ProfileActivity;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
-import com.fincoapps.servizone.Popup;
-import com.fincoapps.servizone.ProfileActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +77,7 @@ public class ProfessionsAdapter extends ArrayAdapter<ProfessionModel> implements
         viewHolder = new ViewHolder();
         LayoutInflater inflater = LayoutInflater.from(getContext());
         convertView = inflater.inflate(R.layout.professions_item, parent, false);
-        viewHolder.title = (TextView) convertView.findViewById(R.id.professionsitem);
+        viewHolder.title = convertView.findViewById(R.id.professionsitem);
 
         //===================== ROW CLICK LISTENER =====================
         viewHolder.title.setOnClickListener(new View.OnClickListener() {

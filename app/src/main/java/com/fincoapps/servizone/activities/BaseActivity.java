@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.https.NetworkHelper;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.interfaces.ChooseProfession;
 import com.fincoapps.servizone.models.ProfessionModel;
+import com.fincoapps.servizone.models.ResponseObjectModel;
 import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.AppSettings;
@@ -27,6 +29,9 @@ import com.google.gson.Gson;
 
 import butterknife.OnClick;
 import butterknife.Optional;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static java.lang.System.out;
 
@@ -53,10 +58,11 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
         gson = new Gson();
         //===================================== INIT APP CLASSES ===============================
         user = gson.fromJson(app.getUser(), UserModel.class);
-        //try{me = user.getUserModel();}catch (Exception ex){user.logOut();}
         notification = new Notification(this);
+        notification.setType(Notification.FAILURE);
         retrofit = new RetrofitClient(this, AppConstants.getHost());
         toolbarTitle = findViewById(com.fincoapps.servizone.R.id.toolbarTitle);
+        getLocation();
     }
 
     public void getLocation(){
@@ -75,9 +81,11 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
                             AppConstants.log(TAG,String.valueOf(location.getLongitude()));
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
-                            user.setLatitude(latitude);
-                            user.setLongitude(longitude);
-                            app.setUser(user);
+                            if(user != null){
+                                user.setLatitude(latitude);
+                                user.setLongitude(longitude);
+                                app.setUser(user);
+                            }
                         }
                     }
                 });
@@ -130,4 +138,38 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
         finish();
         overridePendingTransition(com.fincoapps.servizone.R.anim.pop_enter, com.fincoapps.servizone.R.anim.pop_exit);
     }
+
+    public void checkResponse(ResponseObjectModel responseObjectModel){
+        if(responseObjectModel.getStatus().equals(AppConstants.STATUS_UNAUTHORIZED_USER)){
+            logOut();
+        }
+    }
+
+    void logOut(){
+        AppConstants.log(TAG, user.getToken());
+        AppConstants.log(TAG, app.getUser());
+        retrofit.getApiService().logout(user.getToken())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseObjectModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onNext(ResponseObjectModel responseModel) {
+                        AppConstants.log(TAG, responseModel.toString());
+                    }
+                });
+
+        app.clear();
+        startActivity(new Intent(BaseActivity.this, SignInActivity.class));
+        finish();
+        overridePendingTransition(R.anim.trans_right_out, R.anim.trans_right_in);
+    }
+
 }

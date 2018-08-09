@@ -14,7 +14,6 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.fincoapps.servizone.ProfileActivity;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.models.ResponseObjectModel;
@@ -116,34 +115,32 @@ public class RegistrationActivity extends BaseActivity {
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show());
 
         register.setOnClickListener(view -> {
-                final String realage = age.getText().toString();
-                 notification.setAnchor(logo);
-                if (name.getText().toString().isEmpty() || name.getText().toString().length() < 3) {
-                    notification.setMessage("Invalid name");
-                    notification.show();
-                } else if (age.getText().toString().isEmpty() || ageCollected < 18) {
-                    notification.setMessage("You Must Be 18 and Above to Use ServiZone");
-                    notification.show();
-                } else if (email.getText().toString().isEmpty() || email.getText().toString().length() < 3 || !email.getText().toString().contains("@")) {
-                    notification.setMessage("Invalid Email");
-                    notification.show();
-                } else if (phone.getText().toString().isEmpty() || phone.getText().toString().length() < 9) {
-                    notification.setMessage("Enter a valid Phone Number");
-                    notification.show();
-                }else if (password.getText().toString().isEmpty() || password.getText().toString().length() < 6) {
-                    notification.setMessage("Password Must Be More Than Six Characters");
-                    notification.show();
+            notification.setAnchor(logo);
+            if (name.getText().toString().isEmpty() || name.getText().toString().length() < 3) {
+                notification.setMessage("Invalid name");
+                notification.show();
+            } else if (age.getText().toString().isEmpty() || ageCollected < 18) {
+                notification.setMessage("You Must Be 18 and Above to Use ServiZone");
+                notification.show();
+            } else if (email.getText().toString().isEmpty() || email.getText().toString().length() < 3 || !email.getText().toString().contains("@")) {
+                notification.setMessage("Invalid Email");
+                notification.show();
+            } else if (phone.getText().toString().isEmpty() || phone.getText().toString().length() < 9) {
+                notification.setMessage("Enter a valid Phone Number");
+                notification.show();
+            }else if (password.getText().toString().isEmpty() || password.getText().toString().length() < 6) {
+                notification.setMessage("Password Must Be More Than Six Characters");
+                notification.show();
+            } else {
+                loader.show();
+                if (radioButtonMale.isChecked()) {
+                    gender = "Male";
                 } else {
-                    loader.show();
-                    if (radioButtonMale.isChecked()) {
-                        gender = "Male";
-                    } else {
-                        gender = "Female";
-                    }
-                    register(name.getText().toString(), email.getText().toString(), phone.getText().toString(), gender, age.getText().toString() , password.getText().toString(), latitude, longitude);
+                    gender = "Female";
                 }
+                register(name.getText().toString(), email.getText().toString(), phone.getText().toString(), gender, age.getText().toString() , password.getText().toString(), latitude, longitude);
             }
-        );
+        });
     }
 
     private void register(String name, String email, String phoneNumber, String gender, String dob, String password, double latitude, double longitude) {

@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.bridge.Bridge;
@@ -30,22 +31,18 @@ import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.About;
 import com.fincoapps.servizone.QuickSearchPopup;
 import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.ShowImageActivity;
 import com.fincoapps.servizone.fragments.HomeFragment;
 import com.fincoapps.servizone.fragments.NearbyFragment;
 import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.models.ResponseObjectModel;
 import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
-
-import java.net.SocketException;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import butterknife.ButterKnife;
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static java.lang.System.out;
 
@@ -75,6 +72,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public static String CURRENT_HOME_VIEW = TAG_NEARBY_SERVICES;
 
     private static String CURRENT_TAG = TAG_HOME;
+    ImageView userAvatar;
 
 
     String TAG = "MainActivity";
@@ -90,7 +88,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             startActivity(new Intent(this, SignInActivity.class));
             finish();
         }
-        user = gson.fromJson(app.getUser(), UserModel.class);
+        //user = gson.fromJson(app.getUser(), UserModel.class);
         relativeLayout = findViewById(R.id.hometoolbar);
         setSupportActionBar(relativeLayout);
         mHandler = new Handler();
@@ -114,6 +112,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         View view = navigationView.getHeaderView(0);
         username = view.findViewById(R.id.username);
         username.setText(user.getName());
+        userAvatar = view.findViewById(R.id.profile_image);
+        userAvatar.setOnClickListener(v ->
+            startActivity(new Intent(MainActivity.this, ShowImageActivity.class).putExtra("imageUrl", user.getAvatar()))
+        );
+        Picasso.get()
+                .load(AppConstants.getFileHost() + user.getAvatar())
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.noimage)
+                .into(userAvatar, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        AppConstants.log(TAG,"Image Loaded");
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        AppConstants.log(TAG,e.getMessage());
+                        e.printStackTrace();
+                    }
+                });
 
         getLocation();
         //Load Default Fragment
@@ -207,7 +226,30 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public void onResume() {
         super.onResume();
+        user = gson.fromJson(app.getUser(), UserModel.class);
         selectNavMenu();
+        updateImage();
+
+    }
+
+    private void updateImage() {
+        Picasso.get()
+                .load(AppConstants.getFileHost() + user.getAvatar())
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.noimage)
+                .into(userAvatar, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        AppConstants.log(TAG,"Image Loaded");
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        AppConstants.log(TAG,e.getMessage());
+                        e.printStackTrace();
+                    }
+                });
     }
 
 
@@ -227,7 +269,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if (id == R.id.nav_profile) {
             //go to profile
-            startActivity(new Intent(this, DrawerActivity.class));
+            startActivity(new Intent(this, ProfileActivity.class));
         }
 
         if (id == R.id.nav_register_a_service) {
@@ -255,11 +297,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.logout) {
-            //logOut();
-            AppConstants.log(TAG, app.getUser());
-            startActivity(new Intent(this, SignInActivity.class));
-            finish();
-            app.clear();
+            logOut();
         }
       
         if (item.isChecked()) {
@@ -324,39 +362,4 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return new NearbyFragment(app);
     }
 
-    void logOut(){
-        AppConstants.log(TAG, user.getToken());
-        AppConstants.log(TAG, app.getUser());
-        retrofitClient.getApiService().logout(user.getToken())
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseObjectModel>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        String msg = "An Error Occurred. Please Try Again";
-                        if(e instanceof HttpException)
-                            msg = "No Internet Connection";
-                        if(e instanceof SocketException)
-                            msg = "An Internet Error Occurred";
-
-                        notification.setAnchor(relativeLayout);
-                        notification.setMessage(msg);
-                        notification.show();
-                        AppConstants.log(TAG, e.toString());
-                    }
-
-                    @Override
-                    public void onNext(ResponseObjectModel responseModel) {
-                        AppConstants.log(TAG, responseModel.toString());
-                        app.clear();
-                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                        finish();
-                        overridePendingTransition(R.anim.trans_right_out, R.anim.trans_right_in);
-                    }
-                });
-    }
 }
