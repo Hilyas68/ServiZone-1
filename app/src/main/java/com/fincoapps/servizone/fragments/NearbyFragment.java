@@ -78,7 +78,7 @@ public class NearbyFragment extends Fragment implements GoogleMap.OnMarkerClickL
         rx = new RxPermissions(getActivity());
         notification = new Notification(getActivity());
 
-        mMapView.onResume(); // needed to get the map to display immediately
+         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());

@@ -221,7 +221,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }else {
                 CURRENT_TAG = TAG_HOME;
                 navItemIndex = 0;
-                fragment = new HomeFragment();
+                fragment = new HomeFragment(app);
             }
         }
 
@@ -233,20 +233,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (id == R.id.nav_register_a_service) {
             CURRENT_TAG = TAG_REGISTER_SERVICE;
             navItemIndex = 2;
-            fragment = new HomeFragment();
+            fragment = new HomeFragment(app);
         }
 
         if (id == R.id.services) {
             CURRENT_TAG = TAG_VIEW_REGISTERED_SERVICES;
             navItemIndex = 3;
-            fragment = new HomeFragment();
+            fragment = new HomeFragment(app);
         }
 
         if (id == R.id.contactUs) {
             CURRENT_TAG = TAG_CONTACT_US;
             navItemIndex = 4;
-            fragment = new HomeFragment();
-        }
+            fragment = new HomeFragment(app);
+       }
 
         if(id == R.id.changePassword){
             startActivity(new Intent(this, ChangePasswordActivity.class));
