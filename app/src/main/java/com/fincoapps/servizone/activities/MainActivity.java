@@ -288,10 +288,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.contactUs) {
-            CURRENT_TAG = TAG_CONTACT_US;
-            navItemIndex = 4;
-            fragment = new HomeFragment();
-            loadFragment();
+            startActivity(new Intent(this, ContactUsActivity.class));
         }
 
         if(id == R.id.changePassword){

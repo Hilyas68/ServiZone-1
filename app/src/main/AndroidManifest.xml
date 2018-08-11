@@ -41,6 +41,11 @@
             android:name=".activities.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".activities.ContactUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".experts.ExpertDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
