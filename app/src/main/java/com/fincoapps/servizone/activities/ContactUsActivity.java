@@ -57,7 +57,7 @@ public class ContactUsActivity extends BaseActivity {
             if(message.isEmpty()){
                 notification.setMessage("Can't send empty message");
                 notification.show();
-            }else if(mMessage.getText().length() < 20){
+            }else if(message.length() < 20){
                 notification.setMessage("Message too short");
                 notification.show();
             }else {
