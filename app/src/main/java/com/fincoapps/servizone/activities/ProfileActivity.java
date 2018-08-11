@@ -122,7 +122,6 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
         age = findViewById(R.id.age);
         myCalendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
-            // TODO Auto-generated method stub
             myCalendar.set(YEAR, year);
             myCalendar.set(MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);

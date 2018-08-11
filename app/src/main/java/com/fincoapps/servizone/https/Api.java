@@ -45,7 +45,5 @@ public interface Api {
     Observable<ResponseObjectModel> profileUpdate(@Field("token") String token, @Field("name") String name , @Field("dob") String dob, @Field("mobile") String phoneNumber, @Field("gender") String gender, @Field("latitude") double latitude, @Field("longitude") double longitude);
 
 
-
-
-
+    Observable<ResponseObjectModel> contactus(@Field("token") String token, @Field("") String message);
 }
