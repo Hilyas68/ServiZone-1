@@ -53,5 +53,7 @@
     <string name="title_activity_secondary">SecondaryActivity</string>
     <string name="send">Send</string>
     <string name="enter_address">Address Here</string>
+    <string name="title_activity_view_services">My Services</string>
+    <string name="title_activity_all_services">My Services</string>
 
 </resources>

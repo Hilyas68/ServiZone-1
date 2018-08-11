@@ -4,10 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.fincoapps.servizone.models.HomeModel;
+import com.fincoapps.servizone.models.ServiceModel;
 import com.fincoapps.servizone.models.UserModel;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /**
  * Created by finco on 7/30/17.
@@ -53,6 +58,16 @@ public class AppSettings {
 
     public String getHome(){
         return preferences.getString("home", null);
+    }
+
+    //Services
+    public void setServices(ArrayList<ServiceModel> services){
+        editor.putString("services", gson.toJson(services)).apply();
+    }
+
+    public ArrayList<ServiceModel> getServices(){
+        Type listType = new TypeToken<ArrayList<ServiceModel>>() {}.getType();
+        return gson.fromJson(preferences.getString("services", ""), listType);
     }
 
     public void put(String key, String value){

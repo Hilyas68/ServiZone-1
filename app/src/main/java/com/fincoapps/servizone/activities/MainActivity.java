@@ -36,7 +36,7 @@ import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.RegisterExpertActivity;
 import com.fincoapps.servizone.ShowImageActivity;
 import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.models.BusinessModel;
+import com.fincoapps.servizone.models.ServiceModel;
 import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private TextView username, useremail;
     Notification notification;
-    private Map<Marker, BusinessModel> allMarkersMap = new HashMap<Marker, BusinessModel>();
+    private Map<Marker, ServiceModel> allMarkersMap = new HashMap<Marker, ServiceModel>();
 
     //Revamp
 
@@ -266,8 +266,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.services) {
-            CURRENT_TAG = TAG_VIEW_REGISTERED_SERVICES;
-            navItemIndex = 3;
+            startActivity(new Intent(MainActivity.this, AllServicesActivity.class));
         }
 
         if (id == R.id.contactUs) {
@@ -372,10 +371,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         lng[2] = 3.350017455;
         lng[3] = 3.391531071;
         lng[4] = 4.549995889;
-        BusinessModel bm;
+        ServiceModel bm;
 
         for (int i = 0; i < 5; i++){
-            bm = new BusinessModel();
+            bm = new ServiceModel();
             bm.setId(i+1);
             bm.setName("Business " + i);
             bm.setLatitude(lat[i]);
@@ -411,7 +410,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        BusinessModel bm = allMarkersMap.get(marker);
+        ServiceModel bm = allMarkersMap.get(marker);
         Log.e(TAG, bm.getName());
         return false;
     }
