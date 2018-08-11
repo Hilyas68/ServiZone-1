@@ -2,6 +2,7 @@ package com.fincoapps.servizone.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
 
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscriber;
@@ -22,9 +24,9 @@ import rx.schedulers.Schedulers;
 
 public class ContactUsActivity extends BaseActivity {
 
-    private static String TAG = ContactUsActivity.class.getSimpleName();
+    private String TAG = ContactUsActivity.class.getSimpleName();
     Notification notification;
-     EditText mMessage;
+     EditText mMessage, mSubject;
      AppCompatButton mSendBtn;
      LinearLayout layout;
      Toolbar toolbar;
@@ -47,67 +49,78 @@ public class ContactUsActivity extends BaseActivity {
         });
 
         notification = new Notification(this);
-        notification.setAnchor(layout);
-        mMessage = findViewById(R.id.edt_message);
+        notification.setAnchor(toolbar);
+        mMessage = findViewById(R.id.message);
+        mSubject = findViewById(R.id.subject);
         mSendBtn = findViewById(R.id.btn_send);
-        String message = mMessage.getText().toString();
         mSendBtn.setOnClickListener(view -> {
+            String message = mMessage.getText().toString();
+            String subject = mSubject.getText().toString();
             if(message.isEmpty()){
                 notification.setMessage("Can't send empty message");
                 notification.show();
-            }else if(message.length() < 20){
-                notification.setMessage("Message too short");
+            }else if(subject.isEmpty()){
+                notification.setMessage("Subject field is empty");
                 notification.show();
             }else {
-                sendMessage(message);
+                sendMessage(subject, message);
             }
         });
     }
 
-    private void sendMessage(String message) {
+    private void sendMessage(String subject, String message) {
         pd.setMessage("Processing...");
         pd.show();
 
-        retrofit.getApiService().contactus(user.getToken(), message)
-                .subscribeOn(Schedulers.newThread())
-                .unsubscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseObjectModel>() {
-                    @Override
-                    public void onCompleted() {
+        if(net.haveNetworkConnection())
+            retrofit.getApiService().contactus(user.getToken(), subject, message)
+                    .subscribeOn(Schedulers.newThread())
+                    .unsubscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ResponseObjectModel>() {
+                        @Override
+                        public void onCompleted() {
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        AppConstants.log(TAG, e.getMessage());
-                        String msg = "An Error Occurred. Please Try Again";
-                        if(e instanceof HttpException)
-                            msg = "A Server Error occurred. Please Try Again";
-                        if(e instanceof SocketException)
-                            msg = "No Internet Connection";
-
-                        notification.setMessage(msg);
-                        notification.show();
-                        AppConstants.log(TAG, e.toString());
-                        pd.dismiss();
-                    }
-
-                    @Override
-                    public void onNext(ResponseObjectModel responseModel) {
-                        AppConstants.log(TAG, responseModel.toString());
-                        if(responseModel.getStatus().equals(AppConstants.STATUS_ERROR)){
-                            notification.setMessage(responseModel.getData().toString());
-                            notification.show();
-                        }else{
-                            notification.setMessage(responseModel.getData().toString());
-                            notification.show();
-                            Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        pd.dismiss();
 
-                    }
-                });
+                        @Override
+                        public void onError(Throwable e) {
+                            AppConstants.log(TAG, e.getMessage());
+                            String msg = "An Error Occurred. Please Try Again";
+                            if(e instanceof HttpException)
+                                msg = "A Server Error occurred. Please Try Again";
+                            if(e instanceof SocketException || e instanceof SocketTimeoutException)
+                                msg = "No Internet Connection";
+
+                            notification.setMessage(msg);
+                            notification.show();
+                            AppConstants.log(TAG, e.toString());
+                            pd.dismiss();
+                        }
+
+                        @Override
+                        public void onNext(ResponseObjectModel responseModel) {
+                            checkResponse(responseModel);
+                            AppConstants.log(TAG, responseModel.toString());
+                            if(responseModel.getStatus().equals(AppConstants.STATUS_ERROR)){
+                                Snackbar.make(layout, responseModel.getMessage(), Snackbar.LENGTH_SHORT).show();
+                                notification.setMessage(responseModel.getData());
+                                notification.show();
+                            }else{
+                                notification.setMessage(responseModel.getMessage());
+                                notification.show();
+                                mMessage.getText().clear();
+                                mSubject.getText().clear();
+                                Toast.makeText(getApplicationContext(), responseModel.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            pd.dismiss();
+
+                        }
+                    });
+        else{
+            notification.setMessage("No Internet Connection");
+            notification.show();
+        }
     }
 
 

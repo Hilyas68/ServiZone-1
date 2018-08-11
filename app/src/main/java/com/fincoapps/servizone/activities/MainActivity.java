@@ -219,6 +219,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         selectNavMenu();
         updateImage();
 
+
     }
 
     private void updateImage() {
