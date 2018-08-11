@@ -33,6 +33,7 @@ import com.afollestad.bridge.ResponseConvertCallback;
 import com.fincoapps.servizone.About;
 import com.fincoapps.servizone.QuickSearchPopup;
 import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.RegisterExpertActivity;
 import com.fincoapps.servizone.ShowImageActivity;
 import com.fincoapps.servizone.https.RetrofitClient;
 import com.fincoapps.servizone.models.BusinessModel;
@@ -261,7 +262,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.nav_register_a_service) {
-            startActivity(new Intent(this, ContactUsActivity.class));
+            startActivity(new Intent(this, RegisterExpertActivity.class));
         }
 
         if (id == R.id.services) {
