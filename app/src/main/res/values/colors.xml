@@ -14,5 +14,6 @@
     <color name="golden">#f8a51f</color>
     <color name="grey">#424343</color>
     <color name="textcolor">#797c7c</color>
+    <color name="black">#000000</color>
 
 </resources>
