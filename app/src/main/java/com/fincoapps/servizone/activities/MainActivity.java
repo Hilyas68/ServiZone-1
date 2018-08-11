@@ -260,8 +260,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.nav_register_a_service) {
-            CURRENT_TAG = TAG_REGISTER_SERVICE;
-            navItemIndex = 2;
+            startActivity(new Intent(this, ContactUsActivity.class));
         }
 
         if (id == R.id.services) {
