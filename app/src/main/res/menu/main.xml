@@ -12,10 +12,4 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search"
         app:showAsAction="always" />
-
-    <item
-        android:id="@+id/switch_home_view"
-        android:icon="@drawable/ic_swap_horiz_black_24dp"
-        android:title="@string/search"
-        app:showAsAction="always" />
 </menu>

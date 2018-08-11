@@ -26,6 +26,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.OnClick;
 import butterknife.Optional;
@@ -50,6 +51,7 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
     public NetworkHelper net;
     private String TAG = "BaseActivity";
     public RetrofitClient retrofit;
+    public RxPermissions rx;
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,7 @@ public class BaseActivity extends AppCompatActivity implements ChooseProfession{
         gson = new Gson();
         //===================================== INIT APP CLASSES ===============================
         user = gson.fromJson(app.getUser(), UserModel.class);
+        rx = new RxPermissions(this);
         notification = new Notification(this);
         notification.setType(Notification.FAILURE);
         retrofit = new RetrofitClient(this, AppConstants.getHost());

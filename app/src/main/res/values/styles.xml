@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/regular</item>
+
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -14,6 +16,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@drawable/splashscreen</item>
+        <item name="android:fontFamily">@font/regular</item>
     </style>
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
@@ -26,12 +29,15 @@
         <item name="colorControlNormal">#aaa</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="android:background">@drawable/edit_text_background</item>
+        <item name="android:fontFamily">@font/regular</item>
+
     </style>
 
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/regular</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -62,6 +68,8 @@
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:textColorHint">@color/white</item>
         <item name="android:layout_marginBottom">@dimen/_10sdp</item>
+        <item name="android:fontFamily">@font/regular</item>
+
     </style>
 
     <style name="button">
@@ -71,12 +79,15 @@
         <item name="android:layout_marginBottom">@dimen/_24sdp</item>
         <item name="android:layout_marginTop">@dimen/_24sdp</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/regular</item>
+
     </style>
 
     <style name="ThemeToolbar" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/white</item>
         <item name="android:textColorSecondary">@color/white</item>
         <item name="android:background">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/regular</item>
     </style>
 
     <style name="ProgressBarStyle">

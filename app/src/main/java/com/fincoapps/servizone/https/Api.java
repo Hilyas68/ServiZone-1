@@ -1,6 +1,5 @@
 package com.fincoapps.servizone.https;
 
-import com.fincoapps.servizone.models.HomeModel;
 import com.fincoapps.servizone.models.ResponseObjectModel;
 
 import okhttp3.MultipartBody;
@@ -21,8 +20,9 @@ public interface Api {
     @POST("login")
     Observable<ResponseObjectModel> login(@Field("email") String email, @Field("password") String password);
 
+    @FormUrlEncoded
     @POST("home")
-    Observable<HomeModel> home();
+    Observable<ResponseObjectModel> home(@Field("token") String token);
 
     @FormUrlEncoded
     @POST("logout")

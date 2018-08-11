@@ -3,11 +3,11 @@ package com.fincoapps.servizone.utils;
 import android.util.Log;
 
 public class AppConstants {
-    public static boolean production = true;
+    public static boolean production = false;
 
     //Hosts
     private static final String DEFAULT_HOST = "http://test.oneflaretech.com/";
-    private static final String TEST_HOST = "http://192.168.8.102:8000/";
+    private static final String TEST_HOST = "http://192.168.8.101:8000/";
 
     //Status
     public static final String STATUS_SUCCESS = "success";
@@ -25,7 +25,7 @@ public class AppConstants {
     }
 
     public static String getHost(){
-        return (!production ? TEST_HOST : DEFAULT_HOST) + "api/";
+        return (!production ? TEST_HOST : DEFAULT_HOST) + "api/v1/";
     }
 
 
