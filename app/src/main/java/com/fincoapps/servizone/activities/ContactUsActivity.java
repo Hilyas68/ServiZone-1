@@ -41,6 +41,7 @@ public class ContactUsActivity extends BaseActivity {
         pd = new ProgressDialog(this);
         toolbar = findViewById(R.id.cont_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(view ->{
             onBackPressed();
@@ -56,7 +57,7 @@ public class ContactUsActivity extends BaseActivity {
             if(message.isEmpty()){
                 notification.setMessage("Can't send empty message");
                 notification.show();
-            }else if(message.length() < 20){
+            }else if(mMessage.getText().length() < 20){
                 notification.setMessage("Message too short");
                 notification.show();
             }else {
