@@ -3,19 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_background"
-    tools:context=".fragments.HomeFragment">
+    tools:showIn="@layout/activity_secondary">
 
     <RelativeLayout
         android:id="@+id/container"
-        android:background="@drawable/blue_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
         android:orientation="vertical">
         <LinearLayout
             android:id="@+id/mainContent"
-            android:background="@drawable/blue_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -52,7 +49,7 @@
 
             <RelativeLayout
                 android:id="@+id/Errorpage"
-                android:background="@drawable/blue_background"
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone">
@@ -115,7 +112,6 @@
                 <ScrollView
                     android:id="@+id/scrollformain"
                     android:layout_width="match_parent"
-                    android:background="@drawable/blue_background"
                     android:layout_height="match_parent">
 
                     <LinearLayout
@@ -128,7 +124,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Featured Experts"
-                            android:textColor="@color/white"
                             android:textSize="@dimen/_20sdp" />
 
                         <HorizontalScrollView
@@ -151,7 +146,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Closest Experts"
-                            android:textColor="@color/white"
                             android:textSize="@dimen/_20sdp" />
 
 
@@ -173,7 +167,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Top Experts"
-                            android:textColor="@color/white"
                             android:textSize="@dimen/_20sdp" />
 
                         <HorizontalScrollView

@@ -4,7 +4,9 @@
     android:layout_width="120dp"
     android:layout_height="wrap_content"
     android:layout_marginRight="20dp"
-    app:layout_height="wrap_content">
+    app:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_15sdp"
+    app:cardElevation="@dimen/_4sdp">
 
     <LinearLayout
         android:layout_width="match_parent"

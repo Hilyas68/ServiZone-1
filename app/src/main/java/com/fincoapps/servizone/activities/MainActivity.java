@@ -1,5 +1,7 @@
 package com.fincoapps.servizone.activities;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -9,15 +11,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.internal.NavigationMenuView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,27 +34,42 @@ import com.fincoapps.servizone.About;
 import com.fincoapps.servizone.QuickSearchPopup;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.ShowImageActivity;
-import com.fincoapps.servizone.fragments.HomeFragment;
-import com.fincoapps.servizone.fragments.NearbyFragment;
 import com.fincoapps.servizone.https.RetrofitClient;
+import com.fincoapps.servizone.models.BusinessModel;
 import com.fincoapps.servizone.models.UserModel;
 import com.fincoapps.servizone.utils.AppConstants;
 import com.fincoapps.servizone.utils.Notification;
 import com.fincoapps.servizone.utils.Request;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import butterknife.ButterKnife;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import static java.lang.System.out;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+
+    private GoogleMap mMap;
+
 
     Toolbar relativeLayout;
     NavigationView navigationView;
 
-    private TextView username;
+    private TextView username, useremail;
     Notification notification;
+    private Map<Marker, BusinessModel> allMarkersMap = new HashMap<Marker, BusinessModel>();
+
     //Revamp
 
     RetrofitClient retrofitClient;
@@ -82,7 +99,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
         notification = new Notification(this);
         if(app.getUser() == null){
             startActivity(new Intent(this, SignInActivity.class));
@@ -106,12 +125,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         //Nav Drawer Menu
         NavigationMenuView navMenu = (NavigationMenuView) navigationView.getChildAt(0);
-        navMenu.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL));
 
         //Nav Drawer Header
         View view = navigationView.getHeaderView(0);
         username = view.findViewById(R.id.username);
         username.setText(user.getName());
+        useremail = view.findViewById(R.id.useremail);
+        useremail.setText(user.getEmail());
         userAvatar = view.findViewById(R.id.profile_image);
         userAvatar.setOnClickListener(v ->
             startActivity(new Intent(MainActivity.this, ShowImageActivity.class).putExtra("imageUrl", user.getAvatar()))
@@ -134,49 +154,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                 });
 
-        getLocation();
-        //Load Default Fragment
-        loadFragment();
+//        getLocation();
+//        //Load Default Fragment
+//        loadFragment();
+
+        //Switch Button
+        FloatingActionButton fab = findViewById(R.id.switch_button);
+        fab.setOnClickListener(v -> {
+            startActivity(new Intent(this,SecondaryActivity.class));
+            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+        });
     }
 
-    private void loadFragment() {
-        //setToolbarTitle();
-        // if user select the current navigation menu again, don't do anything
-        // just close the navigation drawer
-
-
-        //Closing drawer on item click
-        drawer.closeDrawers();
-
-        // Sometimes, when fragment has huge data, screen seems hanging
-        // when switching between navigation menus
-        // So using runnable, the fragment is loaded with cross fade effect
-        // This effect can be seen in GMail app
-        Runnable mPendingRunnable = () -> {
-            Fragment innerFrag = fragment;
-            // update the main content by replacing fragments
-            if (innerFrag == null){
-                navItemIndex = 0;
-                CURRENT_TAG = TAG_NEARBY_SERVICES;
-                innerFrag = getNearbyFragment();
-            }
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-            fragmentTransaction.replace(R.id.frame, innerFrag, CURRENT_TAG);
-            fragmentTransaction.commitAllowingStateLoss();
-            // selecting appropriate nav menu item
-            selectNavMenu();
-        };
-
-        // If mPendingRunnable is not null, then add to the message queue
-        if (mPendingRunnable != null) {
-            mHandler.post(mPendingRunnable);
-        }
-
-
-        // refresh toolbar menu
-        invalidateOptionsMenu();
-    }
 
     private void selectNavMenu() {
         navigationView.getMenu().getItem(navItemIndex).setCheckable(true).setChecked(true);
@@ -263,28 +252,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }else {
                 CURRENT_TAG = TAG_HOME;
                 navItemIndex = 0;
-                fragment = new HomeFragment();
-                loadFragment();
             }
         }
 
         if (id == R.id.nav_profile) {
-            //go to profile
             startActivity(new Intent(this, ProfileActivity.class));
         }
 
         if (id == R.id.nav_register_a_service) {
             CURRENT_TAG = TAG_REGISTER_SERVICE;
             navItemIndex = 2;
-            fragment = new HomeFragment();
-            loadFragment();
         }
 
         if (id == R.id.services) {
             CURRENT_TAG = TAG_VIEW_REGISTERED_SERVICES;
             navItemIndex = 3;
-            fragment = new HomeFragment();
-            loadFragment();
         }
 
         if (id == R.id.contactUs) {
@@ -294,7 +276,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if(id == R.id.changePassword){
             startActivity(new Intent(this, ChangePasswordActivity.class));
             overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-
         }
 
         if (id == R.id.logout) {
@@ -333,17 +314,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if(id == R.id.search){
             search();
         }
-
-        if(id == R.id.switch_home_view){
-            CURRENT_HOME_VIEW = CURRENT_HOME_VIEW.equals(TAG_NEARBY_SERVICES) ? TAG_HOME : TAG_NEARBY_SERVICES;
-            if(CURRENT_HOME_VIEW.equals(TAG_NEARBY_SERVICES))
-                fragment = getNearbyFragment();
-            else
-                fragment = getHomeFragment();
-            loadFragment();
-            AppConstants.log(TAG, "View Changed - " + CURRENT_HOME_VIEW);
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -359,11 +329,89 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
 
-    private Fragment getHomeFragment(){
-        return new HomeFragment(app);
-    }
-    private Fragment getNearbyFragment(){
-        return new NearbyFragment(app);
+    @SuppressLint("CheckResult")
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(-34, 151);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+
+        googleMap = mMap;
+
+        rx
+                .request(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .subscribe(granted -> {
+                    if (granted) {
+                        // Always true pre-M
+                        getLocation();
+                        populateMap();
+                    } else {
+                        Log.e(TAG, "error");
+                    }
+                });
     }
 
+    @SuppressLint("MissingPermission")
+    private void populateMap() {
+       // mMap.setMyLocationEnabled(true);
+        //Dummy Data
+        double lat[] = new double[5];
+        lat[0] = 7.970016092;
+        lat[1] = 7.629959329;
+        lat[2] = 7.160427265;
+        lat[3] = 6.443261653;
+        lat[4] = 8.490010192;
+        double lng[] = new double[5];
+        lng[0] = 3.590002806;
+        lng[1] = 4.179992634;
+        lng[2] = 3.350017455;
+        lng[3] = 3.391531071;
+        lng[4] = 4.549995889;
+        BusinessModel bm;
+
+        for (int i = 0; i < 5; i++){
+            bm = new BusinessModel();
+            bm.setId(i+1);
+            bm.setName("Business " + i);
+            bm.setLatitude(lat[i]);
+            bm.setLongitude(lng[i]);
+
+            Marker m2 = mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(bm.getLatitude(),bm.getLongitude()))
+                    .anchor(0.5f, 0.5f)
+                    .title(bm.getName())
+                    .snippet(bm.getName())
+                    .icon(BitmapDescriptorFactory.defaultMarker(new Random().nextInt(360))));
+
+            allMarkersMap.put(m2,bm);
+
+        }
+
+        Marker m2 = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(user.getLatitude(),user.getLongitude()))
+                .anchor(0.5f, 0.5f)
+                .title("User")
+                .snippet("User")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_user)));
+        // For dropping a marker at a point on the Map
+        AppConstants.log(TAG, app.getUser());
+        AppConstants.log(TAG, user.getToken());
+        AppConstants.log(TAG, String.valueOf(user.getLatitude()));
+        AppConstants.log(TAG, String.valueOf(user.getLongitude()));
+
+        // For zooming automatically to the location of the marker
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(user.getLatitude(),user.getLongitude())).zoom(5).build();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        BusinessModel bm = allMarkersMap.get(marker);
+        Log.e(TAG, bm.getName());
+        return false;
+    }
 }
