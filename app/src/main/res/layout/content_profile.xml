@@ -5,13 +5,148 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fincoapps.servizone.activities.DrawerActivity"
+    tools:context="com.fincoapps.servizone.activities.ProfileActivity"
     tools:showIn="@layout/activity_profile_view">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/large_text" />
+    <LinearLayout
+        android:id="@+id/detailsregistration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:layout_below="@+id/logo"
+        android:paddingRight="20dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/name"
+            style="@style/edit_text"
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+
+        <EditText
+            android:id="@+id/age"
+            style="@style/edit_text"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:hint="Date of Birth"/>
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/spinner"
+            android:visibility="gone"
+            android:textSize="12sp"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/registertype"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/male"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:hint="Regular User"
+                android:background="@drawable/spinner"
+                android:textSize="12sp"/>
+
+
+
+            <TextView
+                android:id="@+id/female"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="25dp"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:hint="Expert"
+                android:background="@drawable/spinner"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="0.4"
+                android:textColor="@color/white"
+                android:text="Gender"
+                android:textSize="18dp"/>
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/radio_group_gender">
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:backgroundTint="@color/white"
+                    android:buttonTint="@color/white"
+                    android:checked="true"
+                    android:textColor="@color/white"/>
+
+                <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:textColor="@color/white"
+                    android:text="Female"
+                    android:backgroundTint="@color/white"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/phone"
+            style="@style/edit_text"
+            android:hint="Mobile Number"/>
+
+        <EditText
+            android:id="@+id/email"
+            android:enabled="false"
+            style="@style/edit_text"
+            android:hint="Email"/>
+        <android.support.v7.widget.AppCompatButton
+            app:elevation="10dp"
+            android:id="@+id/update"
+            style="@style/button"
+            android:text="Update" />
+    </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

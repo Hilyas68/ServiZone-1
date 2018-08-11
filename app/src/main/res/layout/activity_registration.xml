@@ -260,22 +260,9 @@
                 android:textColor="#fff"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
-                android:background="@color/colorPrimaryDark"
                 android:padding="12dp"
+                style="@style/button"
                 android:text="@string/register" />
-
-            <!--<Button-->
-            <!--android:id="@+id/registerbtnn"-->
-            <!--android:layout_below="@+id/registerpasswordtwo"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:layout_marginBottom="5dp"-->
-            <!--android:textColor="#fff"-->
-            <!--android:background="@drawable/roundlogin"-->
-            <!--android:text="@string/register"/>-->
 
 
         </LinearLayout>

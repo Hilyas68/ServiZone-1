@@ -13,12 +13,10 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fincoapps.servizone.Popup;
 import com.fincoapps.servizone.R;
 import com.fincoapps.servizone.experts.ExpertDetailsActivity;
 import com.fincoapps.servizone.models.ExpertModel;
-import com.fincoapps.servizone.Popup;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -81,11 +79,11 @@ public class ExpertAdapter extends ArrayAdapter<ExpertModel> {
         viewHolder.ratingBar.setRating(expert.averageRating);
         viewHolder.profession.setText(expert.profession);
         viewHolder.about.setText(expert.about);
-        Glide.with(viewHolder.expertAvatar.getContext())
-                .load("http://servizone.net/storage" + expert.avatar)
-                .placeholder(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .into(viewHolder.expertAvatar);
+//        Glide.with(viewHolder.expertAvatar.getContext())
+//                .load("http://servizone.net/storage" + expert.avatar)
+//                .placeholder(R.drawable.placeholder)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .into(viewHolder.expertAvatar);
 
         //------------------------------- ROW CLICK LISTENER -------------------------------------
         viewHolder.linearRow.setOnClickListener(new View.OnClickListener() {
