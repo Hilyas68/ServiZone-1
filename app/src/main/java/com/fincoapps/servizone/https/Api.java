@@ -48,4 +48,9 @@ public interface Api {
     @FormUrlEncoded
     @POST("contact-us")
     Observable<ResponseObjectModel> contactus(@Field("token") String token, @Field("subject") String subject, @Field("message") String message);
+
+    @FormUrlEncoded
+    @POST("service/create")
+    Observable<ResponseObjectModel> registerService(@Field("token") String token, @Field("name") String name , @Field("email") String email, @Field("address") String address, @Field("mobile") String phoneNumber, @Field("profession_id") String professionId, @Field("about") String about, @Field("latitude") double latitude, @Field("longitude") double longitude);
+
 }

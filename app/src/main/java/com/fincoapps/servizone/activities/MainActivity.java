@@ -99,7 +99,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -262,7 +261,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.nav_register_a_service) {
-            startActivity(new Intent(this, RegisterExpertActivity.class));
+            startActivity(new Intent(this, RegisterServiceActivity.class));
         }
 
         if (id == R.id.services) {

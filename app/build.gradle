@@ -96,6 +96,9 @@ dependencies {
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
     implementation 'com.intuit.sdp:sdp-android:1.0.4'
 
+
+    //material-stepper
+    implementation 'ivb.com.materialstepper:material-stepper:0.0.2'
 }
 
 apply plugin: 'kotlin-android'

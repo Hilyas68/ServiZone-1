@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/blue_background"
+    android:id="@+id/rootView">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:gravity="center_horizontal">
+
+        <!--<ScrollView-->
+            <!--android:id="@+id/scrollView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_below="@id/toolbar">-->
+
+            <LinearLayout
+                android:id="@+id/layoutBottom"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="50dp"
+                android:orientation="vertical"
+                android:layout_below="@id/toolbar"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="@dimen/_60sdp">
+
+                <EditText
+                    android:id="@+id/txtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Service Name"
+                    android:inputType="text"
+                    style="@style/edit_text" />
+
+                <EditText
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    style="@style/edit_text" />
+
+                <EditText
+                    android:id="@+id/txtMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mobile Number"
+                    android:inputType="number"
+                    style="@style/edit_text" />
+
+                    <TextView
+                        android:id="@+id/txtProfessions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        style="@style/edit_text"
+                        android:hint="Tap to select profession"
+                        android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="About Service"
+                    android:inputType="text"
+                    style="@style/edit_text" />
+
+                <!--<Button-->
+                    <!--android:id="@+id/registerbtn"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="45dp"-->
+                    <!--android:layout_marginBottom="5dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="10dp"-->
+                    <!--android:layout_marginTop="20dp"-->
+                    <!--android:background="@drawable/roundlogin"-->
+                    <!--android:text="@string/register"-->
+                    <!--android:textColor="#fff" />-->
+            </LinearLayout>
+        <!--</ScrollView>-->
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="-40dp"
+            android:clipChildren="false"
+            android:orientation="vertical">
+
+            <com.fincoapps.servizone.utils.CurvedLayout
+                android:id="@+id/curvedLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:circleBackgroundColor="#46B0ED"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/toolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="false"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="false"
+                android:layout_marginTop="65dp"
+                android:layout_marginLeft="20dp"
+                android:text="Register a Service"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="30dp"
+                android:layout_height="27dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="65dp"
+                android:background="@drawable/backbtn" />
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-50dp"
+            android:adjustViewBounds="true"
+            app:cardElevation="17dp"
+            app:cardCornerRadius="70dp">
+
+            <ImageView
+                android:id="@+id/avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="10dp"
+                android:src="@drawable/noimage" />
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+</layout>
