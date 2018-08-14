@@ -44,7 +44,7 @@ public class ChangePasswordActivity extends BaseActivity {
             onBackPressed();
             overridePendingTransition(R.anim.pop_exit, R.anim.pop_enter);
         });
-        token = getIntent().getStringExtra("token");
+        token = getIntent().getStringExtra("token") == null ? "" : getIntent().getStringExtra("token");
         AppConstants.log(TAG, token);
         notification = new Notification(ChangePasswordActivity.this);
         notification.setAnchor(toolbar);
@@ -54,11 +54,11 @@ public class ChangePasswordActivity extends BaseActivity {
         current_password = findViewById(R.id.current_password);
         new_password = findViewById(R.id.new_password);
         confirm_new_password = findViewById(R.id.confirm_new_password);
-        if(!token.isEmpty() || token == ""){
+        if(!token.equals("")){
             current_password.setVisibility(View.GONE);
         }
         btn_changepass.setOnClickListener(view -> {
-            if(token.isEmpty() || token == "" )
+            if(token.equals(""))
                 if (current_password.getText().toString().isEmpty() || new_password.getText().toString().isEmpty() || confirm_new_password.getText().toString().isEmpty()) {
                     notification.setMessage("Empty Field(s)");
                     notification.show();
@@ -76,7 +76,7 @@ public class ChangePasswordActivity extends BaseActivity {
                 notification.setAnchor(toolbar);
                 pd.setMessage("Processing...");
                 pd.show();
-                if(token.isEmpty() || token == "")
+                if(token.equals(""))
                     changePassword();
                 else
                     newPassword();
