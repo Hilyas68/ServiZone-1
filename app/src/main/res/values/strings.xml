@@ -27,7 +27,7 @@
     <string name="register">Register</string>
 
     <string name="continueapp">Continue</string>
-    <string name="fincoapps">Powered By FincoApps</string>
+    <string name="oneflaretch">Powered By OneFlareTect</string>
     <string name="title_activity_forgot_password">ForgotPassword</string>
     <string name="title_activity_change_password">ChangePassword</string>
     <string name="Changepass">Change Password</string>
@@ -55,5 +55,6 @@
     <string name="enter_address">Address Here</string>
     <string name="title_activity_view_services">My Services</string>
     <string name="title_activity_all_services">My Services</string>
+    <string name="about">KiaKia is a real time, and an online based e-commerce easy to use handle. It does not only create an enabling environment for trustworthy and affordable services, but it puts up an advertising, marketing platform, and fills the gap that exists between budding small scale services, service providers and consumers. Buyers and sellers of artisan services meet on this platform. Most times, one can\'t go out to get their nails or hair done or mend their cloths; but on ServiZone, a stylist or tailor could be ordered, and with a click, they would be at the door. Also, new movers could get a painter, a plumber or house cleaning services through this app. One\'s car could develop a fault in the middle of nowhere, this app is a must use on everyone\'s phone.   It creates awareness on behalf of artisans, who could reach a wide range of clients throughout the world, just with a click on the search button. Some listed ServiZone potential clients are: fashion lovers, designers, makeup artists, Web developers, digital professionals, hair stylists, shoe designers, tailors, models, and all works of life. Most of these services are sourced round the clock, without the knowledge that they could be so close by. These professionals could be reached simply by logging in and a click would have an order or a business opportunity knocking on the door.   Servizone.net is the right choice and motivation for budding businesses, networking and job creation. It gets skilled labour where and when it is needed. That is why, it has been made an easy-to-use app on all smart phones and devices. There are services that are in high demand, next door to where they are needed, these could be provided at the most affordable rate, through http://servizone.net.</string>
 
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fincoapps.servizone">
+    package="com.oneflaretech.kiakia">
 
     <uses-feature
         android:name="android.hardware.wifi"
@@ -28,7 +28,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".About"
+            android:name=".activities.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -53,13 +53,13 @@
         <activity android:name=".ReviewsActivity" />
         <activity android:name=".experts.ReportExpert" />
         <activity android:name=".Imageview" />
-        <activity android:name=".ShowImageActivity" />
+        <activity android:name=".activities.ShowImageActivity" />
         <activity android:name=".SocialNetworks" />
         <activity
             android:name=".interfaces.Startpage"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ForgotPassword"
+            android:name=".activities.ForgotPasswordActivity"
             android:label="@string/title_activity_forgot_password"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -88,7 +88,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fincoapps.servizone.activities.MainActivity" />
+                android:value=".activities.MainActivity" />
         </activity>
         <activity
             android:name=".activities.ViewServicesActivity"
@@ -97,7 +97,8 @@
         <activity
             android:name=".activities.AllServicesActivity"
             android:label="@string/title_activity_all_services"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activities.MainActivity"></activity>
     </application>
 
 </manifest>
