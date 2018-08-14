@@ -31,7 +31,7 @@ public class ChangePasswordActivity extends BaseActivity {
     AppCompatButton btn_changepass;
     ProgressDialog pd;
     String TAG = "ChangePasswordActivity";
-    String token;
+    String token = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +54,11 @@ public class ChangePasswordActivity extends BaseActivity {
         current_password = findViewById(R.id.current_password);
         new_password = findViewById(R.id.new_password);
         confirm_new_password = findViewById(R.id.confirm_new_password);
-        if(!token.isEmpty()){
+        if(!token.isEmpty() || token == ""){
             current_password.setVisibility(View.GONE);
         }
         btn_changepass.setOnClickListener(view -> {
-            if(token.isEmpty())
+            if(token.isEmpty() || token == "" )
                 if (current_password.getText().toString().isEmpty() || new_password.getText().toString().isEmpty() || confirm_new_password.getText().toString().isEmpty()) {
                     notification.setMessage("Empty Field(s)");
                     notification.show();
@@ -76,7 +76,7 @@ public class ChangePasswordActivity extends BaseActivity {
                 notification.setAnchor(toolbar);
                 pd.setMessage("Processing...");
                 pd.show();
-                if(token.isEmpty())
+                if(token.isEmpty() || token == "")
                     changePassword();
                 else
                     newPassword();
