@@ -1,14 +1,21 @@
 package com.fincoapps.servizone.https;
 
+import com.fincoapps.servizone.models.ProfessionModel;
 import com.fincoapps.servizone.models.ResponseObjectModel;
+import com.fincoapps.servizone.models.googleAddress.MapAddressModel;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -53,4 +60,9 @@ public interface Api {
     @POST("service/create")
     Observable<ResponseObjectModel> registerService(@Field("token") String token, @Field("name") String name , @Field("email") String email, @Field("address") String address, @Field("mobile") String phoneNumber, @Field("profession_id") String professionId, @Field("about") String about, @Field("latitude") double latitude, @Field("longitude") double longitude);
 
+    @GET("profession/all")
+    Observable<ResponseObjectModel> professions();
+
+    @GET("json")
+    Observable<MapAddressModel> getLotLng(@Query("address") String address);
 }

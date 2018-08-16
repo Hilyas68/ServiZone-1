@@ -191,8 +191,6 @@ public class RegistrationActivity extends BaseActivity {
                                 loader.dismiss();
                             }
                         }
-
-
                     });
         } else {
             notification.setMessage("No Internet Connection");

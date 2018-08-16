@@ -1,43 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+    <fragment
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context = ".activities.RegisterServiceActivity"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="false"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="0.4"
-            android:text="Address"
-            android:textColor="@color/textcolor"
-            android:textSize="16dp"
-            android:textStyle="bold" />
+    <RelativeLayout
+        android:id="@+id/relayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:radius ="5dp"
+        android:elevation="10dp"
+        android:background="#fff">
 
-        <EditText
-            android:id="@+id/txtAddress"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="false"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text=""
-            android:textColor="#606060"
-            android:textSize="15dp" />
-    </LinearLayout>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/ic_search"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            app:srcCompat="@drawable/ic_search_black_24dp"
+            />
 
+    <EditText
+        android:id="@+id/address_edit"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/ic_search"
+        android:layout_height="match_parent"
+        android:textColor="@color/grey"
+        android:inputType="textPersonName"
+        android:hint="Enter Address"
+        android:imeOptions="actionSearch"
+        android:background="@null"/>
 
-</android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
+</RelativeLayout>
