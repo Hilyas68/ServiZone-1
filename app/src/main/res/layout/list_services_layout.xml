@@ -1,84 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:id="@+id/item_linear_layout"
-    android:layout_marginBottom="1dp"
-    android:orientation="horizontal"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_margin="8dp"
+    android:background="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/item_linear_layout"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/item_image"
-        android:gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/item_image"
+            android:gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>
 
 
-    <RelativeLayout
-        android:id="@+id/toRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/toLeft"
-        android:layout_toEndOf="@+id/toLeft"
-        android:layout_marginTop="1dp">
-
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/txtName"
-            android:backgroundTint="@color/colorPrimary"
-            android:isIndicator="true"
-            android:max="5"
-            android:rating="4"
-            android:scaleX=".3"
-            android:scaleY=".3"
-            android:transformPivotX="0dp"
-            android:transformPivotY="0dp" />
-
-        <TextView
-            android:id="@+id/txtName"
+        <RelativeLayout
+            android:id="@+id/toRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:text="Name"
-            android:textColor="#71767A"
-            android:textSize="16dp" />
+            android:layout_toRightOf="@+id/toLeft"
+            android:layout_toEndOf="@+id/toLeft"
+            android:layout_marginTop="1dp">
 
-        <TextView
-            android:id="@+id/txtProfession"
-            android:layout_below="@+id/txtName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/profession_round_border"
-            android:layout_marginTop="4dp"
-            android:paddingLeft="5dp"
-            android:paddingTop="2dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="2dp"
-            android:text="Profession"
-            android:textColor="#4fb2f0"
-            android:textSize="10dp" />
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/txtName"
+                android:backgroundTint="@color/colorPrimary"
+                android:isIndicator="true"
+                android:max="5"
+                android:rating="4"
+                android:scaleX=".3"
+                android:scaleY=".3"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp" />
 
-        <TextView
-            android:id="@+id/txtAbout"
-            android:layout_below="@+id/txtProfession"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="3dp"
-            android:paddingBottom="@dimen/_5sdp"
-            android:text="Short descripton of expert"
-            android:textColor="#71767A"
-            android:textSize="13dp" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:text="Name"
+                android:textColor="#71767A"
+                android:textSize="16dp" />
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/txtProfession"
+                android:layout_below="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/profession_round_border"
+                android:layout_marginTop="4dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="2dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="Profession"
+                android:textColor="#4fb2f0"
+                android:textSize="10dp" />
+
+            <TextView
+                android:id="@+id/txtAbout"
+                android:layout_below="@+id/txtProfession"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="3dp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="Short description of expert"
+                android:textColor="#71767A"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

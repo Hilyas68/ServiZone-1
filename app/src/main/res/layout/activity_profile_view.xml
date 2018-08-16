@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@drawable/blue_background"
-    tools:context="com.fincoapps.servizone.activities.ProfileActivity">
+    tools:context="com.oneflaretech.kiakia.activities.ProfileActivity">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"

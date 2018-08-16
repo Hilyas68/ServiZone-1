@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/professionslayout"
-    tools:context="com.fincoapps.servizone.QuickSearchPopup">
+    tools:context="com.oneflaretech.kiakia.QuickSearchPopup">
 
 
     <pl.bclogic.pulsator4droid.library.PulsatorLayout

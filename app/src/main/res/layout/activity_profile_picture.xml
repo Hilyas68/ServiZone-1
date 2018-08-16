@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#000000"
     android:id="@+id/professionslayout"
-    tools:context="com.fincoapps.servizone.ShowImageActivity">
+    tools:context="com.oneflaretech.kiakia.activities.ShowImageActivity">
 
         <ImageButton
             android:id="@+id/btnBack"

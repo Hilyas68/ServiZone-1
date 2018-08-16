@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/headertoolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/blue_background"
     android:clipChildren="false"
-    tools:context="com.fincoapps.servizone.activities.SignInActivity">
+    tools:context="com.oneflaretech.kiakia.activities.SignInActivity">
 
     <!--<include layout="@layout/footer"/>-->
 
@@ -55,43 +56,22 @@
 
         <EditText
             android:id="@+id/input_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="Email"
-            android:padding="15dp"
-            android:textColor="#fff"
-            android:layout_marginBottom="10dp"
-            android:textColorLink="#fff"
-            android:textColorHint="@color/white"
-            android:textCursorDrawable="@null"
             android:inputType="textEmailAddress"
-            android:background="@drawable/edit_text_background"/>
+            style="@style/edit_text"/>
 
 
         <EditText
             android:id="@+id/input_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:hint="Password"
-            android:padding="15dp"
-            android:textColorHint="@color/white"
-            android:textCursorDrawable="@null"
-            android:textColor="#fff"
-            android:textColorLink="#fff"
             android:inputType="textPassword"
-            android:background="@drawable/edit_text_background"/>
+            style="@style/edit_text"/>
 
 
         <android.support.v7.widget.AppCompatButton
-            android:elevation="10dp"
+            app:elevation="10dp"
             android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#fff"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:background="@color/colorPrimaryDark"
-            android:padding="12dp"
+            style="@style/button"
             android:text="@string/login" />
 
         <TextView

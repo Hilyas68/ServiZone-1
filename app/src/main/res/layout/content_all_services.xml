@@ -16,7 +16,7 @@
             android:id="@+id/my_services_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/no_services"
@@ -26,8 +26,9 @@
             android:textSize="@dimen/_20sdp"
             android:fontFamily="@font/regular"
             android:layout_gravity="center"
+            android:textColor="@color/black"
             android:gravity="center"
-            android:visibility="gone"
+            android:visibility="visible"
             />
 
     </LinearLayout>
