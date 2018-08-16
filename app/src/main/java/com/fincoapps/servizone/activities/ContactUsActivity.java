@@ -70,6 +70,7 @@ public class ContactUsActivity extends BaseActivity {
 
     private void sendMessage(String subject, String message) {
         pd.setMessage("Processing...");
+        pd.setCancelable(false);
         pd.show();
 
         if(net.haveNetworkConnection())
