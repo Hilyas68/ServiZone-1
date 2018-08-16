@@ -1,14 +1,15 @@
 package com.oneflaretech.kiakia.https;
 
 import com.oneflaretech.kiakia.models.ResponseObjectModel;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -65,7 +66,12 @@ public interface Api {
     @POST("service/user")
     Observable<ResponseObjectModel> getMyService(@Field("token") String token);
 
-    @FormUrlEncoded
-    @POST("profession/all")
-    Observable<ResponseObjectModel> getAllProfession(@Field("token") String token);
+    @POST("service/create")
+    Observable<ResponseObjectModel> registerService(@Field("token") String token, @Field("name") String name , @Field("email") String email, @Field("address") String address, @Field("mobile") String phoneNumber, @Field("profession_id") String professionId, @Field("about") String about, @Field("latitude") double latitude, @Field("longitude") double longitude);
+
+    @GET("profession/all")
+    Observable<ResponseObjectModel> professions();
+
+    @GET("json")
+    Observable<MapAddressModel> getLotLng(@Query("address") String address);
 }

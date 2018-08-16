@@ -99,6 +99,9 @@ dependencies {
     implementation 'com.uncopt:android.justified:1.0'
 
 
+
+    //material-stepper
+    implementation 'ivb.com.materialstepper:material-stepper:0.0.2'
 }
 
 apply plugin: 'kotlin-android'

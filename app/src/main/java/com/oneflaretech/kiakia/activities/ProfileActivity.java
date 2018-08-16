@@ -11,6 +11,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -228,8 +229,6 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
                                 loader.dismiss();
                             }
                         }
-
-
                     });
         } else {
             notification.setMessage("No Internet Connection");
@@ -280,7 +279,7 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
                             msg = "A Server Error occurred. Please Try Again";
                         if(e instanceof SocketException || e instanceof SocketTimeoutException)
                             msg = "No Internet Connection";
-
+                        Log.e(TAG, filename.toString());
                         notification.setMessage(msg);
                         notification.show();
                         progressBar.setVisibility(View.INVISIBLE);
@@ -293,6 +292,8 @@ public class ProfileActivity extends BaseActivity implements ChooseProfession {
                             AppConstants.log(TAG, responseModel.toString());
                             user.setAvatar(responseModel.getData().replace('"', ' ').trim());
                             app.setUser(user);
+
+
                         }else{
                             notification.setMessage(responseModel.getMessage());
                             notification.show();

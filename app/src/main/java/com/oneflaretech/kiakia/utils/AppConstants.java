@@ -3,7 +3,7 @@ package com.oneflaretech.kiakia.utils;
 import android.util.Log;
 
 public class AppConstants {
-    public static boolean production = false;
+    public static boolean production = true;
 
     //Hosts
     private static final String DEFAULT_HOST = "http://test.oneflaretech.com/";

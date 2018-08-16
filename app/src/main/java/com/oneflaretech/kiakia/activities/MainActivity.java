@@ -29,6 +29,20 @@ import com.afollestad.bridge.Bridge;
 import com.afollestad.bridge.BridgeException;
 import com.afollestad.bridge.Response;
 import com.afollestad.bridge.ResponseConvertCallback;
+<<<<<<< HEAD:app/src/main/java/com/oneflaretech/kiakia/activities/MainActivity.java
+=======
+import com.fincoapps.servizone.About;
+import com.fincoapps.servizone.QuickSearchPopup;
+import com.fincoapps.servizone.R;
+import com.fincoapps.servizone.RegisterExpertActivity;
+import com.fincoapps.servizone.ShowImageActivity;
+import com.fincoapps.servizone.https.RetrofitClient;
+import com.fincoapps.servizone.models.ServiceModel;
+import com.fincoapps.servizone.models.UserModel;
+import com.fincoapps.servizone.utils.AppConstants;
+import com.fincoapps.servizone.utils.Notification;
+import com.fincoapps.servizone.utils.Request;
+>>>>>>> master:app/src/main/java/com/fincoapps/servizone/activities/MainActivity.java
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -241,8 +255,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if (id == R.id.nav_register_a_service) {
-            CURRENT_TAG = TAG_REGISTER_SERVICE;
-            navItemIndex = 2;
+            startActivity(new Intent(this, RegisterServiceActivity.class));
         }
 
         if (id == R.id.services) {
