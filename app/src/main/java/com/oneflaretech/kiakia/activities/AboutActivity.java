@@ -18,13 +18,11 @@ public class AboutActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(view -> {
-            onBackPressed();
-        });
+        Toolbar toolbar = findViewById(R.id.hometoolbar);
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("About");
     }
 
     public void onClick(View v) {

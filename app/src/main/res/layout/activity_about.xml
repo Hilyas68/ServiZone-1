@@ -19,20 +19,11 @@
             android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/hometoolbar"
                 android:layout_width="match_parent"
+                app:title="About"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay">
-                <TextView
-                    android:id="@+id/toolbarTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="About"
-                    android:textStyle="bold"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/_16sdp" />
-            </android.support.v7.widget.Toolbar>
+                app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
         </android.support.design.widget.AppBarLayout>
 
         <LinearLayout
