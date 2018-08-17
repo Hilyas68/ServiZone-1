@@ -2,7 +2,6 @@ package com.oneflaretech.kiakia.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -39,7 +38,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.oneflaretech.kiakia.QuickSearchPopup;
 import com.oneflaretech.kiakia.R;
 import com.oneflaretech.kiakia.https.RetrofitClient;
 import com.oneflaretech.kiakia.models.ServiceModel;
@@ -74,11 +72,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Handler mHandler;
     public static final String TAG_HOME = "Home";
     public static final String TAG_NEARBY_SERVICES = "Nearby Services";
-    public static final String TAG_PROFILE = "Contacts";
-    private static final String TAG_VIEW_REGISTERED_SERVICES = "My Services";
-    private static final String TAG_REGISTER_SERVICE = "Register New Service";
-    private static final String TAG_CONTACT_US = "Contact Us";
-    private static final String TAG_SETTINGS = "Settings";
     // index to identify current nav menu item
     public static int navItemIndex = 0;
 
@@ -291,21 +284,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         if(id == R.id.search){
-            search();
+            Snackbar.make(relativeLayout, "Not Implemented Yet", Snackbar.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void search(){
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
-                    1);
-        }
-        getLocation();
-        QuickSearchPopup searchPopup = new QuickSearchPopup(this, longitude, latitude);
-        searchPopup.show();
-    }
+//    public void search(){
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(MainActivity.this,
+//                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+//                    1);
+//        }
+//        getLocation();
+//        QuickSearchPopup searchPopup = new QuickSearchPopup(this, longitude, latitude);
+//        searchPopup.show();
+//    }
 
 
     @SuppressLint("CheckResult")
