@@ -69,6 +69,7 @@ public interface Api {
     @POST("service/user")
     Observable<ResponseObjectModel> getMyService(@Field("token") String token);
 
+    @FormUrlEncoded
     @POST("service/create")
     Observable<ResponseObjectModel> registerService(@Field("token") String token, @Field("name") String name , @Field("email") String email, @Field("address") String address, @Field("mobile") String phoneNumber, @Field("profession_id") String professionId, @Field("about") String about, @Field("latitude") double latitude, @Field("longitude") double longitude);
 
@@ -76,5 +77,5 @@ public interface Api {
     Observable<ResponseObjectModel> professions();
 
     @GET("json")
-    Observable<MapAddressModel> getLotLng(@Query("address") String address, @Query("key") String key);
+    Observable<MapAddressModel> getLotLng(@Query("address") String address);
 }

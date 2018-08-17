@@ -127,7 +127,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
             //                String full_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + URLEncoder.encode(address, "UTF-8") + "&key=" + URLEncoder.encode(API_KEY, "UTF-8");
 //                AppConstants.log(TAG, full_url);
             retrofit = new RetrofitClient(getContext(), "https://maps.googleapis.com/maps/api/geocode/");
-            retrofit.getApiService().getLotLng(address, API_KEY)
+            retrofit.getApiService().getLotLng(address)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<MapAddressModel>() {
@@ -146,6 +146,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
                                 msg = "No Internet Connection";
 
                             notification.setMessage(msg);
+                            notification.setType(Notification.FAILURE);
                             notification.show();
                             notification.setAnchor(mAddress);
                             AppConstants.log(TAG, e.toString());
@@ -174,6 +175,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
                             }else if(responseModel.getStatus().equals("OVER_QUERY_LIMIT") || responseModel.getStatus().equals("REQUEST_DENIED")){
                                 notification.setMessage("Please try again later");
                                 notification.setAnchor(mAddress);
+                                notification.setType(Notification.WARNING);
                                 notification.show();
                             }else{
                                 notification.setMessage("Invalid Address");
@@ -187,6 +189,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
 
         } else {
             notification.setMessage("No Internet Connection");
+            notification.setType(Notification.FAILURE);
             notification.setAnchor(mAddress);
             notification.show();
             loader.dismiss();
