@@ -18,7 +18,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.oneflaretech.kiakia.R;
 import com.oneflaretech.kiakia.googleAddress.MapAddressModel;
@@ -30,6 +32,7 @@ import com.oneflaretech.kiakia.utils.Notification;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.Random;
 
 import ivb.com.materialstepper.stepperFragment;
 import retrofit2.adapter.rxjava.HttpException;
@@ -48,7 +51,9 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
     SharedPreferences.Editor editor;
     AppCompatButton searchBtn;
     final String TAG = ServiceAddressFragment.class.getSimpleName();
-
+    Double lat, lng;
+    String formatedAddress;
+    SharedPreferences prefs;
     public ServiceAddressFragment() {
     }
 
@@ -66,6 +71,8 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+         prefs = getActivity().getSharedPreferences(getActivity().getPackageName(), MODE_PRIVATE);
+
         editor = getActivity().getSharedPreferences(getActivity().getPackageName(), MODE_PRIVATE).edit();
         notification = new Notification(getContext());
         net = new NetworkHelper(getContext());
@@ -78,6 +85,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
             }
 
             getLatLng();
+            setMarker();
         });
         mAddress.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if(actionId == EditorInfo.IME_ACTION_SEARCH ||
@@ -107,14 +115,31 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        SharedPreferences prefs = getActivity().getSharedPreferences(getActivity().getPackageName(), MODE_PRIVATE);
-        Double lat = Double.valueOf(prefs.getString("lat","0.0"));
-        Double lng = Double.valueOf(prefs.getString("lng","0.0"));
-        String address = prefs.getString("formated_address", null);
+
+         lat = Double.valueOf(prefs.getString("lat","0.0"));
+         lng = Double.valueOf(prefs.getString("lng","0.0"));
+        formatedAddress = prefs.getString("formated_address", null);
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng((!lat.isNaN()? lat : -34), (!lat.isNaN()? lng : 151));
-        mMap.addMarker(new MarkerOptions().position(sydney).title((address == null? "Marker in Sydney" : address)));
+        mMap.addMarker(new MarkerOptions().position(sydney).title((formatedAddress == null? "Marker in Sydney" : formatedAddress)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void setMarker(){
+         lat = Double.valueOf(prefs.getString("lat",null));
+         lng = Double.valueOf(prefs.getString("lng",null));
+        formatedAddress = prefs.getString("formated_address",null);
+
+        LatLng latLng = new LatLng(lat, lng);
+        Marker addressMarker = mMap.addMarker(new MarkerOptions()
+                .position(latLng)
+                .anchor(0.5f, 0.5f)
+                .title(formatedAddress)
+                .snippet(formatedAddress)
+                .icon(BitmapDescriptorFactory.defaultMarker(new Random().nextInt(360))));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18 ));
+
+        addressMarker.showInfoWindow();
     }
 
     void getLatLng(){
