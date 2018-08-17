@@ -1,4 +1,4 @@
-package com.fincoapps.servizone.fragment;
+package com.oneflaretech.kiakia.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -20,29 +20,23 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.RegisterExpertActivity;
-import com.fincoapps.servizone.activities.MainActivity;
-import com.fincoapps.servizone.activities.ProfileActivity;
-import com.fincoapps.servizone.activities.SignInActivity;
-import com.fincoapps.servizone.adapters.ProfessionsAdapter;
-import com.fincoapps.servizone.https.NetworkHelper;
-import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.interfaces.ChooseProfession;
-import com.fincoapps.servizone.models.ProfessionModel;
-import com.fincoapps.servizone.models.ResponseObjectModel;
-import com.fincoapps.servizone.models.ServiceModel;
-import com.fincoapps.servizone.models.UserModel;
-import com.fincoapps.servizone.utils.AppConstants;
-import com.fincoapps.servizone.utils.AppSettings;
-import com.fincoapps.servizone.utils.Notification;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.oneflaretech.kiakia.R;
+import com.oneflaretech.kiakia.adapters.ProfessionsAdapter;
+import com.oneflaretech.kiakia.https.NetworkHelper;
+import com.oneflaretech.kiakia.https.RetrofitClient;
+import com.oneflaretech.kiakia.interfaces.ChooseProfession;
+import com.oneflaretech.kiakia.models.ProfessionModel;
+import com.oneflaretech.kiakia.models.ResponseObjectModel;
+import com.oneflaretech.kiakia.models.UserModel;
+import com.oneflaretech.kiakia.utils.AppConstants;
+import com.oneflaretech.kiakia.utils.AppSettings;
+import com.oneflaretech.kiakia.utils.Notification;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +45,6 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ivb.com.materialstepper.stepperFragment;
@@ -65,10 +58,8 @@ import rx.schedulers.Schedulers;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
-import static com.android.volley.VolleyLog.TAG;
-import static java.lang.System.out;
 
-public class ServiceDetailFragment extends stepperFragment  implements ChooseProfession{
+public class ServiceDetailFragment extends stepperFragment  implements ChooseProfession {
 
     EditText mName, mEmail, mMobile, mAbout;
     CircleImageView mAvatar;
@@ -155,7 +146,6 @@ public class ServiceDetailFragment extends stepperFragment  implements ChoosePro
         dialog.show();
 
         //================= PROFESSION LISTVIEW ====================
-        out.println(professionList.size() + " 111111111111111111111");
         Gson gson = new Gson();
         Type collectionType = new TypeToken<List<ProfessionModel>>() {
         }.getType();

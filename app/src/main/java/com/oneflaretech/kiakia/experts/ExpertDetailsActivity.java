@@ -14,7 +14,6 @@ import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,8 +56,8 @@ public class ExpertDetailsActivity extends BaseActivity {
     @BindView(R.id.btnMenu)
     ImageButton btnMenu;
 
-    @BindView(R.id.floatingActionButton)
-    FloatingActionButton floatingActionButton;
+//    @BindView(R.id.floatingActionButton)
+//    FloatingActionButton floatingActionButton;
 
     @BindView(R.id.toolbarTitle)
     TextView toolbarTitle;
@@ -102,7 +101,7 @@ public class ExpertDetailsActivity extends BaseActivity {
 
 
         //===================== EXPERT IMAGE =====================
-        expertImage = findViewById(R.id.expertImage);
+        //expertImage = findViewById(R.id.expertImage);
 //        Glide.with(expertImage.getContext())
 //                .load("http://servizone.net/storage" + expertModel.avatar)
 //                .placeholder(R.drawable.placeholder)
@@ -123,12 +122,12 @@ public class ExpertDetailsActivity extends BaseActivity {
 
 //    }
 
-    @OnClick(R.id.floatingActionButton)
-    public void onFloatingActionButtonClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", expertModel.mobile, null));
-        startActivity(intent);
-        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
-    }
+//    @OnClick(R.id.floatingActionButton)
+//    public void onFloatingActionButtonClick(View view) {
+//        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", expertModel.mobile, null));
+//        startActivity(intent);
+//        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_right_out);
+//    }
 
 
     @OnClick(R.id.btnMenu)

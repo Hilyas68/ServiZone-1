@@ -92,12 +92,12 @@
             android:clipChildren="false"
             android:orientation="vertical">
 
-            <com.fincoapps.servizone.utils.CurvedLayout
-                android:id="@+id/curvedLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:circleBackgroundColor="#46B0ED"
-                android:layout_centerHorizontal="true" />
+            <!--<com.fincoapps.servizone.utils.CurvedLayout-->
+                <!--android:id="@+id/curvedLayout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--app:circleBackgroundColor="#46B0ED"-->
+                <!--android:layout_centerHorizontal="true" />-->
 
             <TextView
                 android:id="@+id/toolbarTitle"

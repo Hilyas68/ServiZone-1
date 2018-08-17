@@ -1,4 +1,4 @@
-package com.fincoapps.servizone.models.googleAddress;
+package com.oneflaretech.kiakia.googleAddress;
 
 import java.util.ArrayList;
 
@@ -39,4 +39,16 @@ public class Result
     public ArrayList<String> getTypes() { return this.types; }
 
     public void setTypes(ArrayList<String> types) { this.types = types; }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "address_components=" + address_components +
+                ", formatted_address='" + formatted_address + '\'' +
+                ", geometry=" + geometry +
+                ", place_id='" + place_id + '\'' +
+                ", plus_code=" + plus_code +
+                ", types=" + types +
+                '}';
+    }
 }

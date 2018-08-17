@@ -1,4 +1,4 @@
-package com.fincoapps.servizone.fragment;
+package com.oneflaretech.kiakia.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,26 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.fincoapps.servizone.R;
-import com.fincoapps.servizone.https.NetworkHelper;
-import com.fincoapps.servizone.https.RetrofitClient;
-import com.fincoapps.servizone.models.ResponseObjectModel;
-import com.fincoapps.servizone.models.UserModel;
-import com.fincoapps.servizone.models.googleAddress.MapAddressModel;
-import com.fincoapps.servizone.utils.AppConstants;
-import com.fincoapps.servizone.utils.CustomLoadingDialog;
-import com.fincoapps.servizone.utils.Notification;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.oneflaretech.kiakia.R;
+import com.oneflaretech.kiakia.googleAddress.MapAddressModel;
+import com.oneflaretech.kiakia.https.NetworkHelper;
+import com.oneflaretech.kiakia.https.RetrofitClient;
+import com.oneflaretech.kiakia.utils.AppConstants;
+import com.oneflaretech.kiakia.utils.CustomLoadingDialog;
+import com.oneflaretech.kiakia.utils.Notification;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -42,7 +36,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.android.volley.VolleyLog.TAG;
 
 public class ServiceAddressFragment extends stepperFragment implements OnMapReadyCallback {
     private GoogleMap mMap;
@@ -51,7 +44,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
     private Notification notification;
     private NetworkHelper net;
     SharedPreferences.Editor editor;
-   final String TAG = ServiceAddressFragment.class.getSimpleName();
+    final String TAG = ServiceAddressFragment.class.getSimpleName();
 
     public ServiceAddressFragment() {
     }
@@ -76,7 +69,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
         mAddress = view.findViewById(R.id.address_edit);
 
         mAddress.setOnEditorActionListener((textView, actionId, keyEvent) -> {
-            if(actionId == EditorInfo.IME_ACTION_SEARCH||
+            if(actionId == EditorInfo.IME_ACTION_SEARCH ||
             actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN ||
                     keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
                 getLatLng();
@@ -106,8 +99,8 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
         mMap = googleMap;
 
         SharedPreferences prefs = getActivity().getSharedPreferences(getActivity().getPackageName(), MODE_PRIVATE);
-        Double lat = Double.valueOf(prefs.getString("lat",null));
-        Double lng = Double.valueOf(prefs.getString("lng",null));
+        Double lat = Double.valueOf(prefs.getString("lat","0.0"));
+        Double lng = Double.valueOf(prefs.getString("lng","0.0"));
         String address = prefs.getString("formated_address", null);
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng((!lat.isNaN()? lat : -34), (!lat.isNaN()? lng : 151));
@@ -118,11 +111,14 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
     void getLatLng(){
         CustomLoadingDialog loader = new CustomLoadingDialog(getContext());
         loader.show();
-
+        AppConstants.log(TAG, getResources().getString(R.string.API_KEY));
         if (net.haveNetworkConnection()) {
             String address = mAddress.getText().toString();
-            retrofit = new RetrofitClient(getContext(), "http://maps.googleapis.com/maps/api/geocode/");
-            retrofit.getApiService().getLotLng(address)
+            String API_KEY = getResources().getString(R.string.API_KEY);
+            //                String full_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + URLEncoder.encode(address, "UTF-8") + "&key=" + URLEncoder.encode(API_KEY, "UTF-8");
+//                AppConstants.log(TAG, full_url);
+            retrofit = new RetrofitClient(getContext(), "https://maps.googleapis.com/maps/api/geocode/");
+            retrofit.getApiService().getLotLng(address, API_KEY)
                     .subscribeOn(Schedulers.newThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Subscriber<MapAddressModel>() {
@@ -149,8 +145,8 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
 
                         @Override
                         public void onNext(MapAddressModel responseModel) {
+                            AppConstants.log(TAG, responseModel.toString());
                             if(responseModel.getStatus().equals("OK")) {
-
                                 Double lat = responseModel.getResults().get(0).getGeometry().getLocation().getLat();
                                 Double lng = responseModel.getResults().get(0).getGeometry().getLocation().getLng();
                                 String formated_address = responseModel.getResults().get(0).getFormattedAddress();
@@ -166,6 +162,10 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
                                 notification.setAnchor(mAddress);
                                 notification.setType(Notification.SUCCESS);
                                 notification.show();
+                            }else if(responseModel.getStatus().equals("OVER_QUERY_LIMIT") || responseModel.getStatus().equals("REQUEST_DENIED")){
+                                notification.setMessage("Please try again later");
+                                notification.setAnchor(mAddress);
+                                notification.show();
                             }else{
                                 notification.setMessage("Invalid Address");
                                 notification.setType(Notification.FAILURE);
@@ -175,6 +175,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
                             }
                         }
                     });
+
         } else {
             notification.setMessage("No Internet Connection");
             notification.setAnchor(mAddress);

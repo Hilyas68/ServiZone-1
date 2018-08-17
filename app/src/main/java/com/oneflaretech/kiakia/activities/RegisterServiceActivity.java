@@ -1,12 +1,23 @@
 package com.oneflaretech.kiakia.activities;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
+import com.oneflaretech.kiakia.R;
+import com.oneflaretech.kiakia.fragment.FnalFragment;
+import com.oneflaretech.kiakia.fragment.ServiceAddressFragment;
+import com.oneflaretech.kiakia.fragment.ServiceDetailFragment;
+import com.oneflaretech.kiakia.https.NetworkHelper;
+import com.oneflaretech.kiakia.https.RetrofitClient;
+import com.oneflaretech.kiakia.models.ResponseObjectModel;
 import com.oneflaretech.kiakia.models.ServiceModel;
+import com.oneflaretech.kiakia.models.UserModel;
+import com.oneflaretech.kiakia.utils.AppConstants;
+import com.oneflaretech.kiakia.utils.AppSettings;
+import com.oneflaretech.kiakia.utils.CustomLoadingDialog;
+import com.oneflaretech.kiakia.utils.Notification;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -34,8 +45,8 @@ public class RegisterServiceActivity extends progressMobileStepper {
 
     @Override
     public List<Class> init() {
-        stepperFragmentList.add(ServiceDetailFragment.class);
         stepperFragmentList.add(ServiceAddressFragment.class);
+        stepperFragmentList.add(ServiceDetailFragment.class);
         stepperFragmentList.add(FnalFragment.class);
 
         return stepperFragmentList;
@@ -51,11 +62,7 @@ public class RegisterServiceActivity extends progressMobileStepper {
         alertDialogBuilder
                 .setMessage("We've completed the Registration")
                 .setCancelable(true)
-                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
-                        registerService();
-                    }
-                });
+                .setPositiveButton("Yes", (dialog, id) -> registerService());
 
         // create alert dialog
         android.support.v7.app.AlertDialog alertDialog = alertDialogBuilder.create();
@@ -122,15 +129,15 @@ public class RegisterServiceActivity extends progressMobileStepper {
                                 serviceModels.setMobile(mobile);
                                 serviceModels.setAbout(about);
                                 serviceModels.setAddress(address);
-                                serviceModels.setProfession_id(Integer.parseInt(professionId));
+                                serviceModels.setProfessionId(Integer.parseInt(professionId));
                                 serviceModels.setLatitude(lat);
                                 serviceModels.setLongitude(lng);
 
                                 serviceModelArrayList = new ArrayList<>();
                                 serviceModelArrayList.add(serviceModels);
-                                app.setServices(serviceModelArrayList);
+                                app.setMyServices(serviceModelArrayList);
 
-                               Log.e(TAG, app.getServices().toString());
+                               Log.e(TAG, app.getMyServices().toString());
 
                                 notification.setMessage("Successfully Registered");
                                 notification.setAnchor(mAddress);

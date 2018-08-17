@@ -1,6 +1,8 @@
 package com.oneflaretech.kiakia.https;
 
+import com.oneflaretech.kiakia.googleAddress.MapAddressModel;
 import com.oneflaretech.kiakia.models.ResponseObjectModel;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
@@ -11,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
+
 
 /**
  * Created by Sanat.Shukla on 05/01/17.
@@ -73,5 +76,5 @@ public interface Api {
     Observable<ResponseObjectModel> professions();
 
     @GET("json")
-    Observable<MapAddressModel> getLotLng(@Query("address") String address);
+    Observable<MapAddressModel> getLotLng(@Query("address") String address, @Query("key") String key);
 }

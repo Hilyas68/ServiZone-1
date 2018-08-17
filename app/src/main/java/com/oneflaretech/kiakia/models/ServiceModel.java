@@ -1,9 +1,22 @@
 package com.oneflaretech.kiakia.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ServiceModel {
     private int id;
     private int user_id;
     private String profession;
+
+    public int getProfessionId() {
+        return professionId;
+    }
+
+    public void setProfessionId(int professionId) {
+        this.professionId = professionId;
+    }
+
+    @SerializedName("profession_id")
+    private int professionId;
     private String name;
     private String email;
     private String address;

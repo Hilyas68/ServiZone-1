@@ -1,4 +1,4 @@
-package com.fincoapps.servizone.models.googleAddress;
+package com.oneflaretech.kiakia.googleAddress;
 
 import java.util.ArrayList;
 
@@ -15,4 +15,13 @@ public class MapAddressModel
     public String getStatus() { return this.status; }
 
     public void setStatus(String status) { this.status = status; }
+
+
+    @Override
+    public String toString() {
+        return "MapAddressModel{" +
+                "results=" + results +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

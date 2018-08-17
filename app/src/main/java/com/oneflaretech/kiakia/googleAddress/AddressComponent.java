@@ -1,4 +1,4 @@
-package com.fincoapps.servizone.models.googleAddress;
+package com.oneflaretech.kiakia.googleAddress;
 
 import java.util.ArrayList;
 

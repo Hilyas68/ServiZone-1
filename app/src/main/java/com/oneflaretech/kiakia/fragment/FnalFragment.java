@@ -1,4 +1,4 @@
-package com.fincoapps.servizone.fragment;
+package com.oneflaretech.kiakia.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.fincoapps.servizone.R;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.oneflaretech.kiakia.R;
 
 import ivb.com.materialstepper.stepperFragment;
 
