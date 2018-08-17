@@ -98,6 +98,7 @@ public class AllServicesActivity extends BaseActivity {
                             msg = "Invalid Response";
 
                         notification.setMessage(msg);
+                        notification.setAnchor(rv);
                         notification.show();
                         AppConstants.log(TAG, e.toString());
                         e.printStackTrace();
