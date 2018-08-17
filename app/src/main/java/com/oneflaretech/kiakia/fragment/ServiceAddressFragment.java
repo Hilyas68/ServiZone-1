@@ -79,7 +79,6 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
 
             getLatLng();
         });
-
         mAddress.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if(actionId == EditorInfo.IME_ACTION_SEARCH ||
             actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN ||
