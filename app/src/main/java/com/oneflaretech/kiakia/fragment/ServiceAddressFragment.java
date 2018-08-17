@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -44,6 +46,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
     private Notification notification;
     private NetworkHelper net;
     SharedPreferences.Editor editor;
+    AppCompatButton searchBtn;
     final String TAG = ServiceAddressFragment.class.getSimpleName();
 
     public ServiceAddressFragment() {
@@ -67,12 +70,19 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
         notification = new Notification(getContext());
         net = new NetworkHelper(getContext());
         mAddress = view.findViewById(R.id.address_edit);
+        searchBtn = view.findViewById(R.id.search_map_btn);
+        searchBtn.setOnClickListener(v -> {
+            if(mAddress.getText().toString().isEmpty()){
+                Snackbar.make(v, "Address Field is empty", Snackbar.LENGTH_SHORT).show();
+                return;
+            }
 
+            getLatLng();
+        });
         mAddress.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if(actionId == EditorInfo.IME_ACTION_SEARCH ||
             actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN ||
                     keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-                getLatLng();
             }
             return false;
         });
@@ -87,7 +97,6 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
         }else {
             editor.putString("address", mAddress.getText().toString());
             editor.apply();
-            getLatLng();
             return true;
         }
         return false;

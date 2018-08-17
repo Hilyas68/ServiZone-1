@@ -13,37 +13,68 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context = ".activities.RegisterServiceActivity"/>
-
-    <RelativeLayout
-        android:id="@+id/relayout"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:radius ="5dp"
-        android:elevation="10dp"
-        android:background="#fff">
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp">
+            <RelativeLayout
+                android:id="@+id/relayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:radius ="5dp"
+                android:elevation="10dp"
+                android:background="#fff">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/ic_search"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            app:srcCompat="@drawable/ic_search_black_24dp"
-            />
+                <LinearLayout
+                    android:id="@+id/search_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/ic_search"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        app:srcCompat="@drawable/ic_search_black_24dp"
+                        />
 
-    <EditText
-        android:id="@+id/address_edit"
-        android:layout_width="match_parent"
-        android:layout_toRightOf="@+id/ic_search"
-        android:layout_height="match_parent"
-        android:textColor="@color/grey"
-        android:inputType="textPersonName"
-        android:hint="Enter Address"
-        android:imeOptions="actionSearch"
-        android:background="@null"/>
+                    <EditText
+                        android:id="@+id/address_edit"
+                        android:layout_width="match_parent"
+                        android:layout_toRightOf="@+id/ic_search"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/grey"
+                        android:inputType="textPersonName"
+                        android:hint="Enter Address"
+                        android:imeOptions="actionSearch"
+                        android:background="@null"/>
+                </LinearLayout>
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_below="@+id/search_layout"
+                    android:layout_height="1dp"
+                    android:background="@color/black"/>
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/search_map_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/divider"
+                    android:text="Submit"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    style="@style/button"/>
 
-    </RelativeLayout>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    </FrameLayout>
 </RelativeLayout>
