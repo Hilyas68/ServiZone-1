@@ -72,7 +72,13 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
             if(actionId == EditorInfo.IME_ACTION_SEARCH ||
             actionId == EditorInfo.IME_ACTION_DONE || keyEvent.getAction() == KeyEvent.ACTION_DOWN ||
                     keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-                getLatLng();
+                if (mAddress.getText().toString().isEmpty()) {
+                    mAddress.getError();
+                    mAddress.setError("Enter Address");
+                }else {
+                    getLatLng();
+                }
+
             }
             return false;
         });
@@ -137,6 +143,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
                                 msg = "No Internet Connection";
 
                             notification.setMessage(msg);
+                            notification.setType(Notification.FAILURE);
                             notification.show();
                             notification.setAnchor(mAddress);
                             AppConstants.log(TAG, e.toString());
@@ -165,6 +172,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
                             }else if(responseModel.getStatus().equals("OVER_QUERY_LIMIT") || responseModel.getStatus().equals("REQUEST_DENIED")){
                                 notification.setMessage("Please try again later");
                                 notification.setAnchor(mAddress);
+                                notification.setType(Notification.WARNING);
                                 notification.show();
                             }else{
                                 notification.setMessage("Invalid Address");
@@ -178,6 +186,7 @@ public class ServiceAddressFragment extends stepperFragment implements OnMapRead
 
         } else {
             notification.setMessage("No Internet Connection");
+            notification.setType(Notification.FAILURE);
             notification.setAnchor(mAddress);
             notification.show();
             loader.dismiss();
