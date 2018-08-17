@@ -165,7 +165,7 @@ public class ChangePasswordActivity extends BaseActivity {
                             notification.show();
                         }else{
                             Toast.makeText(ChangePasswordActivity.this, responseModel.getMessage(), Toast.LENGTH_SHORT).show();
-                            //finish();
+                            finish();
                         }
                         pd.dismiss();
 

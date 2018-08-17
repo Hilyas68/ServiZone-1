@@ -48,7 +48,6 @@ public class RegisterServiceActivity extends progressMobileStepper {
         stepperFragmentList.add(ServiceDetailFragment.class);
         stepperFragmentList.add(ServiceAddressFragment.class);
         stepperFragmentList.add(FnalFragment.class);
-
         return stepperFragmentList;
     }
 

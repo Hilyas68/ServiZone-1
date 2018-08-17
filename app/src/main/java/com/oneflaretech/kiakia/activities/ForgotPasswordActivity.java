@@ -105,47 +105,48 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     private void postForgotPassword() {
         loader.show();
-//        retrofit.getApiService().forgotPassword(email)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<ResponseObjectModel>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        loader.dismiss();
-//                        AppConstants.log(TAG, e.getMessage());
-//                        String msg = "An Error Occurred. Please Try Again";
-//                        if(e instanceof HttpException)
-//                            msg = "A Server Error occurred. Please Try Again";
-//                        if(e instanceof SocketException || e instanceof SocketTimeoutException)
-//                            msg = "No Internet Connection";
-//
-//                        notification.setMessage(msg);
-//                        notification.show();
-//                        AppConstants.log(TAG, e.toString());
-//                    }
-//
-//                    @Override
-//                    public void onNext(ResponseObjectModel responseObjectModel) {
-//                        AppConstants.log(TAG, responseObjectModel.toString());
-//                        loader.dismiss();
-//                        if(responseObjectModel.getStatus().equals(AppConstants.STATUS_SUCCESS)){
-//                            notification.setType(Notification.SUCCESS);
-//                            notification.setMessage(responseObjectModel.getMessage());
-//                            notification.show();
-//                            showCode();
-//                        }else{
-//                            notification.setMessage(responseObjectModel.getData());
-//                            notification.show();
-//                        }
-//                    }
-//                });
-        loader.dismiss();
-        showCode();
+        retrofit.getApiService().forgotPassword(email)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseObjectModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        loader.dismiss();
+                        AppConstants.log(TAG, e.getMessage());
+                        String msg = "An Error Occurred. Please Try Again";
+                        if(e instanceof HttpException)
+                            msg = "A Server Error occurred. Please Try Again";
+                        if(e instanceof SocketException || e instanceof SocketTimeoutException)
+                            msg = "No Internet Connection";
+
+                        notification.setMessage(msg);
+                        notification.show();
+                        AppConstants.log(TAG, e.toString());
+                        loader.dismiss();
+                    }
+
+                    @Override
+                    public void onNext(ResponseObjectModel responseObjectModel) {
+                        AppConstants.log(TAG, responseObjectModel.toString());
+                        loader.dismiss();
+                        if(responseObjectModel.getStatus().equals(AppConstants.STATUS_SUCCESS)){
+                            notification.setType(Notification.SUCCESS);
+                            notification.setMessage(responseObjectModel.getMessage());
+                            notification.show();
+                            showCode();
+                            loader.dismiss();
+                        }else{
+                            notification.setMessage(responseObjectModel.getData());
+                            notification.show();
+                            loader.dismiss();
+                        }
+                    }
+                });
     }
 
     private void showCode() {
@@ -154,6 +155,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void verifyToken() {
+        loader.show();
         retrofit.getApiService().verifyToken(email, code)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -184,12 +186,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         AppConstants.log(TAG, responseObjectModel.toString());
                         if(responseObjectModel.getStatus().equals(AppConstants.STATUS_SUCCESS)){
                             AppConstants.log(TAG, responseObjectModel.toString());
+                            loader.dismiss();
                             startActivity((new Intent(ForgotPasswordActivity.this, ChangePasswordActivity.class)).putExtra("token", responseObjectModel.getMessage()));
-                            //finish();
+                            finish();
                         }else{
                             notification.setMessage(responseObjectModel.getData());
                             notification.show();
                             Toast.makeText(ForgotPasswordActivity.this, responseObjectModel.getMessage(), Toast.LENGTH_SHORT).show();
+                            loader.dismiss();
                         }
                     }
                 });
