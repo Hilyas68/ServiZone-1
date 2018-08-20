@@ -31,7 +31,7 @@
             style="@style/edit_text"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Date of Birth"/>
+            android:hint="Date of Birth" />
 
         <TextView
             android:id="@+id/gender"
@@ -84,67 +84,33 @@
                 android:textSize="12sp"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="15dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
-                android:layout_marginStart="3dp"
-                android:layout_weight="0.4"
-                android:textColor="@color/white"
-                android:text="Gender"
-                android:textSize="18dp"/>
-
-            <RadioGroup
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/radio_group_gender">
-
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:id="@+id/radioMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Male"
-                    android:backgroundTint="@color/white"
-                    android:buttonTint="@color/white"
-                    android:checked="true"
-                    android:textColor="@color/white"/>
-
-                <android.support.v7.widget.AppCompatRadioButton
-                    android:id="@+id/radioFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/white"
-                    android:textColor="@color/white"
-                    android:text="Female"
-                    android:backgroundTint="@color/white"/>
-            </RadioGroup>
-
-        </LinearLayout>
-
         <EditText
             android:id="@+id/phone"
             style="@style/edit_text"
             android:hint="Mobile Number"/>
+
 
         <EditText
             android:id="@+id/email"
             android:enabled="false"
             style="@style/edit_text"
             android:hint="Email"/>
+
+
         <android.support.v7.widget.AppCompatButton
             app:elevation="10dp"
             android:id="@+id/update"
             style="@style/button"
             android:text="Update" />
+
+        <android.support.v7.widget.AppCompatButton
+            app:elevation="10dp"
+            android:id="@+id/review"
+            android:visibility="gone"
+            style="@style/button"
+            android:text="Reviews" />
+
+
     </LinearLayout>
 
 

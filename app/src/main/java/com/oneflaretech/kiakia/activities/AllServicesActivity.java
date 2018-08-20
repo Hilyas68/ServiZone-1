@@ -1,5 +1,6 @@
 package com.oneflaretech.kiakia.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -142,6 +143,7 @@ public class AllServicesActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 showToast("Clicked on " + (position +1));
+                startActivity(new Intent(AllServicesActivity.this, ViewServicesActivity.class).putExtra("service", gson.toJson(services.get(position), ServiceModel.class)));
             }
 
             @Override

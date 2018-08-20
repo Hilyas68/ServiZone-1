@@ -1,55 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearRow"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:clickable="true"
+    android:layout_margin="8dp"
+    android:background="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/item_linear_layout"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:padding="5dp"
-        android:background="@drawable/profession_round_border"
-        android:text="Name"
-        android:textColor="#71767A"
-        android:textSize="13dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+            <ImageView
+                android:id="@+id/item_image"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_width="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="50dp"
+                app:srcCompat="@drawable/noimage"
+                />
 
-    <RatingBar
-        android:id="@+id/rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_marginTop="5dp"
-        android:isIndicator="true"
-        android:max="5"
-        android:rating="4"
-        android:scaleX=".3"
-        android:scaleY=".3"
-        android:transformPivotX="0dp"
-        android:transformPivotY="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/txtName"
-        android:layout_toEndOf="@+id/txtName" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/toRight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:text="Namename Namename"
+                android:textColor="@color/black"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/date_created"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:text="12/12/12"/>
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:max="5"
+                    android:rating="4"
+                    android:scaleX=".3"
+                    android:scaleY=".3"
+                    android:transformPivotX="0dp"
+                    android:transformPivotY="0dp" />
+            </LinearLayout>
 
 
+            <TextView
+                android:id="@+id/item_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="KiaKia is a real time, and an online based e-commerce easy to use handle. It does not only create an enabling environment for trustworthy and affordable services"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/txtMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="3dp"
-        android:layout_below="@+id/txtName"
-        android:text="Message"
-        android:textColor="#4fb2f0"
-        android:textSize="11dp" />
-
-
-</RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

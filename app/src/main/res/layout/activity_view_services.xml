@@ -1,33 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ViewServicesActivity">
-
+    android:fitsSystemWindows="true"
+    android:background="@drawable/blue_background"
+    tools:context="com.oneflaretech.kiakia.activities.ProfileActivity">
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@android:color/transparent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
-
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            android:backgroundTint="@color/white"
+            app:statusBarScrim="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                android:id="@+id/userAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_250sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/year"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextColor="@color/white"
+                android:background="@android:color/transparent"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            app:theme="@style/ProgressBarStyle"/>
     </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_view_services" />
-
+    <include layout="@layout/content_profile"/>
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/upload_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:layout_anchor="@id/toolbar_layout"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_file_upload_black_24dp"
+        app:backgroundTint="@color/colorPrimary"/>
 
 </android.support.design.widget.CoordinatorLayout>

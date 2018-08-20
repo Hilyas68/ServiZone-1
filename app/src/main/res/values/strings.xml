@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ServiZone</string>
+    <string name="app_name">KiaKia</string>
     <string name="title_home">Home</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -28,7 +28,7 @@
     <string name="API_KEY">AIzaSyDlno4tm5TkUh3MkDl8yBVHwgzTWAH-DF0</string>
 
     <string name="continueapp">Continue</string>
-    <string name="oneflaretch">Powered By OneFlareTect</string>
+    <string name="oneflaretch">Powered By OneFlareTech</string>
     <string name="title_activity_forgot_password">ForgotPassword</string>
     <string name="title_activity_change_password">ChangePassword</string>
     <string name="Changepass">Change Password</string>
