@@ -141,6 +141,7 @@ public class SecondaryActivity extends BaseActivity {
                             msg = "Invalid Response";
 
                         notification.setMessage(msg);
+                        notification.setAnchor(Errorpage);
                         notification.show();
                         Errorpage.getVisibility();
                         Errorpage.setVisibility(View.VISIBLE);

@@ -152,22 +152,22 @@ public class ServiceDetailFragment extends stepperFragment  implements ChoosePro
         String p = appSettings.getProfessions();
         try {
             professionList.addAll(gson.fromJson(p, collectionType));
+            List<ProfessionModel> pList1 = professionList.subList(0, professionList.size() / 2);
+            List<ProfessionModel> pList2 = professionList.subList((professionList.size() / 2), professionList.size());
+            listViewUsers = dialog.findViewById(R.id.professionslist);
+            adapter = new ProfessionsAdapter(pList1, getContext(), this);
+            listViewUsers.setAdapter(adapter);
+
+            ListView listView2 = dialog.findViewById(R.id.listViewHistory);
+            ProfessionsAdapter adapter2 = new ProfessionsAdapter(pList2, getContext(), this);
+            listView2.setAdapter(adapter2);
         }
         catch (Exception ex){
-            notification.setMessage("An Error occurred.   Please restart Servizone");
+            notification.setMessage("An Error occurred. Please restart Servizone " + ex.getMessage());
             notification.setAnchor(mProfession);
             notification.show();
             return;
         }
-        List<ProfessionModel> pList1 = professionList.subList(0, professionList.size() / 2);
-        List<ProfessionModel> pList2 = professionList.subList((professionList.size() / 2), professionList.size());
-        listViewUsers = dialog.findViewById(R.id.professionslist);
-        adapter = new ProfessionsAdapter(pList1, getContext(), this);
-        listViewUsers.setAdapter(adapter);
-
-        ListView listView2 = dialog.findViewById(R.id.listViewHistory);
-        ProfessionsAdapter adapter2 = new ProfessionsAdapter(pList2, getContext(), this);
-        listView2.setAdapter(adapter2);
     }
 
     private void getProfessions() {

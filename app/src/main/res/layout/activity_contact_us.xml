@@ -76,6 +76,5 @@
         app:elevation="10dp"
         android:text="@string/send"
         style="@style/button"/>
-
 </LinearLayout>
 </RelativeLayout>

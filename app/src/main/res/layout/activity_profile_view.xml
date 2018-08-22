@@ -52,7 +52,9 @@
             android:indeterminate="true"
             app:theme="@style/ProgressBarStyle"/>
     </android.support.design.widget.AppBarLayout>
+
     <include layout="@layout/content_profile"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/upload_btn"
         android:layout_width="wrap_content"
@@ -61,6 +63,6 @@
         app:layout_anchor="@id/toolbar_layout"
         app:layout_anchorGravity="bottom|end"
         app:srcCompat="@drawable/ic_file_upload_black_24dp"
-        app:backgroundTint="@color/colorPrimary"/>
+        app:backgroundTint="@color/colorAccent"/>
 
 </android.support.design.widget.CoordinatorLayout>
