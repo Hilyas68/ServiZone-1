@@ -2,30 +2,42 @@ package com.oneflaretech.kiakia.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.oneflaretech.kiakia.R;
+import com.oneflaretech.kiakia.models.ServiceModel;
+import com.oneflaretech.kiakia.utils.AppConstants;
 
-public class ViewServicesActivity extends AppCompatActivity {
+public class ViewServicesActivity extends BaseActivity {
 
+    String TAG = "View Services";
+    ServiceModel service;
+
+    //Components
+    FloatingActionButton uploadBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_services);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        service = gson.fromJson(getIntent().getStringExtra("service"),ServiceModel.class);
+        AppConstants.log(TAG, service.toString());
+        init();
+        checkHomeServices();
+    }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    private void init() {
+        uploadBtn = findViewById(R.id.upload_btn);
+    }
+
+    public void checkHomeServices(){
+        if(service.getUser_id() != user.getId()){
+            AppConstants.log(TAG, "Not User Service");
+            uploadBtn.setVisibility(View.GONE);
+        }
     }
 
 }

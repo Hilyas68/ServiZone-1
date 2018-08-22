@@ -31,7 +31,7 @@
             style="@style/edit_text"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:hint="Date of Birth"/>
+            android:hint="Date of Birth" />
 
         <TextView
             android:id="@+id/gender"
@@ -134,16 +134,28 @@
             style="@style/edit_text"
             android:hint="Mobile Number"/>
 
+
         <EditText
             android:id="@+id/email"
             android:enabled="false"
             style="@style/edit_text"
             android:hint="Email"/>
+
+
         <android.support.v7.widget.AppCompatButton
             app:elevation="10dp"
             android:id="@+id/update"
             style="@style/button"
             android:text="Update" />
+
+        <android.support.v7.widget.AppCompatButton
+            app:elevation="10dp"
+            android:id="@+id/review"
+            android:visibility="gone"
+            style="@style/button"
+            android:text="Reviews" />
+
+
     </LinearLayout>
 
 

@@ -1,72 +1,75 @@
 package com.oneflaretech.kiakia.adapters;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.oneflaretech.kiakia.R;
 import com.oneflaretech.kiakia.models.ReviewModel;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by kolawoleadewale on 10/7/17.
  */
 
-public class ReviewsAdapter extends ArrayAdapter<ReviewModel.Data> {
+public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHolder> {
 
-    private static class ViewHolder {
-        TextView txtName, txtMessage, rating;
-        RatingBar ratingBar;
-        ImageView userImage;
-    }
-
-    private final List<ReviewModel.Data> data;
+    private final ArrayList<ReviewModel> data;
     private final Context context;
-    int lastPosition = -1;
 
-    public ReviewsAdapter(List<ReviewModel.Data> data, Context context) {
-        super(context, R.layout.row_review_item, data);
+    public ReviewsAdapter(ArrayList<ReviewModel> data, Context context) {
         this.data = data;
         this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
     }
 
-    public long getItemId(int position) {
-        return position;
+
+    class ViewHolder extends RecyclerView.ViewHolder{
+        ImageView rImage;
+        RatingBar rRatingBar;
+        TextView rName, rMessage, rDate;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            rImage = itemView.findViewById(R.id.item_image);
+            rRatingBar = itemView.findViewById(R.id.ratingBar);
+            rName = itemView.findViewById(R.id.item_name);
+            rDate = itemView.findViewById(R.id.date_created);
+            rMessage = itemView.findViewById(R.id.item_content);
+        }
     }
 
-    //========================= GET THE ROW  LOGIC HAPPENS HERE=============================
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
-
-        //================ GET REFERENCE TO ROW VIEWS ================
-        viewHolder = new ViewHolder();
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        convertView = inflater.inflate(R.layout.row_review_item, parent, false);
-        viewHolder.ratingBar = convertView.findViewById(R.id.rating);
-        viewHolder.txtName = convertView.findViewById(R.id.txtName);
-        viewHolder.txtMessage = convertView.findViewById(R.id.txtMessage);
-        convertView.setTag(viewHolder);
-
-
-        //================= SET THE VALUES OF THE ROW =================
-        ReviewModel.Data reviewModel = data.get(position);
-        viewHolder.txtName.setText(reviewModel.user.name);
-        viewHolder.txtMessage.setText(reviewModel.message);
-        viewHolder.ratingBar.setRating(Float.parseFloat(reviewModel.rating));
-
-//        Glide.with(viewHolder.userImage.getContext())
-//                .load(reviewModel.thumbnailUrl)
-//                .placeholder(R.drawable.placeholder)
-//                .fitCenter()
-//                .into(viewHolder.userImage);
-
-        return convertView;
+    private Drawable getDrawable(String name){
+        return TextDrawable.builder().beginConfig()
+                .textColor(Color.WHITE)
+                .useFont(Typeface.DEFAULT)
+                .toUpperCase()
+                .endConfig()
+                .buildRect(String.valueOf(name.charAt(0)),  ColorGenerator.MATERIAL.getRandomColor());
     }
 }
